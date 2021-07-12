@@ -9,9 +9,18 @@ draft: false
 layout: single
 categories:
 - Theme features
+links: 
+- icon: image
+  icon_pack: fas
+  name: slides
+  url: /slides/ninja.html#1
 ---
 
 {{< here >}}
+
+## Add some slides here
+
+[slides](/slides/ninja.html#1)
 
 ## But first, a shortcode trick
 
