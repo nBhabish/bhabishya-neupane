@@ -6,7 +6,7 @@ date: '2021-07-26'
 slug: []
 categories: []
 tags:
-  - ggplot2
+  - ggplot2, olympic games, showtext
 ---
 
 
@@ -19,13 +19,13 @@ tags:
 
 
 
-## Plotting
+## Visualization
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/plotting-1.png" width="1920" />
 
-# My Code Chunk
+# Code Chunks
 
 ![plot1](plot1.png) 
-# Plotting
+# Plotting Chunk
 ![plot2](plot2.png)
 

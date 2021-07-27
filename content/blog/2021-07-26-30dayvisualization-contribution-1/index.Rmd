@@ -6,7 +6,7 @@ date: '2021-07-26'
 slug: []
 categories: []
 tags:
-  - ggplot2
+  - ggplot2, olympic games, showtext
 ---
 ```{r img, message=FALSE, warning=FALSE, include=FALSE}
 knitr::opts_chunk$set(fig.retina = 2)
@@ -59,7 +59,7 @@ font_add_google("Luckiest Guy", "Luckiest Guy")
 showtext_auto()
 ```
 
-## Plotting
+## Visualization
 
 ```{r plotting, echo=FALSE, fig.height=20, fig.width=20, message=FALSE, warning=FALSE}
 olympic_tbl_top10_labels %>%
@@ -136,9 +136,9 @@ olympic_tbl_top10_labels %>%
 
 ```
 
-# My Code Chunk
+# Code Chunks
 
 ![plot1](plot1.png) 
-# Plotting
+# Plotting Chunk
 ![plot2](plot2.png)
 
