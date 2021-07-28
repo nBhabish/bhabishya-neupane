@@ -1,9 +1,46 @@
 ---
 title: '#30DayVisualization Contribution: 2'
 author: R package build
+excerpt: ""
 date: '2021-07-27'
 slug: []
 categories: []
 tags:
   - ggplot2
 ---
+```{r img, message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(fig.retina = 2)
+```
+
+```{r loading-libraries, message=FALSE, warning=FALSE, include=FALSE}
+library(rvest)
+library(tidyverse)
+library(purrr)
+library(ragg)
+library(extrafontdb)
+library(extrafont)
+library(showtextdb)
+library(showtext)
+library(tidytuesdayR)
+```
+
+
+```{r importing data, message=FALSE, warning=FALSE, include=FALSE}
+tt <- tidytuesdayR::tt_load("2021-06-08")
+
+fishing_tbl <- tt$fishing
+```
+
+
+
+
+
+
+
+# Visualization
+
+
+
+# Code Chunks
+
+
