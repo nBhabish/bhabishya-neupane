@@ -1,6 +1,6 @@
 ---
 title: '#30DayVisualization Contribution: 2'
-author: R package build
+author: Bhabishya Neupane
 excerpt: ""
 date: '2021-07-27'
 slug: []
@@ -18,13 +18,13 @@ tags:
 
 
 
-
-
-
 # Visualization
 
+<img src="{{< blogdown/postref >}}index_files/figure-html/plotting-1.png" width="1728" />
 
 
 # Code Chunks
 
+![plot1](plot1.png)
+![plot2](plot2.png)
 
