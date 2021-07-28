@@ -1,7 +1,7 @@
 ---
 title: '#30DayVisualization Contribution: 2'
 author: Bhabishya Neupane
-excerpt: ""
+excerpt: "Tidy Tuesday: 2021-06-08 | Great Lakes Fishery Commission Data"
 date: '2021-07-27'
 slug: []
 categories: []
