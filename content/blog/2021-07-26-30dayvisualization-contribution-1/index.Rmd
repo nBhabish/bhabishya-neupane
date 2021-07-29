@@ -108,7 +108,7 @@ olympic_tbl_top10_labels %>%
         plot.title = element_text(
             size = 50,
             color = "#FFA120",
-            hjust = 0.3,
+            hjust = 0.5,
             vjust = 0.5,
             family = "Luckiest Guy",
             margin = margin(20, 10, 5, 0)
@@ -117,9 +117,10 @@ olympic_tbl_top10_labels %>%
         plot.subtitle = element_text(
             size = 14,
             color = "#FFA120",
-            hjust = 0.3,
-            family = "Luckiest Guy"
-        )
+            hjust = 0.5,
+            family = "Luckiest Guy",
+        ),
+        plot.title.position = "plot"
     ) +
     
     labs(
