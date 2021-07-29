@@ -23,4 +23,4 @@ tags:
 
 ![plot1](plot1.png)
 
-![plot1](plot1.png) 
+![plot2](plot2.png) 
