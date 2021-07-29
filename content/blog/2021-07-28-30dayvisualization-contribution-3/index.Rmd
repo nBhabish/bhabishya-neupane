@@ -22,7 +22,8 @@ pacman::p_load(tidyverse,
                showtext, 
                paletteer, 
                waffle,
-               hrbrthemes) # comes from github
+               hrbrthemes, # comes from github
+               ggh4x) # customize the panel size and not the plot size
 ```
 
 ```{r data-prep, message=FALSE, warning=FALSE, include=FALSE}
@@ -35,8 +36,6 @@ expeditions <- readr::read_csv('https://raw.githubusercontent.com/rfordatascienc
 expeditions %>% 
     filter(year > 2010) %>% 
     count(peak_name, sort = TRUE)
-
-
 
 # Font Management----
 
@@ -66,13 +65,13 @@ termination_reason <- expeditions %>%
 
 # Visualization
 
-```{r plotting, echo=FALSE, fig.height=9, fig.width=18, message=FALSE, warning=FALSE}
+```{r plotting, echo=FALSE, fig.height=14, fig.width=22, message=FALSE, warning=FALSE}
 termination_reason %>% 
     ggplot(aes(values = pct_number_of_expeditions, fill = termination_reason))+
     geom_waffle(n_rows = 10, make_proportional = TRUE, 
                 size = 0.4, color = "black",
                 radius = unit(2, "pt"),
-                height = 0.8, width = 0.5,
+                height = 0.8, width = 0.8,
                 flip = TRUE) +
     scale_fill_manual(values = alpha(paletteer_c(`"scico::vik"`, n = 6), 0.7))+
     
@@ -86,11 +85,13 @@ termination_reason %>%
           axis.text = element_blank(),
           axis.ticks = element_blank(),
           panel.grid = element_blank(),
-          plot.caption = element_text(size = "7", family = "Rock Salt"),
-          plot.title = element_text(size = "18", family = "Rock Salt", hjust = 0.5),
+          plot.caption = element_text(size = "10", family = "Rock Salt"),
+          plot.title = element_text(size = "25", family = "Rock Salt", hjust = 0.5),
           plot.title.position = "plot",
-          plot.subtitle = element_text(hjust = 0.5, family = "Rock Salt", size = 10),
+          plot.subtitle = element_text(hjust = 0.5, family = "Rock Salt", size = 15),
           legend.position = "none")+
+    force_panelsizes(rows = unit(10, "in"),
+                     cols = unit(10, "in"))+
     
     
     labs(x = "",

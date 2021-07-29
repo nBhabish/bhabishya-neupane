@@ -16,7 +16,7 @@ tags:
 
 # Visualization
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/plotting-1.png" width="1728" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/plotting-1.png" width="2112" />
 
 
 # Code Chunks
