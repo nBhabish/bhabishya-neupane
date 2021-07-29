@@ -39,10 +39,7 @@ expeditions %>%
 
 # Font Management----
 
-font_add_google("Pacifico", family = "Pacifico")
-font_add_google("Bungee Shade", family = "Bungee Shade")
-font_add_google("Dr Sugiyama", family = "Dr Sugiyama")
-font_add_google("Rock Salt", family = "Rock Salt")
+font_add_google("Berkshire Swash", family = "Berkshire Swash")
 showtext_auto()
 
 # Data Prep for Viz----
@@ -85,13 +82,16 @@ termination_reason %>%
           axis.text = element_blank(),
           axis.ticks = element_blank(),
           panel.grid = element_blank(),
-          plot.caption = element_text(size = "10", family = "Rock Salt"),
-          plot.title = element_text(size = "25", family = "Rock Salt", hjust = 0.5),
+          plot.caption = element_text(size = "20", family = "Berkshire Swash", color = "#5A7199"),
+          plot.title = element_text(size = "40", family = "Berkshire Swash", hjust = 0.5, color = "#5A7199"),
           plot.title.position = "plot",
-          plot.subtitle = element_text(hjust = 0.5, family = "Rock Salt", size = 15),
-          legend.position = "none")+
-    force_panelsizes(rows = unit(10, "in"),
-                     cols = unit(10, "in"))+
+          plot.subtitle = element_text(hjust = 0.5, family = "Berkshire Swash", size = 25, color = "#5A7199"),
+          legend.position=c(1.4,0.5),
+          legend.text = element_text(family = "Berkshire Swash", color = "#5A7199", size = 15),
+          legend.direction = "vertical",
+          legend.box.just = "right")+
+    force_panelsizes(rows = unit(8, "in"),
+                     cols = unit(8, "in"))+
     
     
     labs(x = "",
@@ -103,7 +103,7 @@ termination_reason %>%
          and correspondence with Himalayan climbers.",
          caption = "Data Source: Tidy Tuesday | Himalayan Climbing Expeditions
          Github: nBhabish",
-         fill = "")
+         fill = "") 
 ```
 
 
