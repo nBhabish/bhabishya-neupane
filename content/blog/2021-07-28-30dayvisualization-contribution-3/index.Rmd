@@ -108,3 +108,7 @@ termination_reason %>%
 
 
 # Code Chunks
+
+![plot1](plot1.png)
+
+![plot1](plot1.png) 

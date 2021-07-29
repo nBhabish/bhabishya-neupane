@@ -20,3 +20,7 @@ tags:
 
 
 # Code Chunks
+
+![plot1](plot1.png)
+
+![plot1](plot1.png) 
