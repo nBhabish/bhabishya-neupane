@@ -5,7 +5,10 @@ excerpt: "Tokyo Olympic Games 2020 | Olympic Medal Count Standing"
 date: '2021-07-26'
 show_post_time: false
 slug: []
-categories: []
+categories: 
+  - Tokyo Olympics,
+  - web scraping
+  - ggplot2
 tags:
   - ggplot2, olympic games, showtext
 ---

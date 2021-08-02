@@ -5,7 +5,7 @@ number_featured: 2 # pulling from mainSections in config.toml
 number_categories: 3 # set to zero to exclude
 show_intro: true
 intro: |
-  I have been watching Formula 1: Drive to Survive, a Netflix originals, and have learned a lot about F1 and how it is such a unique sport. Hopefully, I can do some data analysis and machine learning projects revolving around F1. Apart from that, I am spending most of my time cheering for England in the Euros. 
+  I have been watching Formula 1: Drive to Survive, a Netflix originals, and have learned a lot about F1 and how it is such a unique sport. I am looking forward to do some data analysis and machine learning projects revolving around F1. Apart from that, I am teaching myself `tidymodels`, and seriously learning ML on nights and weekends. I am also brushing up on my Python from Miles Chen's lecture on YouTube. 
 show_outro: true
 outro: |
 ---

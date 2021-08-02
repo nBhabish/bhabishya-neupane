@@ -9,8 +9,8 @@ location: "Online"
 draft: false
 # layout options: single, single-sidebar
 layout: single
-categories:
-- meetup
+#categories:
+#- meetup
 ---
 
 {{< here >}}

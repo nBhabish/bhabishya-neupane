@@ -4,7 +4,10 @@ author: Bhabishya Neupane
 excerpt: "Tidy Tuesday: 2020-09-22 | Himalayan Climbing Expeditions "
 date: '2021-07-28'
 slug: []
-categories: []
+categories: 
+  - wesanderson
+  - ggplot2
+  - extrafont
 tags:
   - ggplot2
   - waffleplot
