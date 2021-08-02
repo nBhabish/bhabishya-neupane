@@ -11,3 +11,5 @@ I'm a senior at the University of Nebraska-Lincoln double majoring in Mathematic
 
 
 Also, my first name is pronounced VA-VISH-YUH (three syllables)
+
+This website for the most part is still under construction. 
