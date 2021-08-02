@@ -1,7 +1,7 @@
 ---
 title: "Bhabishya Neupane"
 subtitle: "Research Scholar @ Bureau of Business Research"
-description: "I am an aspiring data scientist. I enjoy creating graphs/dashboards and working on a variety of personal machine learning projects."
+description: "I am an aspiring data scientist. I enjoy web scraping, creating graphs, and working on a variety of personal data analysis projects. To learn more about me:"
 date: 2019-02-18T12:27:33-06:00
 images:
   - img/bhabishya.JPG
