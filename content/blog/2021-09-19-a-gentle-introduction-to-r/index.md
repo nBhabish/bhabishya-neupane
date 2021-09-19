@@ -4,7 +4,7 @@ draft: false
 event: 'Bureau of Business Research Seminar Series'
 event_url: https://bbr-r-bootcamp2021.netlify.app/
 location: College of Business, HLH 310
-summary: "First seminar for the cohort of 2021-2022"
+summary: "First seminar for Bureau of Business Research cohort of 2021-2022"
 
 date: "2021-09-10T14:45:00Z"
 date_end: "2021-09-10T16:15:00Z"
