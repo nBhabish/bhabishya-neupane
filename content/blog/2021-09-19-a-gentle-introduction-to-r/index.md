@@ -30,4 +30,4 @@ links:
 ---
 This workshop will provide a gentle introduction to basics of R using an opinionated collection of R packages designed for data science called `tidyverse`. We will import, analyse, and visualize important aspects from the dataset. Learners will gain knowledge about data wrangling, visualization, and hands-on experience using `tidyverse` package. 
 
-Please checkout the website if you want to go over the materials covered. 
+Please visit the website above if you want to go over the materials. 
