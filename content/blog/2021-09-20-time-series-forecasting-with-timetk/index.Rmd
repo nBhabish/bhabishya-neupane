@@ -1,0 +1,165 @@
+---
+title: Time Series Forecasting with timetk
+author: Bhabishya Neupane
+date: '2021-09-20'
+slug: []
+excerpt: Understanding relationship between revenue and web traffic using `timetk`
+categories: []
+tags:
+  - timetk
+  - lubridate
+  - tidyverse
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    message = F,
+    warning = F,
+    # This should allow Rmarkdown to locate the data
+    root.dir = rprojroot::find_rstudio_root_file()
+)
+```
+
+## Loading Libraries
+
+```{r}
+pacman::p_load(tidyverse,
+               timetk,
+               lubridate, 
+               DataExplorer,
+               kableExtra)
+```
+
+## Reading in the data
+
+```{r}
+transactions_weekly_tbl <- read_rds("data/transactions_weekly.rds")
+
+transactions_weekly_tbl %>% 
+  glimpse()
+
+google_analytics_by_page_tbl <- read_rds("data/google_analytics_by_page_daily.rds") 
+
+google_analytics_by_page_tbl %>% 
+  glimpse()
+```
+
+## Visualizing the Time Series
+
+```{r}
+transactions_weekly_tbl %>% 
+  plot_time_series(purchased_at, revenue)
+```
+__Observations__ : The revenue has been increasing slowly over time, and a trend is present.
+
+
+## Visualizing pages and traffic
+```{r}
+google_analytics_by_page_tbl %>% 
+  group_by(pagePath) %>% 
+  plot_time_series(date, sessions, .facet_ncol = 4, .interactive = F)
+```
+
+__Observations__: There are couple of page paths that don't seem to generate more session. It might be because how the pages were added very late to the website. 
+
+## Aggregating the data to a common frequency
+
+- We will try to aggregate the google_analytics_by_page_tbl by week. As of now the frequency of the dataset is daily.
+
+```{r}
+product_page_sessions_weekly_tbl <- google_analytics_by_page_tbl %>% 
+  select(date, pagePath, sessions) %>% 
+  group_by(pagePath) %>% 
+  summarise_by_time(.date_var = date, .by = "week", sessions = sum(sessions)) %>% 
+  pivot_wider(names_from = pagePath, values_from = sessions, names_prefix = "sessions_") %>% 
+  select(date, contains("/p/"))
+
+product_page_sessions_weekly_tbl
+```
+## Joining the two datasets by date
+
+```{r}
+transactions_product_page_sessions_weekly_tbl <- transactions_weekly_tbl %>% 
+  left_join(product_page_sessions_weekly_tbl, by = c("purchased_at" = "date")) 
+
+transactions_product_page_sessions_weekly_tbl
+```
+
+## Inspecting missing data
+
+```{r}
+transactions_product_page_sessions_weekly_tbl %>% 
+  plot_missing()
+```
+__Observations__: One of the things that we can notice is that there are some product pages that has more missing data. 
+
+## Visualizing the joined dataset
+
+```{r}
+transactions_product_page_sessions_weekly_tbl %>% 
+  pivot_longer(contains("session")) %>% 
+  group_by(name) %>% 
+  plot_time_series(.date_var = purchased_at, .value = value, name, .interactive = F, .facet_ncol = 2)
+```
+__Observations__: It looks like some of the products were very recently introduced to the website, which might be the reason we are observing missing data in our visualization above. 
+
+## Taking subset of the original data with more observations
+
+```{r}
+transactions_product_page_subset_tbl <- transactions_product_page_sessions_weekly_tbl %>% 
+  select(-contains("bundle"),  -ends_with("with-r/"))
+
+transactions_product_page_subset_tbl
+```
+
+
+
+## Transforming our data
+
+```{r}
+log_standardized_transactions_product_page_tbl <-  transactions_product_page_subset_tbl %>% 
+  drop_na() %>% 
+  mutate(across(-purchased_at, .fns = log1p)) %>% 
+  mutate(across(-purchased_at, .fns = standardize_vec))
+
+log_standardized_transactions_product_page_tbl
+  
+```
+
+
+
+## Visualizing Cross Correlation Diagnostics
+
+```{r}
+log_standardized_transactions_product_page_tbl %>% 
+  plot_acf_diagnostics(purchased_at, revenue,
+                       .ccf_vars = contains("session"),
+                       .facet_ncol = 2,
+                       .interactive = F)
+  
+```
+
+
+## Without ACF
+
+```{r}
+log_standardized_transactions_product_page_tbl %>% 
+  plot_acf_diagnostics(purchased_at, revenue, .ccf_vars = contains("sessions"), .show_ccf_vars_only = T)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
