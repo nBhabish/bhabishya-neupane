@@ -5,7 +5,7 @@ action_type: text
 description: Grab a cup of coffee and check out my works! Also, my name is pronounced Va-vish-yuh (three syllables).
 image_left: true
 images:
-- img/revoir.jpg
+- img/bhabishya.JPG
 show_action_link: true
 show_social_links: true
 subtitle: Aspiring Data Scientist
