@@ -1,0 +1,175 @@
+---
+title: '#TidyTuesday: Bee Colony Losses'
+author: Bhabishya Neupane
+date: '2022-02-15'
+excerpt: Visualizing Bee Colony Losses in the United States between 2015 and 2021
+slug: []
+categories:
+  - ggplot2
+  - tidyverse
+tags: []
+---
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+
+### Libraries
+```{r}
+library(tidyverse)
+library(nationalparkcolors)
+library(paletteer)
+library(tidytuesdayR)
+library(extrafontdb)
+library(showtextdb)
+library(extrafont)
+library(showtext)
+showtext_auto()
+theme_set(theme_minimal())
+font_add_google("BenchNine", family = "BenchNine")
+```
+
+### Data
+
+```{r cache=TRUE}
+# Data --------------------------------------------------------------------
+colony <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/colony.csv')
+stressor <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/stressor.csv')
+```
+
+
+
+### Exploratory Data Analysis
+
+
+#### States with Highest Bee Losses, 2015-2021
+
+```{r, out.width= "100%", out.height= "100%"}
+max_colony_lost <- colony %>% 
+  group_by(state) %>% 
+  summarize(colony_lost = sum(colony_lost, na.rm = T)) %>% 
+  arrange(desc(colony_lost)) %>% 
+  slice(-1) %>% 
+  slice(1:10) %>% 
+  pull(state)
+
+colony %>% 
+  filter(state %in% max_colony_lost) %>% 
+  mutate(months = fct_relevel(months, "January-March")) %>% 
+  ggplot(aes(months, colony_lost, fill = months))+
+  geom_col()+
+  scale_y_continuous(labels = scales::comma_format())+
+  theme_minimal()+
+  theme(text = element_text(family = "BenchNine"),
+        axis.text.x = element_blank(), 
+        legend.position = "bottom",
+        plot.title = element_text(size = 20))+
+  scale_fill_paletteer_d("nationalparkcolors::Yosemite")+
+  facet_wrap(~state, scales = "free_y")+
+  labs(title = "Top 10 states w/ Highest Colonies Loss by Months, 2015-2021", 
+       subtitle = "California leads the run for highest colonies loss among all of the states",
+       y = "# of colonies lost", 
+       x = "", fill = "Months")
+```
+
+#### States with Highest Bee Colonies Renovated
+
+```{r}
+max_colony_reno <- colony %>% 
+  group_by(state) %>% 
+  summarise(colony_reno = sum(colony_reno, na.rm = TRUE)) %>% 
+  arrange(desc(colony_reno)) %>% 
+  slice(-1) %>% 
+  slice(1:10) %>% 
+  pull(state)
+
+colony %>% 
+  filter(state %in% max_colony_reno) %>% 
+  mutate(months = fct_relevel(months, "January-March")) %>% 
+  ggplot(aes(months, colony_reno, fill = months))+
+  geom_col()+
+  scale_y_continuous(labels = scales::comma_format())+
+  theme_minimal()+
+  theme(text = element_text(family = "BenchNine"),
+        axis.text.x = element_blank(), 
+        legend.position = "bottom",
+        plot.title = element_text(size = 20))+
+  scale_fill_paletteer_d("nationalparkcolors::Yosemite")+
+  facet_wrap(~state, scales = "free_y")+
+  labs(title = "Top 10 states w/ Highest Colonies Renovated by Months, 2015-2021", 
+       subtitle = "California leads the run for highest colonies renovated among all of the states",
+       y = "# of colonies renovated", 
+       x = "", fill = "Months")
+```
+
+#### States with Highest Bee Colonies Added
+
+
+```{r}
+max_colony_added <- colony %>% 
+  group_by(state) %>% 
+  summarise(colony_added = sum(colony_added, na.rm = TRUE)) %>% 
+  arrange(desc(colony_added)) %>% 
+  slice(-1) %>% 
+  slice(1:10) %>% 
+  pull(state)
+
+colony %>% 
+  filter(state %in% max_colony_added) %>% 
+  mutate(months = fct_relevel(months, "January-March")) %>% 
+  ggplot(aes(months, colony_added, fill = months))+
+  geom_col()+
+  scale_y_continuous(labels = scales::comma_format())+
+  theme_minimal()+
+  theme(text = element_text(family = "BenchNine"),
+        axis.text.x = element_blank(), 
+        legend.position = "bottom",
+        plot.title = element_text(size = 20))+
+  scale_fill_paletteer_d("nationalparkcolors::Yosemite")+
+  facet_wrap(~state, scales = "free_y")+
+  labs(title = "Top 10 states w/ Highest Colonies Added by Months, 2015-2021", 
+       subtitle = "California leads the run for highest colonies added among all of the states",
+       y = "# of colonies added", 
+       x = "", fill = "Months")
+```
+
+
+Takeaways:
+
+- California definitely leads some major categories when it comes to bees. It  might have to do with wonderful weather over there. Florida comes second in the standing but there's a decent margin between California and Florida when it comes to colonies renovated, added, and lost. 
+
+- It doesn't look like there's one particular month where the states lose, add, or renovate bee colonies. It really seems to depend on the states. 
+
+### Focusing on California 
+
+Let's focus on California and see what other trends and patterns can be observed and generalized. My initial assumption is we might see some bee colonies added the same month, if not the following months after losing bee colonies. 
+
+
+```{r}
+colony %>%
+  filter(state == "California") %>%
+  mutate(months = months %>% fct_relevel("January-March")) %>% 
+  ggplot(aes(colony_added, colony_lost, color = months)) +
+  geom_point() +
+  scale_y_continuous(labels = scales::comma_format()) +
+  scale_x_continuous(labels = scales::comma_format()) +
+  theme_minimal() +
+  theme(
+    text = element_text(family = "BenchNine"),
+    legend.position = "bottom",
+    plot.title = element_text(size = 20)
+  ) +
+  scale_color_paletteer_d("nationalparkcolors::Badlands")+
+  labs(x = "# of colonies added", 
+       y = "# of colonies lost",
+       title = "Colonies Added vs Colonies Lost in the California")
+  
+```
+
+It looks like California loses a lot of its bee colonies between January and March, but it also adds a lot during that same window. July-September sees a lot less bee colonies being lost and added. It is very difficult to generalize the idea that there is some relationship between when colonies are lost and when colonies are added. April-June sees a lot more colonies being added compared to colonies being lost. 
+
+
+
+
+

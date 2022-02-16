@@ -1,19 +1,16 @@
 ---
 ## Configure sidebar content in narrow column
 author: "Bhabishya Neupane"
-role: "Research Scholar @ BBR"
-avatar_shape: rounded # circle, square, rounded
+role: "Aspiring Data Scientist"
+avatar_shape: rounded # circle, square, rounded, leave blank to exclude
 show_social_links: true # specify social accounts in site config
-show_audio_link: true
-audio_link_label: "How to say my name"
+audio_link_label: "" # leave blank to exclude
 link_list_label: "Interests" # bookmarks, elsewhere, etc.
 link_list:
-- name: NBA
-  url: https://www.nba.com/
+- name: Premier League
+  url: https://twitter.com/search?q=premier+league&ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Esearch
 - name: Formula 1
-  url: https://www.formula1.com/
-- name: Machine Learning
-  url: https://en.wikipedia.org/wiki/Machine_learning
+  url: https://en.wikipedia.org/wiki/Pastry
 ---
 
 ** index doesn't contain a body, just front matter above.

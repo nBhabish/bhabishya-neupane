@@ -1,17 +1,16 @@
 ---
-title: "Bhabishya Neupane"
-subtitle: "Research Scholar @ Bureau of Business Research"
-description: "I am an aspiring data scientist. I enjoy web scraping, creating graphs, and working on a variety of personal data analysis projects. To learn more about me:"
-date: 2019-02-18T12:27:33-06:00
-images:
-  - img/bhabishya.JPG
-image_left: false
-text_align_left: false
-show_social_links: true # specify social accounts in site config
-show_action_link: true
+action_label: Read More &rarr;
 action_link: /about
-action_label: "Read More &rarr;"
-action_type: button # text, button
+action_type: text
+description: Grab a cup of coffee and check out my works! Also, my name is pronounced Va-vish-yuh (three syllables).
+image_left: true
+images:
+- img/revoir.jpg
+show_action_link: true
+show_social_links: true
+subtitle: Aspiring Data Scientist
+text_align_left: true
+title: Bhabishya N.
 type: home
 ---
 

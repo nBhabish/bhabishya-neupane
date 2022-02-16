@@ -1,0 +1,120 @@
+---
+title: '#TidyTuesday [Ask a Manager Survey]'
+author: Bhabishya Neupane
+date: '2022-02-09'
+slug: []
+categories:
+  - tidytuesday
+  - tidymodels
+  - machine learning
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="load-the-weekly-data" class="section level3">
+<h3>Load the weekly Data</h3>
+<p>Download the weekly data and make available in the <code>tt</code> object.</p>
+<pre class="r"><code>tt &lt;- tt_load(&quot;2021-05-18&quot;)</code></pre>
+<pre><code>## 
+##  Downloading file 1 of 1: `survey.csv`</code></pre>
+<pre class="r"><code>survey &lt;- tt$survey %&gt;%
+  mutate(
+    timestamp = mdy_hms(timestamp),
+    age_category = fct_reorder(how_old_are_you, parse_number(how_old_are_you)) %&gt;% fct_relevel(&quot;under 18&quot;)
+  ) 
+
+
+survey %&gt;% 
+  glimpse()</code></pre>
+<pre><code>## Rows: 26,232
+## Columns: 19
+## $ timestamp                                &lt;dttm&gt; 2021-04-27 11:02:10, 2021-04…
+## $ how_old_are_you                          &lt;chr&gt; &quot;25-34&quot;, &quot;25-34&quot;, &quot;25-34&quot;, &quot;2…
+## $ industry                                 &lt;chr&gt; &quot;Education (Higher Education)…
+## $ job_title                                &lt;chr&gt; &quot;Research and Instruction Lib…
+## $ additional_context_on_job_title          &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, &quot;…
+## $ annual_salary                            &lt;dbl&gt; 55000, 54600, 34000, 62000, 6…
+## $ other_monetary_comp                      &lt;dbl&gt; 0, 4000, NA, 3000, 7000, NA, …
+## $ currency                                 &lt;chr&gt; &quot;USD&quot;, &quot;GBP&quot;, &quot;USD&quot;, &quot;USD&quot;, &quot;…
+## $ currency_other                           &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, N…
+## $ additional_context_on_income             &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, N…
+## $ country                                  &lt;chr&gt; &quot;United States&quot;, &quot;United King…
+## $ state                                    &lt;chr&gt; &quot;Massachusetts&quot;, NA, &quot;Tenness…
+## $ city                                     &lt;chr&gt; &quot;Boston&quot;, &quot;Cambridge&quot;, &quot;Chatt…
+## $ overall_years_of_professional_experience &lt;chr&gt; &quot;5-7 years&quot;, &quot;8 - 10 years&quot;, …
+## $ years_of_experience_in_field             &lt;chr&gt; &quot;5-7 years&quot;, &quot;5-7 years&quot;, &quot;2 …
+## $ highest_level_of_education_completed     &lt;chr&gt; &quot;Master&#39;s degree&quot;, &quot;College d…
+## $ gender                                   &lt;chr&gt; &quot;Woman&quot;, &quot;Non-binary&quot;, &quot;Woman…
+## $ race                                     &lt;chr&gt; &quot;White&quot;, &quot;White&quot;, &quot;White&quot;, &quot;W…
+## $ age_category                             &lt;fct&gt; 25-34, 25-34, 25-34, 25-34, 2…</code></pre>
+</div>
+<div id="glimpse-data" class="section level3">
+<h3>Glimpse Data</h3>
+<p>Taking an initial look at the format of the data available.</p>
+<pre class="r"><code>survey %&gt;% 
+  glimpse()</code></pre>
+<pre><code>## Rows: 26,232
+## Columns: 19
+## $ timestamp                                &lt;dttm&gt; 2021-04-27 11:02:10, 2021-04…
+## $ how_old_are_you                          &lt;chr&gt; &quot;25-34&quot;, &quot;25-34&quot;, &quot;25-34&quot;, &quot;2…
+## $ industry                                 &lt;chr&gt; &quot;Education (Higher Education)…
+## $ job_title                                &lt;chr&gt; &quot;Research and Instruction Lib…
+## $ additional_context_on_job_title          &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, &quot;…
+## $ annual_salary                            &lt;dbl&gt; 55000, 54600, 34000, 62000, 6…
+## $ other_monetary_comp                      &lt;dbl&gt; 0, 4000, NA, 3000, 7000, NA, …
+## $ currency                                 &lt;chr&gt; &quot;USD&quot;, &quot;GBP&quot;, &quot;USD&quot;, &quot;USD&quot;, &quot;…
+## $ currency_other                           &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, N…
+## $ additional_context_on_income             &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, N…
+## $ country                                  &lt;chr&gt; &quot;United States&quot;, &quot;United King…
+## $ state                                    &lt;chr&gt; &quot;Massachusetts&quot;, NA, &quot;Tenness…
+## $ city                                     &lt;chr&gt; &quot;Boston&quot;, &quot;Cambridge&quot;, &quot;Chatt…
+## $ overall_years_of_professional_experience &lt;chr&gt; &quot;5-7 years&quot;, &quot;8 - 10 years&quot;, …
+## $ years_of_experience_in_field             &lt;chr&gt; &quot;5-7 years&quot;, &quot;5-7 years&quot;, &quot;2 …
+## $ highest_level_of_education_completed     &lt;chr&gt; &quot;Master&#39;s degree&quot;, &quot;College d…
+## $ gender                                   &lt;chr&gt; &quot;Woman&quot;, &quot;Non-binary&quot;, &quot;Woman…
+## $ race                                     &lt;chr&gt; &quot;White&quot;, &quot;White&quot;, &quot;White&quot;, &quot;W…
+## $ age_category                             &lt;fct&gt; 25-34, 25-34, 25-34, 25-34, 2…</code></pre>
+</div>
+<div id="exploratory-data-analysis" class="section level3">
+<h3>Exploratory Data Analysis</h3>
+<pre class="r"><code>survey %&gt;% 
+  filter(annual_salary &gt;= 5000,
+         annual_salary &lt;= 2e6) %&gt;% 
+  ggplot(aes(annual_salary))+
+  geom_histogram()+
+  scale_x_continuous(labels = scales::dollar_format())+
+  scale_y_continuous(labels = scales::comma)+
+  labs(
+    x = &quot;Annual&quot;,
+    y = &quot;Count&quot;,
+    title = &quot;Distribution of Annual Salary in the survey&quot;,
+    subtitle = &quot;Data was adjusted to account for annual salary greater than or equals to 5,000 and less than $2M&quot;)+
+  theme_minimal()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/Visualize-1.png" width="672" /></p>
+<p>Let’s try doing a log 10 transformation and observing what the distribution would look like.</p>
+<pre class="r"><code>survey %&gt;% 
+  filter(annual_salary &gt;= 5000,
+         annual_salary &lt;= 2e6) %&gt;% 
+  ggplot(aes(annual_salary))+
+  geom_histogram()+
+  scale_x_log10(labels = scales::dollar_format())+
+  scale_y_continuous(labels = scales::comma)+
+  labs(
+    x = &quot;Annual&quot;,
+    y = &quot;Count&quot;,
+    title = &quot;Distribution of Annual Salary in the survey&quot;,
+    subtitle = &quot;Data was adjusted to account for annual salary greater than or equals to 5,000 and less than $2M&quot;)+
+  theme_minimal()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>We can see that a lot of the people who responded to the survey had an annual salary of $100,000 or somewhere around it for the most part.</p>
+</div>
+<div id="save-image" class="section level1">
+<h1>Save Image</h1>
+<p>Save your image for sharing. Be sure to use the <code>#TidyTuesday</code> hashtag in your post on twitter!</p>
+<pre class="r"><code># This will save your most recent plot
+# ggsave(
+#   filename = &quot;My TidyTuesday Plot.png&quot;,
+#   device = &quot;png&quot;)</code></pre>
+</div>

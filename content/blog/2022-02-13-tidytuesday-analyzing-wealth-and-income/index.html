@@ -1,0 +1,58 @@
+---
+title: '#TidyTuesday: Analyzing wealth and income'
+author: Bhabishya Neupane
+date: '2022-02-13'
+slug: []
+excerpt: Analyzing wealth and income
+categories:
+  - tidytuesday
+  - data visualization
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<pre class="r"><code>knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)</code></pre>
+<div id="libraries-data" class="section level3">
+<h3>Libraries &amp; Data</h3>
+<pre><code>## 
+##  Downloading file 1 of 11: `home_owner.csv`
+##  Downloading file 2 of 11: `income_aggregate.csv`
+##  Downloading file 3 of 11: `income_distribution.csv`
+##  Downloading file 4 of 11: `income_limits.csv`
+##  Downloading file 5 of 11: `income_mean.csv`
+##  Downloading file 6 of 11: `income_time.csv`
+##  Downloading file 7 of 11: `lifetime_earn.csv`
+##  Downloading file 8 of 11: `lifetime_wealth.csv`
+##  Downloading file 9 of 11: `race_wealth.csv`
+##  Downloading file 10 of 11: `retirement.csv`
+##  Downloading file 11 of 11: `student_debt.csv`</code></pre>
+</div>
+<div id="exploratory-data-analysis" class="section level3">
+<h3>Exploratory Data Analysis</h3>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-2.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-3.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-4.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-5.png" width="672" /></p>
+</div>
+<div id="customized-function" class="section level3">
+<h3>Customized Function</h3>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<p>What does 90th percentile mean?</p>
+<ul>
+<li>90% of the data or obseravations or values in the table are equal or lower than that score.</li>
+</ul>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="why-is-there-a-higher-average-than-median" class="section level3">
+<h3>Why is there a higher average than median?</h3>
+<ul>
+<li>Chances are there might be some extremely rich people who are pulling away the mean. The median is not influenced by those rich people at all.</li>
+</ul>
+</div>
+<div id="income-limits" class="section level3">
+<h3>Income Limits</h3>
+<p>What is a quintile?</p>
+<ul>
+<li>According to Merrian-Webster, quintile is any of the four values that divide the items of a frequency distribution into five classes with each containing one fifth of the total population.</li>
+</ul>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+</div>

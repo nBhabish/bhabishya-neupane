@@ -3,13 +3,10 @@
 text_align_right: false
 show_title_as_headline: false
 headline: |
-  Hi there! Welcome.
+  Hi, I am Bhabishya!
 ---
 
 <!-- this is a subheadline -->
-I'm a senior at the University of Nebraska-Lincoln double majoring in Mathematics and Economics. I am originally from Dharan, Nepal :nepal:. I specialize in using R for data analysis, economic research, and data visualization. I am very passionate about knowledge sharing / dissemination and picking up (and putting down) multitude of side projects. Check out some of my works under blog tab. 
+I'm a recent graduate from the University of Nebraska - Lincoln w/ a Bachelor of Arts in Economics and Mathematics. I am interested in data analysis, data visualization, time series forecasting, and machine learning. 
 
-
-Also, my first name is pronounced VA-VISH-YUH (three syllables)
-
-This website for the most part is still under construction. 
+Currently, I am actively seeking Data Science roles.
