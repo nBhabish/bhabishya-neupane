@@ -3,7 +3,7 @@ title: Small Business Innovation Research Dashboard
 author: Bhabishya Neupane
 date: '2022-02-16'
 slug: []
-excerpt: 
+excerpt: This project was inspired by the Bureau of Business Research @ UNL.
 categories:
   - R Shiny
   - data visualization
