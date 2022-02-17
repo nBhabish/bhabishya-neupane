@@ -13,9 +13,20 @@ tags: []
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
-<pre class="r"><code>knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)</code></pre>
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)</code></pre>
 <div id="libraries-data" class="section level3">
 <h3>Libraries &amp; Data</h3>
+<pre class="r"><code>library(tidyverse)
+library(tidytuesdayR)
+library(scales)
+library(ragg)
+library(extrafontdb)
+library(showtextdb)
+library(extrafont)
+library(showtext)
+
+
+tuesdata &lt;- tidytuesdayR::tt_load(2021, week = 7)</code></pre>
 <pre><code>## 
 ##  Downloading file 1 of 11: `home_owner.csv`
 ##  Downloading file 2 of 11: `income_aggregate.csv`
@@ -28,18 +39,130 @@ tags: []
 ##  Downloading file 9 of 11: `race_wealth.csv`
 ##  Downloading file 10 of 11: `retirement.csv`
 ##  Downloading file 11 of 11: `student_debt.csv`</code></pre>
+<pre class="r"><code>showtext_auto()
+update_geom_defaults(&quot;rect&quot;, list(fill = &quot;midnightblue&quot;, alpha = 0.8))
+theme_set(theme_minimal())
+font_add_google(&quot;BenchNine&quot;, family = &quot;BenchNine&quot;)</code></pre>
+<pre class="r"><code>lifetime_earn &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/lifetime_earn.csv&#39;)
+student_debt &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/student_debt.csv&#39;)
+retirement &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/retirement.csv&#39;)
+home_owner &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/home_owner.csv&#39;)
+race_wealth &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/race_wealth.csv&#39;)
+income_time &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/income_time.csv&#39;)
+income_limits &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/income_limits.csv&#39;)
+income_aggregate &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/income_aggregate.csv&#39;)
+income_distribution &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/income_distribution.csv&#39;)
+income_mean &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/income_mean.csv&#39;)</code></pre>
 </div>
 <div id="exploratory-data-analysis" class="section level3">
 <h3>Exploratory Data Analysis</h3>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-2.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-3.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-4.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-5.png" width="672" /></p>
+<pre class="r"><code>lifetime_earn %&gt;% 
+  ggplot(aes(lifetime_earn, race, fill = gender))+
+  geom_col(
+   position = &quot;dodge&quot;
+  )+
+  scale_x_continuous(labels = dollar)+
+  labs(x = &quot;&quot;)+
+  scale_fill_brewer(type = &quot;qual&quot;)+
+  labs(y = &quot;Race&quot;,
+       title = &quot;Lifetime earnings by race in the United States&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>student_debt %&gt;% 
+  ggplot(aes(year, loan_debt_pct, color = race))+
+  geom_line()+
+  expand_limits(y = 0)+
+  scale_y_continuous(labels = scales::percent_format())+
+  labs(y = &quot;% of families with student loan debt&quot;)+
+  scale_color_brewer(type = &quot;qual&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<pre class="r"><code>student_debt %&gt;% 
+  ggplot(aes(year, loan_debt, color = race))+
+  geom_line()+
+  expand_limits(y = 0)+
+  scale_y_continuous(labels = scales::dollar_format())+
+  labs(y = &quot;Average Loan Debt&quot;)+
+  scale_color_brewer(type = &quot;qual&quot;)+
+  labs(y = &quot;&quot;, x = &quot;&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
+<pre class="r"><code>retirement %&gt;% 
+  ggplot(aes(year, retirement, color = race))+
+  geom_line()+
+  expand_limits(y = 0)+
+  scale_y_continuous(labels = scales::dollar)+
+  labs(x = &quot;&quot;, y = &quot;&quot;,
+       title = &quot;Retirement savings by year in the United States, 1989-2016&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-4.png" width="672" /></p>
+<pre class="r"><code>home_owner %&gt;%
+  mutate(race = fct_reorder(race, -home_owner_pct)) %&gt;% 
+  ggplot(aes(year, home_owner_pct, color = race))+
+  geom_line()+
+  expand_limits(y = 0)+
+  scale_color_brewer(type = &quot;qual&quot;, palette = 2)+
+  labs(y = &quot;Home Owner %&quot;, 
+       x = &quot;&quot;, 
+       title = &quot;Home Owner Percentage in the United States by Race, 1976-2016&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-5.png" width="672" /></p>
 </div>
 <div id="customized-function" class="section level3">
 <h3>Customized Function</h3>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<pre class="r"><code>plot_line &lt;- function(data, column, labels = dollar){
+  data %&gt;% 
+  mutate(race := fct_reorder(race, - {{ column }}, last)) %&gt;% 
+  ggplot(aes(year, {{ column }}, color = race))+
+  geom_line()+
+  expand_limits(y = 0)+
+  scale_y_continuous(labels = labels) +
+  scale_color_brewer(type = &quot;qual&quot;, palette = 2)
+}</code></pre>
+<pre class="r"><code>immediate_year &lt;- race_wealth %&gt;% 
+  filter(type == &quot;Average&quot;) %&gt;% 
+  group_by(race) %&gt;% 
+  top_n(1, year)</code></pre>
+<pre class="r"><code>income_time %&gt;% 
+  mutate(percentile = fct_reorder(percentile, -income_family, last)) %&gt;% 
+  ggplot(aes(year, income_family, color = percentile))+
+  geom_line()+
+  expand_limits(y = 0)+
+  scale_y_continuous(labels = scales::dollar_format())+
+  labs(y = &quot;&quot;,
+       x = &quot;&quot;,
+       title = &quot;Family-level income by percentile and year&quot;,
+       color = &quot;Percentile&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>income_time %&gt;% 
+  pivot_wider(names_from = percentile, values_from = income_family) %&gt;%
+  ggplot(aes(year, `50th`, ymin = `10th`, ymax = `90th`))+
+  geom_line()+
+  geom_ribbon(alpha =0.5)+
+  expand_limits(y = 0)+
+  labs(x = &quot;Year&quot;, y = &quot;Family Income (Median with 10th and 90th percentile)&quot;)+
+  scale_y_continuous(labels = scales::dollar_format())+
+  theme(text = element_text(family = &quot;BenchNine&quot;))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
 <p>What does 90th percentile mean?</p>
 <ul>
 <li>90% of the data or obseravations or values in the table are equal or lower than that score.</li>
 </ul>
+<pre class="r"><code>race_wealth %&gt;% 
+  mutate(race = race %&gt;% fct_reorder(-wealth_family, last)) %&gt;% 
+  ggplot(aes(year, wealth_family, color = race))+
+  geom_line()+
+  facet_wrap(~type, scales = &quot;free_y&quot;)+
+  scale_y_continuous(labels = scales::dollar_format())+
+  scale_color_brewer(type = &quot;qual&quot;, palette = 6)+
+  labs(y = &quot;&quot;, 
+       x = &quot;&quot;, 
+       color = &quot;Race&quot;,
+       lty   = &quot;Type&quot;, 
+       title = &quot;Family wealth by Race and Year&quot;,
+       subtitle = &quot;Measures of central tendency is incorporated via mean and median&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;))</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="why-is-there-a-higher-average-than-median" class="section level3">
@@ -54,5 +177,35 @@ tags: []
 <ul>
 <li>According to Merrian-Webster, quintile is any of the four values that divide the items of a frequency distribution into five classes with each containing one fifth of the total population.</li>
 </ul>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<pre class="r"><code>income_limits %&gt;% 
+  # pivot_wider(names_from = income_quintile, values_from = income_dollars) %&gt;% 
+  # janitor::clean_names() %&gt;% 
+  filter(dollar_type == &quot;2019 Dollars&quot;) %&gt;% 
+  distinct(race, year, income_quintile, .keep_all = TRUE) %&gt;% 
+  mutate(income_quintile = income_quintile %&gt;% as_factor()) %&gt;% 
+  mutate(income_quintile_num = as.numeric(income_quintile)) %&gt;% 
+  ggplot(aes(year, income_dollars, color = race))+
+  facet_wrap(~income_quintile, scales = &quot;free_y&quot;)+
+  geom_line()+
+  labs(y = &quot;Income in 2019 Dollars&quot;, 
+       x = &quot;&quot;, color = &quot;Race&quot;)+
+  scale_color_brewer(type = &quot;qual&quot;, palette = 3)+
+  scale_y_continuous(labels = scales::dollar_format())+
+  theme(text = element_text(family = &quot;BenchNine&quot;),
+        legend.position = &quot;bottom&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>income_limits %&gt;% 
+  filter(dollar_type == &quot;2019 Dollars&quot;) %&gt;% 
+  distinct(race, year, income_quintile, .keep_all = TRUE) %&gt;% 
+  mutate(income_quintile = income_quintile %&gt;% fct_reorder(-income_dollars, last)) %&gt;% 
+  ggplot(aes(year, income_dollars, color = income_quintile))+
+  geom_line()+
+  facet_wrap(~race)+
+  scale_color_brewer(type = &quot;qual&quot;, palette = 3)+
+  scale_y_continuous(labels = scales::dollar_format())+
+  theme(text = element_text(family = &quot;BenchNine&quot;),
+        legend.position = &quot;bottom&quot;)+
+  labs(y = &quot;Income Quintiles&quot;, x = &quot;&quot;,
+       color = &quot;Income Quintile&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
 </div>

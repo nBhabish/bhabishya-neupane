@@ -3,7 +3,7 @@ title: '#TidyTuesday [Ask a Manager Survey]'
 author: Bhabishya Neupane
 date: '2022-02-09'
 slug: []
-excerpt: 
+excerpt: Predicting salaries based on job title, state, industry, experience in field 
 categories:
   - tidytuesday
   - tidymodels

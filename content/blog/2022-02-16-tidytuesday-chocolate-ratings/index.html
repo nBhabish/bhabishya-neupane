@@ -1,0 +1,266 @@
+---
+title: '#TidyTuesday: Chocolate Ratings'
+author: Bhabishya Neupane
+date: '2022-02-16'
+excerpt: Visualizing and extracting information from chocolate ratings
+slug: []
+categories:
+  - tidyverse
+  - data visualization
+  - tidytuesday
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)</code></pre>
+<div id="libraries" class="section level3">
+<h3>Libraries</h3>
+<pre class="r"><code>library(tidyverse)
+library(nationalparkcolors)
+library(paletteer)
+library(tidytuesdayR)
+library(extrafontdb)
+library(showtextdb)
+library(extrafont)
+library(showtext)
+showtext_auto()
+theme_set(theme_minimal())
+font_add_google(&quot;BenchNine&quot;, family = &quot;BenchNine&quot;)</code></pre>
+</div>
+<div id="data" class="section level3">
+<h3>Data</h3>
+<pre class="r"><code>chocolate &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv&#39;) %&gt;% 
+  mutate(first_memorable_characteristics = str_remove(most_memorable_characteristics, pattern = &quot;,.*&quot;))</code></pre>
+</div>
+<div id="exploratory-data-visualization" class="section level3">
+<h3>Exploratory Data Visualization</h3>
+<pre class="r"><code>chocolate %&gt;% 
+  count(company_manufacturer, sort = TRUE)</code></pre>
+<pre><code>## # A tibble: 580 × 2
+##    company_manufacturer     n
+##    &lt;chr&gt;                &lt;int&gt;
+##  1 Soma                    56
+##  2 Fresco                  39
+##  3 Arete                   32
+##  4 Bonnat                  30
+##  5 A. Morin                26
+##  6 Dandelion               25
+##  7 Pralus                  25
+##  8 Domori                  23
+##  9 Guittard                22
+## 10 Valrhona                22
+## # … with 570 more rows</code></pre>
+<pre class="r"><code>chocolate %&gt;% 
+  count(review_date, sort = T)</code></pre>
+<pre><code>## # A tibble: 16 × 2
+##    review_date     n
+##          &lt;dbl&gt; &lt;int&gt;
+##  1        2015   284
+##  2        2014   247
+##  3        2018   228
+##  4        2016   217
+##  5        2012   194
+##  6        2019   193
+##  7        2013   183
+##  8        2021   175
+##  9        2011   163
+## 10        2009   123
+## 11        2010   110
+## 12        2017   105
+## 13        2008    92
+## 14        2020    81
+## 15        2007    73
+## 16        2006    62</code></pre>
+<pre class="r"><code>chocolate %&gt;% 
+  count(company_location, sort = T)</code></pre>
+<pre><code>## # A tibble: 67 × 2
+##    company_location     n
+##    &lt;chr&gt;            &lt;int&gt;
+##  1 U.S.A.            1136
+##  2 Canada             177
+##  3 France             176
+##  4 U.K.               133
+##  5 Italy               78
+##  6 Belgium             63
+##  7 Ecuador             58
+##  8 Australia           53
+##  9 Switzerland         44
+## 10 Germany             42
+## # … with 57 more rows</code></pre>
+<pre class="r"><code>chocolate %&gt;% 
+  glimpse()</code></pre>
+<pre><code>## Rows: 2,530
+## Columns: 11
+## $ ref                              &lt;dbl&gt; 2454, 2458, 2454, 2542, 2546, 2546, 2…
+## $ company_manufacturer             &lt;chr&gt; &quot;5150&quot;, &quot;5150&quot;, &quot;5150&quot;, &quot;5150&quot;, &quot;5150…
+## $ company_location                 &lt;chr&gt; &quot;U.S.A.&quot;, &quot;U.S.A.&quot;, &quot;U.S.A.&quot;, &quot;U.S.A.…
+## $ review_date                      &lt;dbl&gt; 2019, 2019, 2019, 2021, 2021, 2021, 2…
+## $ country_of_bean_origin           &lt;chr&gt; &quot;Tanzania&quot;, &quot;Dominican Republic&quot;, &quot;Ma…
+## $ specific_bean_origin_or_bar_name &lt;chr&gt; &quot;Kokoa Kamili, batch 1&quot;, &quot;Zorzal, bat…
+## $ cocoa_percent                    &lt;chr&gt; &quot;76%&quot;, &quot;76%&quot;, &quot;76%&quot;, &quot;68%&quot;, &quot;72%&quot;, &quot;8…
+## $ ingredients                      &lt;chr&gt; &quot;3- B,S,C&quot;, &quot;3- B,S,C&quot;, &quot;3- B,S,C&quot;, &quot;…
+## $ most_memorable_characteristics   &lt;chr&gt; &quot;rich cocoa, fatty, bready&quot;, &quot;cocoa, …
+## $ rating                           &lt;dbl&gt; 3.25, 3.50, 3.75, 3.00, 3.00, 3.25, 3…
+## $ first_memorable_characteristics  &lt;chr&gt; &quot;rich cocoa&quot;, &quot;cocoa&quot;, &quot;cocoa&quot;, &quot;chew…</code></pre>
+</div>
+<div id="where-does-most-reviews-come-from" class="section level3">
+<h3>Where does most reviews come from?</h3>
+<pre class="r"><code>chocolate %&gt;% 
+  add_count(company_location) %&gt;% 
+  arrange(desc(n)) %&gt;% 
+  filter(n &gt;= 50) %&gt;% 
+  count(company_location, sort = T) %&gt;% 
+  mutate(company_location = company_location %&gt;% fct_reorder(n)) %&gt;% 
+  ggplot(aes(n, company_location))+
+  geom_col(fill = &quot;#769370&quot;)+
+  labs(x = &quot;&quot;, 
+       y = &quot;&quot;)+
+  scale_x_continuous(limits = c(0, 1200), breaks = seq(0, 1200, by = 200))+
+  labs(title = &quot;Top 8 Frequently Reviewed Chocolate Manufacturing Countries&quot;,
+       subtitle = &quot;The review was conducted by The Manhattan Chocolate Society&quot;,
+       caption   = &quot;Data Source: The Manhattan Chocolate Society&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;),
+        legend.position = &quot;none&quot;,
+        plot.title = element_text(size = 20))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="ten-most-frequently-reviewed-companies-in-the-united-states" class="section level3">
+<h3>Ten most frequently reviewed companies in the United States</h3>
+<pre class="r"><code>chocolate %&gt;% 
+  filter(company_location == &quot;U.S.A.&quot;) %&gt;% 
+  add_count(company_manufacturer) %&gt;% 
+  filter(n &gt;= 15) %&gt;% 
+  count(company_manufacturer, sort = T) %&gt;% 
+  mutate(company_manufacturer = company_manufacturer %&gt;% fct_reorder(n)) %&gt;% 
+  slice(1:10) %&gt;% 
+  ggplot(aes(n, company_manufacturer))+
+  geom_col(fill = &quot;#769370&quot;)+
+  labs(x = &quot;&quot;, 
+       y = &quot;&quot;, 
+       title = &quot;Top 10 Frequently Reviewed Chocolate Manufacturing Companies in the United States&quot;, 
+       subtitle = &quot;This Review was conducted by Manhattan Chocolate Society&quot;,
+       caption = &quot;Data Source: The Manhattan Chocolate Society&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;),
+        plot.title = element_text(size = 12.5))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="section" class="section level3">
+<h3></h3>
+<pre class="r"><code>chocolate %&gt;% 
+  filter(company_location == &quot;U.S.A.&quot;) %&gt;% 
+  mutate(cocoa_percent = parse_number(cocoa_percent)) %&gt;% 
+  add_count(country_of_bean_origin) %&gt;% 
+  filter(
+    country_of_bean_origin != &quot;Blend&quot;,
+    n &gt;= 45) %&gt;% 
+  select(-n) %&gt;% 
+  add_count(company_manufacturer) %&gt;% 
+  filter(n&gt;=10) %&gt;% 
+  count(company_manufacturer, cocoa_percent, rating) %&gt;% 
+  ggplot(aes(rating, n, fill = cocoa_percent))+
+  geom_col()+
+  facet_wrap(~company_manufacturer)+
+  theme(text = element_text(family = &quot;BenchNine&quot;),
+        plot.title = element_text(size = 12.5))+
+  scale_fill_gradient(high = &quot;#769370&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="cocoa-percent-distribution-histogram-in-the-united-states" class="section level3">
+<h3>Cocoa Percent Distribution Histogram in the United States</h3>
+<pre class="r"><code>chocolate %&gt;% 
+  filter(company_location == &quot;U.S.A.&quot;) %&gt;% 
+  mutate(cocoa_percent = parse_number(cocoa_percent)) %&gt;% 
+  ggplot(aes(cocoa_percent))+
+  geom_histogram(color = &quot;white&quot;, fill = &quot;#769370&quot;)+
+  expand_limits(x = 50)+
+  labs(y = &quot;# of Chocolate Manufacturing Companies&quot;, 
+       x = &quot;Cocoa Percent&quot;,
+       title = &quot;Cocoa Percent Distribution Histogram | U.S.A.&quot;, 
+       caption = &quot;Data Source: The Manhattan Chocolate Society&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;),
+        plot.title = element_text(size = 20))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>From the above plot, it does look like most of the companies reviewed by The Manhattan Chocolate Society had cocoa percent between 70 to 75.</p>
+</div>
+<div id="cocoa-percent-distribution-histogram-across-the-world" class="section level3">
+<h3>Cocoa Percent Distribution Histogram across the World</h3>
+<pre class="r"><code>chocolate %&gt;% 
+  mutate(cocoa_percent = parse_number(cocoa_percent)) %&gt;% 
+  ggplot(aes(cocoa_percent))+
+  geom_histogram(color = &quot;white&quot;, fill = &quot;#769370&quot;)+
+  expand_limits(x = 40)+
+  labs(y = &quot;# of Chocolate Manufacturing Companies&quot;, 
+       x = &quot;Cocoa Percent&quot;,
+       title = &quot;Cocoa Percent Distribution Histogram | Globally&quot;, 
+       caption = &quot;Data Source: The Manhattan Chocolate Society&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;),
+        plot.title = element_text(size = 20))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>freq_reviewed_4_us_companies &lt;- chocolate %&gt;% 
+  filter(company_location == &quot;U.S.A.&quot;) %&gt;% 
+  count(company_manufacturer, sort = T) %&gt;% 
+  slice(1:4)
+
+freq_reviewed_4_us_companies</code></pre>
+<pre><code>## # A tibble: 4 × 2
+##   company_manufacturer     n
+##   &lt;chr&gt;                &lt;int&gt;
+## 1 Fresco                  39
+## 2 Arete                   32
+## 3 Dandelion               25
+## 4 Guittard                22</code></pre>
+<pre class="r"><code>chocolate %&gt;% 
+  filter(company_location == &quot;U.S.A.&quot;, 
+         company_manufacturer %in% (freq_reviewed_4_us_companies %&gt;% pull(company_manufacturer))) %&gt;% 
+  mutate(first_memorable_characteristics = first_memorable_characteristics %&gt;% fct_lump(4)) %&gt;% 
+  count(company_manufacturer, first_memorable_characteristics, sort = T) %&gt;% 
+  ggplot(aes(first_memorable_characteristics, n))+
+  geom_col(fill = &quot;#769370&quot;)+
+  facet_wrap(~company_manufacturer, scales = &quot;free_y&quot;)+
+  theme(text = element_text(family = &quot;BenchNine&quot;),
+        plot.title = element_text(size = 12.5))+
+  labs(x = &quot;Memorable Characteristics&quot;, y = &quot;&quot;, 
+       title = &quot;Words used to describe the highly reviewed chocolate companies in the United States&quot;,
+       caption = &quot;Data Source: The Manhattan Chocolate Society&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>The plot isn’t very informative, but Guittard products were described as “creamy” and “sweet” more often than not.</p>
+<pre class="r"><code>library(glue)
+
+top_8_most_reviewed_countries &lt;- chocolate %&gt;% 
+  count(company_location, sort = T) %&gt;% 
+  filter(n &gt;= 50) %&gt;% 
+  pull(company_location)
+
+chocolate %&gt;% 
+  mutate(cocoa_percent = parse_number(cocoa_percent)) %&gt;% 
+  add_count(company_location) %&gt;%
+  mutate(company_location_and_reviews = glue(&quot;{company_location} ({n})&quot;)) %&gt;% 
+  group_by(review_date, company_location_and_reviews, company_location) %&gt;% 
+  summarize(categories = n(),
+            avg_rating     = mean(rating),
+            max_rated_manufacturer = first(company_manufacturer[which.max(rating)]),
+            min_rated_manufacturer = first(company_manufacturer[which.min(rating)]),
+            max_rated_manufacturer_rating = first(rating[which.max(rating)]),
+            min_rated_manufacturer_rating = first(rating[which.min(rating)])) %&gt;% 
+  ungroup() %&gt;% 
+  add_count(company_location) %&gt;% 
+  mutate(company_location_and_reviews = company_location_and_reviews %&gt;% fct_reorder(-n)) %&gt;% 
+  filter(company_location %in% top_8_most_reviewed_countries) %&gt;% 
+  pivot_longer(cols = c(avg_rating, max_rated_manufacturer_rating, min_rated_manufacturer_rating), names_to = &quot;metrics&quot;) %&gt;% 
+  ggplot(aes(review_date, value, color = metrics))+
+  geom_line(size = 0.8)+
+  facet_wrap(~company_location_and_reviews)+
+  theme(text = element_text(family = &quot;BenchNine&quot;),
+        plot.title = element_text(size = 15))+
+  labs(x = &quot;&quot;, 
+       y = &quot;Ratings&quot;,
+       title = &quot;Top 8 Frequently Reviewed Chocolate Manufacturing Countries w/ Ratings&quot;,
+       subtitle = &quot;Number inside the parenthesis denotes the number of reviews conducted in said country, 2006-2021&quot;,
+       color = &quot;Metrics&quot;, 
+       caption = &quot;Data Source: The Manhattan Chocolate Society&quot;)+
+  scale_color_paletteer_d(&quot;nationalparkcolors::SmokyMountains&quot;)+
+  theme(legend.position = &quot;bottom&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>

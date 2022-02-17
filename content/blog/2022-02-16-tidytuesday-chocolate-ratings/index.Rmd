@@ -1,0 +1,234 @@
+---
+title: '#TidyTuesday: Chocolate Ratings'
+author: Bhabishya Neupane
+date: '2022-02-16'
+excerpt: Visualizing and extracting information from chocolate ratings
+slug: []
+categories:
+  - tidyverse
+  - data visualization
+  - tidytuesday
+tags: []
+---
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+### Libraries
+
+```{r}
+library(tidyverse)
+library(nationalparkcolors)
+library(paletteer)
+library(tidytuesdayR)
+library(extrafontdb)
+library(showtextdb)
+library(extrafont)
+library(showtext)
+showtext_auto()
+theme_set(theme_minimal())
+font_add_google("BenchNine", family = "BenchNine")
+```
+
+### Data
+
+```{r}
+chocolate <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv') %>% 
+  mutate(first_memorable_characteristics = str_remove(most_memorable_characteristics, pattern = ",.*"))
+
+```
+
+### Exploratory Data Visualization
+
+```{r}
+chocolate %>% 
+  count(company_manufacturer, sort = TRUE)
+
+
+chocolate %>% 
+  count(review_date, sort = T)
+
+chocolate %>% 
+  count(company_location, sort = T)
+
+chocolate %>% 
+  glimpse()
+```
+
+
+### Where does most reviews come from?
+
+```{r}
+chocolate %>% 
+  add_count(company_location) %>% 
+  arrange(desc(n)) %>% 
+  filter(n >= 50) %>% 
+  count(company_location, sort = T) %>% 
+  mutate(company_location = company_location %>% fct_reorder(n)) %>% 
+  ggplot(aes(n, company_location))+
+  geom_col(fill = "#769370")+
+  labs(x = "", 
+       y = "")+
+  scale_x_continuous(limits = c(0, 1200), breaks = seq(0, 1200, by = 200))+
+  labs(title = "Top 8 Frequently Reviewed Chocolate Manufacturing Countries",
+       subtitle = "The review was conducted by The Manhattan Chocolate Society",
+       caption   = "Data Source: The Manhattan Chocolate Society")+
+  theme(text = element_text(family = "BenchNine"),
+        legend.position = "none",
+        plot.title = element_text(size = 20))
+```
+
+
+### Ten most frequently reviewed companies in the United States 
+
+```{r}
+chocolate %>% 
+  filter(company_location == "U.S.A.") %>% 
+  add_count(company_manufacturer) %>% 
+  filter(n >= 15) %>% 
+  count(company_manufacturer, sort = T) %>% 
+  mutate(company_manufacturer = company_manufacturer %>% fct_reorder(n)) %>% 
+  slice(1:10) %>% 
+  ggplot(aes(n, company_manufacturer))+
+  geom_col(fill = "#769370")+
+  labs(x = "", 
+       y = "", 
+       title = "Top 10 Frequently Reviewed Chocolate Manufacturing Companies in the United States", 
+       subtitle = "This Review was conducted by Manhattan Chocolate Society",
+       caption = "Data Source: The Manhattan Chocolate Society")+
+  theme(text = element_text(family = "BenchNine"),
+        plot.title = element_text(size = 12.5))
+```
+
+###
+
+```{r}
+chocolate %>% 
+  filter(company_location == "U.S.A.") %>% 
+  mutate(cocoa_percent = parse_number(cocoa_percent)) %>% 
+  add_count(country_of_bean_origin) %>% 
+  filter(
+    country_of_bean_origin != "Blend",
+    n >= 45) %>% 
+  select(-n) %>% 
+  add_count(company_manufacturer) %>% 
+  filter(n>=10) %>% 
+  count(company_manufacturer, cocoa_percent, rating) %>% 
+  ggplot(aes(rating, n, fill = cocoa_percent))+
+  geom_col()+
+  facet_wrap(~company_manufacturer)+
+  theme(text = element_text(family = "BenchNine"),
+        plot.title = element_text(size = 12.5))+
+  scale_fill_gradient(high = "#769370")
+```
+
+
+
+### Cocoa Percent Distribution Histogram in the United States 
+
+```{r}
+chocolate %>% 
+  filter(company_location == "U.S.A.") %>% 
+  mutate(cocoa_percent = parse_number(cocoa_percent)) %>% 
+  ggplot(aes(cocoa_percent))+
+  geom_histogram(color = "white", fill = "#769370")+
+  expand_limits(x = 50)+
+  labs(y = "# of Chocolate Manufacturing Companies", 
+       x = "Cocoa Percent",
+       title = "Cocoa Percent Distribution Histogram | U.S.A.", 
+       caption = "Data Source: The Manhattan Chocolate Society")+
+  theme(text = element_text(family = "BenchNine"),
+        plot.title = element_text(size = 20))
+```
+
+From the above plot, it does look like most of the companies reviewed by The Manhattan Chocolate Society had cocoa percent between 70 to 75. 
+
+
+### Cocoa Percent Distribution Histogram across the World 
+
+
+```{r}
+chocolate %>% 
+  mutate(cocoa_percent = parse_number(cocoa_percent)) %>% 
+  ggplot(aes(cocoa_percent))+
+  geom_histogram(color = "white", fill = "#769370")+
+  expand_limits(x = 40)+
+  labs(y = "# of Chocolate Manufacturing Companies", 
+       x = "Cocoa Percent",
+       title = "Cocoa Percent Distribution Histogram | Globally", 
+       caption = "Data Source: The Manhattan Chocolate Society")+
+  theme(text = element_text(family = "BenchNine"),
+        plot.title = element_text(size = 20))
+```
+
+
+```{r}
+freq_reviewed_4_us_companies <- chocolate %>% 
+  filter(company_location == "U.S.A.") %>% 
+  count(company_manufacturer, sort = T) %>% 
+  slice(1:4)
+
+freq_reviewed_4_us_companies
+```
+
+```{r}
+chocolate %>% 
+  filter(company_location == "U.S.A.", 
+         company_manufacturer %in% (freq_reviewed_4_us_companies %>% pull(company_manufacturer))) %>% 
+  mutate(first_memorable_characteristics = first_memorable_characteristics %>% fct_lump(4)) %>% 
+  count(company_manufacturer, first_memorable_characteristics, sort = T) %>% 
+  ggplot(aes(first_memorable_characteristics, n))+
+  geom_col(fill = "#769370")+
+  facet_wrap(~company_manufacturer, scales = "free_y")+
+  theme(text = element_text(family = "BenchNine"),
+        plot.title = element_text(size = 12.5))+
+  labs(x = "Memorable Characteristics", y = "", 
+       title = "Words used to describe the highly reviewed chocolate companies in the United States",
+       caption = "Data Source: The Manhattan Chocolate Society")
+```
+
+The plot isn't very informative, but Guittard products were described as "creamy" and "sweet" more often than not. 
+
+
+
+```{r}
+
+library(glue)
+
+top_8_most_reviewed_countries <- chocolate %>% 
+  count(company_location, sort = T) %>% 
+  filter(n >= 50) %>% 
+  pull(company_location)
+
+chocolate %>% 
+  mutate(cocoa_percent = parse_number(cocoa_percent)) %>% 
+  add_count(company_location) %>%
+  mutate(company_location_and_reviews = glue("{company_location} ({n})")) %>% 
+  group_by(review_date, company_location_and_reviews, company_location) %>% 
+  summarize(categories = n(),
+            avg_rating     = mean(rating),
+            max_rated_manufacturer = first(company_manufacturer[which.max(rating)]),
+            min_rated_manufacturer = first(company_manufacturer[which.min(rating)]),
+            max_rated_manufacturer_rating = first(rating[which.max(rating)]),
+            min_rated_manufacturer_rating = first(rating[which.min(rating)])) %>% 
+  ungroup() %>% 
+  add_count(company_location) %>% 
+  mutate(company_location_and_reviews = company_location_and_reviews %>% fct_reorder(-n)) %>% 
+  filter(company_location %in% top_8_most_reviewed_countries) %>% 
+  pivot_longer(cols = c(avg_rating, max_rated_manufacturer_rating, min_rated_manufacturer_rating), names_to = "metrics") %>% 
+  ggplot(aes(review_date, value, color = metrics))+
+  geom_line(size = 0.8)+
+  facet_wrap(~company_location_and_reviews)+
+  theme(text = element_text(family = "BenchNine"),
+        plot.title = element_text(size = 15))+
+  labs(x = "", 
+       y = "Ratings",
+       title = "Top 8 Frequently Reviewed Chocolate Manufacturing Countries w/ Ratings",
+       subtitle = "Number inside the parenthesis denotes the number of reviews conducted in said country, 2006-2021",
+       color = "Metrics", 
+       caption = "Data Source: The Manhattan Chocolate Society")+
+  scale_color_paletteer_d("nationalparkcolors::SmokyMountains")+
+  theme(legend.position = "bottom")
+```
+
