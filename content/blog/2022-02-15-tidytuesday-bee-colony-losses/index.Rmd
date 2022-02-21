@@ -11,7 +11,7 @@ tags: []
 ---
 
 ```{r}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, out.width = "100%")
 ```
 
 
@@ -24,7 +24,11 @@ library(tidytuesdayR)
 library(extrafontdb)
 library(showtextdb)
 library(extrafont)
+library(ggridges)
+library(ggtext)
 library(showtext)
+library(glue)
+library(geofacet)
 showtext_auto()
 theme_set(theme_minimal())
 font_add_google("BenchNine", family = "BenchNine")
@@ -55,6 +59,9 @@ max_colony_lost <- colony %>%
   pull(state)
 
 colony %>% 
+  glimpse()
+
+colony %>% 
   filter(state %in% max_colony_lost) %>% 
   mutate(months = fct_relevel(months, "January-March")) %>% 
   ggplot(aes(months, colony_lost, fill = months))+
@@ -65,7 +72,7 @@ colony %>%
         axis.text.x = element_blank(), 
         legend.position = "bottom",
         plot.title = element_text(size = 20))+
-  scale_fill_paletteer_d("nationalparkcolors::Yosemite")+
+  scale_fill_paletteer_d("nationalparkcolors::Arches")+
   facet_wrap(~state, scales = "free_y")+
   labs(title = "Top 10 states w/ Highest Colonies Loss by Months, 2015-2021", 
        subtitle = "California leads the run for highest colonies loss among all of the states",
@@ -95,7 +102,7 @@ colony %>%
         axis.text.x = element_blank(), 
         legend.position = "bottom",
         plot.title = element_text(size = 20))+
-  scale_fill_paletteer_d("nationalparkcolors::Yosemite")+
+  scale_fill_paletteer_d("nationalparkcolors::Arches")+
   facet_wrap(~state, scales = "free_y")+
   labs(title = "Top 10 states w/ Highest Colonies Renovated by Months, 2015-2021", 
        subtitle = "California leads the run for highest colonies renovated among all of the states",
@@ -104,7 +111,6 @@ colony %>%
 ```
 
 #### States with Highest Bee Colonies Added
-
 
 ```{r}
 max_colony_added <- colony %>% 
@@ -126,7 +132,7 @@ colony %>%
         axis.text.x = element_blank(), 
         legend.position = "bottom",
         plot.title = element_text(size = 20))+
-  scale_fill_paletteer_d("nationalparkcolors::Yosemite")+
+  scale_fill_paletteer_d("nationalparkcolors::Arches")+
   facet_wrap(~state, scales = "free_y")+
   labs(title = "Top 10 states w/ Highest Colonies Added by Months, 2015-2021", 
        subtitle = "California leads the run for highest colonies added among all of the states",
@@ -147,27 +153,160 @@ Let's focus on California and see what other trends and patterns can be observed
 
 
 ```{r}
-colony %>%
-  filter(state == "California") %>%
-  mutate(months = months %>% fct_relevel("January-March")) %>% 
-  ggplot(aes(colony_added, colony_lost, color = months)) +
-  geom_point() +
-  scale_y_continuous(labels = scales::comma_format()) +
-  scale_x_continuous(labels = scales::comma_format()) +
-  theme_minimal() +
-  theme(
-    text = element_text(family = "BenchNine"),
-    legend.position = "bottom",
-    plot.title = element_text(size = 20)
-  ) +
-  scale_color_paletteer_d("nationalparkcolors::Badlands")+
-  labs(x = "# of colonies added", 
-       y = "# of colonies lost",
-       title = "Colonies Added vs Colonies Lost in the California")
-  
+# colony %>%
+#   filter(state == "California") %>%
+#   mutate(months = months %>% fct_relevel("January-March")) %>% 
+#   ggplot(aes(colony_added, colony_lost, color = months)) +
+#   geom_point() +
+#   scale_y_continuous(labels = scales::comma_format()) +
+#   scale_x_continuous(labels = scales::comma_format()) +
+#   theme_minimal() +
+#   theme(
+#     text = element_text(family = "BenchNine"),
+#     legend.position = "bottom",
+#     plot.title = element_text(size = 20)
+#   ) +
+#   scale_color_paletteer_d("nationalparkcolors::Badlands")+
+#   labs(x = "# of colonies added", 
+#        y = "# of colonies lost",
+#        title = "Colonies Added vs Colonies Lost in the California")
+
+
+colony %>% 
+  filter(state == "California") %>% 
+  select(year, months, colony_added, colony_lost, colony_reno) %>% 
+  pivot_longer(-c(year, months)) %>% 
+  mutate(months = months %>% fct_reorder(value)) %>% 
+  ggplot(aes(months, value, fill = name))+
+  geom_boxplot(outlier.alpha = 0.8, outlier.colour = "midnightblue")+
+  scale_fill_paletteer_d("nationalparkcolors::Arches")+
+  theme(axis.ticks.x = element_line(color = "black"), 
+        axis.line.x = element_line(color = "black"), 
+        text = element_text(family = "BenchNine"), 
+        legend.position = "top", 
+        plot.title = element_markdown(face = "bold", size = 20))+
+  scale_y_continuous(labels = scales::comma_format())+
+  expand_limits(y = 0)+
+  labs(x = "", y = "Count", 
+       title = "<span style = 'color:#466D53'>California's Bee Colonies Stats</span>",
+       fill = "")
 ```
 
 It looks like California loses a lot of its bee colonies between January and March, but it also adds a lot during that same window. July-September sees a lot less bee colonies being lost and added. It is very difficult to generalize the idea that there is some relationship between when colonies are lost and when colonies are added. April-June sees a lot more colonies being added compared to colonies being lost. 
+
+### Post-Covid Observation
+
+```{r}
+colony %>% 
+  pivot_longer(cols = c(colony_lost, colony_added, colony_reno), names_to = "metrics") %>% 
+  mutate(post_covid = case_when(year <=2019 ~ "No", 
+                                TRUE ~ "Yes")) %>% 
+  ggplot(aes(year, value, group = year, fill = post_covid))+
+  geom_boxplot()+
+  facet_wrap(~metrics, scales = "free_y")+
+  expand_limits(y = 0)+
+  scale_y_log10(labels = scales::comma_format())+
+  scale_fill_paletteer_d("nationalparkcolors::Arches", direction = 1)+
+  theme(text = element_text(family = "BenchNine"), 
+        legend.position = "bottom")+
+  labs(x = "", 
+       y = "")
+```
+
+There doesn't seem to be a massive change in anything in the post-covid era. I was expecting some of the works to have gone down by little. I do think there might be increment in number of colonies added in the post-covid era. I think observing no change or a positive change is definitely a good sign even during the tough times. 
+
+
+### Colonies Lost in the United States by Month
+
+```{r}
+colony %>% 
+  mutate(months = months %>% fct_reorder(colony_lost)) %>% 
+  ggplot(aes(months, colony_lost, fill = months))+
+  facet_wrap(~year, scales = "free_y")+
+  geom_boxplot()+
+  scale_y_log10(labels = scales::comma_format())+
+  theme_light()+
+  theme(axis.text.x = element_blank(),
+        text        = element_text(family = "BenchNine"), 
+        plot.title  = element_markdown(face = "bold"))+
+  scale_fill_paletteer_d("nationalparkcolors::Arches")+
+  labs(x = "", y = "# of colonies lost (log-scaled plot)", 
+       title = "<span style = 'color:#466D53'>Colonies Lost in the United States by Months (2015 - 2021)</span>")
+  
+```
+
+
+### Colonies Added in the United States by Months
+
+```{r}
+colony %>%
+  mutate(months = months %>% fct_reorder(colony_added)) %>%
+  ggplot(aes(months, colony_added, fill = months)) +
+  facet_wrap( ~ year, scales = "free_y") +
+  geom_boxplot() +
+  scale_y_log10(labels = scales::comma_format()) +
+  theme_light() +
+  theme(
+    axis.text.x = element_blank(),
+    text        = element_text(family = "BenchNine"),
+    plot.title  = element_markdown(face = "bold", size = 15), 
+    plot.subtitle = element_markdown(face = "bold"),
+    legend.position = "bottom"
+  ) +
+  scale_fill_paletteer_d("nationalparkcolors::Arches") +
+  labs(
+    x = "",
+    y = "# of colonies added (log-scaled plot)",
+    title = "<span style = 'color:#466D53'>Colonies Added in the United States by Months (2015 - 2021)</span>",
+    subtitle = "Bee colonies seem to be added more between April-June", 
+    fill = ""
+  )
+```
+
+
+### Math Check
+
+```{r}
+colony %>% 
+  group_by(months, year) %>% 
+  summarize(colony_added_median = median(colony_added, na.rm = T)) %>% 
+  filter(year == 2018) %>% 
+  reactable::reactable()
+
+colony %>% 
+  group_by(months, year) %>% 
+  summarize(colony_added_sum = sum(colony_added, na.rm = T)) %>% 
+  filter(year == 2018) %>% 
+  reactable::reactable()
+```
+
+
+
+```{r}
+# colony %>%
+#   filter(year != 2021) %>%
+#   mutate(months = months %>% fct_reorder(colony_lost)) %>%
+#   ggplot(aes(year, colony_lost, color = months)) +
+#   geom_line() +
+#   facet_geo( ~ state, scales = "free_y") +
+#   theme(
+#     axis.text.x = element_text(angle = 90, vjust = 1),
+#     legend.position = "top",
+#     text = element_text(family = "BenchNine"),
+#     plot.title = element_markdown(size = 30, face = "bold")
+#   ) +
+#   scale_y_continuous(labels = scales::comma_format(scale = 10e-3, suffix = "k")) +
+#   scale_color_paletteer_d("nationalparkcolors::Arches") +
+#   labs(
+#     title = "<span style = 'color:#466D53'>Bee Colonies Lost by Months in the United States (2015 - 2020)</span>",
+#     x = "",
+#     y = "# of colonies lost",
+#     x = "",
+#     color = ""
+#   )
+```
+
+
 
 
 

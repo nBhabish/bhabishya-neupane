@@ -13,7 +13,7 @@ tags: []
 links:
 - icon: door-open
   icon_pack: fas
-  name: website
+  name: Application
   url: https://bhabishya-neupane.shinyapps.io/US-Natural-Gas-Demand-Forecast-Dashboard/
 - icon: github
   icon_pack: fab
