@@ -2,15 +2,15 @@
 action_label: Read More &rarr;
 action_link: /about
 action_type: text
-description: Grab a cup of coffee and check out my works! Also, my name is pronounced Va-vish-yuh (three syllables).
+description: I’m a recent graduate from the University of Nebraska - Lincoln w/ a Bachelor of Arts in Economics and Mathematics. I am interested in data analysis, data visualization, time series forecasting, and machine learning.
 image_left: true
 images:
-- img/bhabishya.JPG
+- img/headshot.jpg
 show_action_link: true
 show_social_links: true
 subtitle: Aspiring Data Scientist
 text_align_left: true
-title: Bhabishya N.
+title: Bhabishya Neupane
 type: home
 ---
 
