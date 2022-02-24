@@ -513,6 +513,7 @@ nav#SectionTableOfContents ul details {
 pre {
   @extend .pre, .br1, .pa3, .bg-transparent, .overflow-x-auto, .overflow-y-hidden;
   border: 1px solid #ebebeb;
+  background-color: #dbd7d7;
 }
 
 pre code span {
