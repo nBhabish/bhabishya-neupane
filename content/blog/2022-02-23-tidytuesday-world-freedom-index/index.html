@@ -76,7 +76,7 @@ showtext_auto()</code></pre>
 <div id="htmlwidget-3" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"country":["Montenegro","Serbia","South Sudan","Timor-Leste"],"n":[15,18,10,22]},"columns":[{"accessor":"country","name":"country","type":"character"},{"accessor":"n","name":"n","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"a5c0cf9a86bc49a14edebb82f6765f9a","key":"a5c0cf9a86bc49a14edebb82f6765f9a"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>It does look like for the most part all of the countries appear 26 times in the dataset except for Montenegro, Serbia, South Sudan, and Timor-Leste.</p>
-<p>There are a lot of things that we can uncover here. I will start off by looking at the number of developed and least developed countries. I will probably create a proportion chart by continent (or region in this dataset) to see what continent has higher proportion of least developed countries.</p>
+<p>There are a lot of things that we can uncover here. I will start off by looking at the number of developed and least developed countries. I will create a proportion chart by continent (or region in this dataset) to see what continent has higher proportion of least developed countries.</p>
 <p>We can also dig deeper into civil rights and political liberties index and see what scores the country receive.</p>
 <p>I would also love to take a deeper look at my country Nepal’s ranking when it comes to civil liberties and political rights.</p>
 <p>Less talk, more work!</p>
@@ -99,7 +99,7 @@ showtext_auto()</code></pre>
 <p>Takeaways from the plot:</p>
 <ul>
 <li>Africa has a lot more least developed countries than developed countries. The metadata informs is_ldc = 0 implies least developed, so I am assuming 1 to be considered developed.</li>
-<li>Europe doesn’t have a single least developed country. I am really intrigued to see the basis are used to categorize countries into least developed and developed. I don’t think that can be attained with this dataset, but it is very early doors for me to speak on that. We might find something that might give us some hint on categorizing methods.</li>
+<li>Europe doesn’t have a single least developed country. I am really intrigued on how these countries were classified.</li>
 <li>Oceania’s proportion of least developed countries seem to be higher than Asia.</li>
 <li>For Americas it is pretty self explanatory.</li>
 </ul>
@@ -236,25 +236,13 @@ freedom %&gt;%
        subtitle = &quot;Countries with lower political rights score seem to be more free&quot;, 
        fill = &quot;&quot;)</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<pre class="r"><code>freedom %&gt;% 
-  filter(year == 2020) %&gt;% 
-  pivot_longer(cols = civil_liberties:political_rights, names_to = &quot;metrics&quot;) %&gt;% 
-  mutate(metrics = metrics %&gt;% str_replace_all(&quot;_&quot;, &quot; &quot;) %&gt;% str_to_title()) %&gt;% 
-  mutate(region_name = region_name %&gt;% fct_reorder(value)) %&gt;% 
-  count(region_name, metrics, value) %&gt;% 
-  ggplot(aes(value, n, fill = region_name))+
-  geom_col()+
-  facet_grid(region_name~metrics)+
-  theme_light()+
-  theme(text = element_text(family = &quot;BenchNine&quot;))+
-  scale_fill_paletteer_d(&quot;nationalparkcolors::Arches&quot;)+
-  labs(fill = &quot;&quot;, x = &quot;&quot;, y = &quot;# of countries&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
-<div id="map" class="section level3">
-<h3>Map</h3>
+<div id="maps" class="section level3">
+<h3>Maps</h3>
 <div id="world-freedom-index-political-rights-score-2020" class="section level4">
 <h4>World Freedom Index: Political Rights Score (2020)</h4>
+<p><code>countrycode</code> package along with <code>map_data("world")</code> data from <code>ggplot2</code> allows for easy<br />
+mapping methods.</p>
 <pre class="r"><code>library(countrycode)
 
 freedom_joined &lt;- freedom %&gt;% 
@@ -276,7 +264,7 @@ freedom_joined %&gt;%
   theme(text = element_text(family = &quot;BenchNine&quot;), 
         plot.title = element_text(face = &quot;bold&quot;, size = 15, hjust = 0.5), 
         plot.subtitle = element_text(hjust = 0.5))</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>World Freedom Index: Civil Liberties Score Score (2020)</p>
 <pre class="r"><code>freedom_joined %&gt;% 
   filter(year == 2020) %&gt;% 
@@ -292,7 +280,7 @@ freedom_joined %&gt;%
   theme(text = element_text(family = &quot;BenchNine&quot;), 
         plot.title = element_text(face = &quot;bold&quot;, size = 15, hjust = 0.5), 
         plot.subtitle = element_text(hjust = 0.5))</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>World Freedom Index: Developed vs Least Developed Countries (2020)</p>
 <pre class="r"><code>freedom_joined %&gt;% 
   filter(year == 2020) %&gt;% 
@@ -307,7 +295,7 @@ freedom_joined %&gt;%
   theme(text = element_text(family = &quot;BenchNine&quot;), 
         plot.title = element_text(face = &quot;bold&quot;, size = 15, hjust = 0.5), 
         plot.subtitle = element_text(hjust = 0.5))</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 </div>
 </div>
 </div>

@@ -83,7 +83,7 @@ freedom %>%
 
 It does look like for the most part all of the countries appear 26 times in the dataset except for Montenegro, Serbia, South Sudan, and Timor-Leste. 
 
-There are a lot of things that we can uncover here. I will start off by looking at the number of developed and least developed countries. I will probably create a proportion chart by continent (or region in this dataset) to see what continent has higher proportion of least developed countries.  
+There are a lot of things that we can uncover here. I will start off by looking at the number of developed and least developed countries. I will create a proportion chart by continent (or region in this dataset) to see what continent has higher proportion of least developed countries.  
 
 We can also dig deeper into civil rights and political liberties index and see what scores the country receive.  
 
@@ -113,7 +113,7 @@ freedom %>%
 Takeaways from the plot: 
 
 - Africa has a lot more least developed countries than developed countries. The metadata informs is_ldc = 0 implies least developed, so I am assuming 1 to be considered developed. 
-- Europe doesn't have a single least developed country. I am really intrigued to see the basis are used to categorize countries into least developed and developed. I don't think that can be attained with this dataset, but it is very early doors for me to speak on that. We might find something that might give us some hint on categorizing methods. 
+- Europe doesn't have a single least developed country. I am really intrigued on how these countries were classified. 
 - Oceania's proportion of least developed countries seem to be higher than Asia. 
 - For Americas it is pretty self explanatory. 
 
@@ -263,30 +263,12 @@ freedom %>%
 ```
 
 
-
-
-```{r}
-freedom %>% 
-  filter(year == 2020) %>% 
-  pivot_longer(cols = civil_liberties:political_rights, names_to = "metrics") %>% 
-  mutate(metrics = metrics %>% str_replace_all("_", " ") %>% str_to_title()) %>% 
-  mutate(region_name = region_name %>% fct_reorder(value)) %>% 
-  count(region_name, metrics, value) %>% 
-  ggplot(aes(value, n, fill = region_name))+
-  geom_col()+
-  facet_grid(region_name~metrics)+
-  theme_light()+
-  theme(text = element_text(family = "BenchNine"))+
-  scale_fill_paletteer_d("nationalparkcolors::Arches")+
-  labs(fill = "", x = "", y = "# of countries")
-```
-
-
-### Map
-
-
+### Maps
 
 #### World Freedom Index: Political Rights Score (2020)
+
+`countrycode` package along with `map_data("world")` data from `ggplot2` allows for easy  
+mapping methods. 
 
 ```{r}
 library(countrycode)
