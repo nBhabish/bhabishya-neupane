@@ -1,0 +1,265 @@
+---
+title: '#TidyTuesday: Art Collections'
+author: Bhabishya Neupane
+date: '2022-02-24'
+slug: []
+excerpt: "I will be using `infer` package to find the average dimension of arts around the world"
+categories:
+  - statistical inference
+  - infer
+  - ggplot2
+  - tidytuesday
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+<script src="{{< blogdown/postref >}}index_files/core-js/shim.min.js"></script>
+<script src="{{< blogdown/postref >}}index_files/react/react.min.js"></script>
+<script src="{{< blogdown/postref >}}index_files/react/react-dom.min.js"></script>
+<script src="{{< blogdown/postref >}}index_files/reactwidget/react-tools.js"></script>
+<script src="{{< blogdown/postref >}}index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="{{< blogdown/postref >}}index_files/reactable-binding/reactable.js"></script>
+
+
+<div id="about-the-data" class="section level3">
+<h3>About the Data</h3>
+<pre class="toml"><code>The data comes from Tate Art Museum. </code></pre>
+</div>
+<div id="libraries" class="section level3">
+<h3>Libraries</h3>
+<p>Loading in my go-to libraries.</p>
+<pre class="r"><code># Analysis Pack
+library(tidyverse)
+library(tidytuesdayR)
+library(scales)
+library(infer)
+
+# Theming Pack
+library(nationalparkcolors)
+library(paletteer)
+
+# Styling Pack
+library(reactable)
+library(showtext)
+library(showtextdb)
+library(extrafont)
+library(extrafontdb)
+
+font_add_google(&quot;BenchNine&quot;, family = &quot;BenchNine&quot;)
+showtext_auto()</code></pre>
+</div>
+<div id="data" class="section level3">
+<h3>Data</h3>
+<pre class="r"><code>artwork &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-12/artwork.csv&#39;)
+artists &lt;- readr::read_csv(&quot;https://github.com/tategallery/collection/raw/master/artist_data.csv&quot;)</code></pre>
+<pre class="r"><code>artwork_artist_tbl &lt;- artwork %&gt;% 
+  left_join(artists, by = c(&quot;artist&quot; = &quot;name&quot;), suffix = c(&quot;&quot;, &quot;_ar_df&quot;)) %&gt;% 
+  separate(placeOfBirth, into = c(&quot;city&quot;, &quot;country&quot;), sep = &quot;, &quot;, extra = &quot;merge&quot;)
+
+artwork_artist_tbl %&gt;% 
+  filter(!is.na(country)) %&gt;% 
+  count(country, sort = T) %&gt;% 
+  reactable::reactable()</code></pre>
+<div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"country":["United Kingdom","United States","Deutschland","France","Éire","Italia","Australia","Argentina","Schweiz","España","Canada","Nihon","Bahamas","Belarus","Al-Lubnan","Nederland","Österreich","Polska","Bharat","South Africa","Portugal","België","Brasil","Rossiya","New Zealand","Danmark","Zhonghua","Yisra'el","Latvija","Misr","Ellás","România","Ukrayina","Îran","Norge","Pakistan","México","Sverige","Slovenská Republika","Chile","Magyarország","Ceská Republika","Viet Nam","Cuba","Sri Lanka","Hrvatska","Venezuela","Bosna i Hercegovina","Cameroun","Colombia","Zambia","Slovenija","Tunis","Türkiye","Jugoslavija","Moldova","Taehan Min'guk","Bangladesh","Bulgaria","Guyana","Indonesia","Luxembourg","Perú","D.C., Colombia","Département de la, France","Jamaica","Mehoz, Yisra'el","Shqipëria","Tanzania","Al-Jaza'ir","Lao","Mauritius","Al-‘Iraq","Choson Minjujuui In'min Konghwaguk","Eesti","Ísland","Kenya","Makedonija","Malaysia","Malta","Nicaragua","Otok, Hrvatska","Panamá","Pilipinas","Prathet Thai","Suomi","Suriyah","Uganda"],"n":[55502,2656,1973,785,336,284,263,229,221,192,182,168,164,154,143,142,138,129,122,112,109,104,102,102,86,70,67,65,49,49,48,43,43,41,37,29,27,26,22,21,21,20,16,15,15,13,13,12,11,11,10,8,8,8,5,5,5,4,4,4,4,4,4,3,3,3,3,3,3,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},"columns":[{"accessor":"country","name":"country","type":"character"},{"accessor":"n","name":"n","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"16500f35701d53c7bc82a2248938d99d","key":"16500f35701d53c7bc82a2248938d99d"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p>Tate Art Museum is a museum based in the United Kingdom, so I am not really surprised to see the UK arts being reported more frequently in this dataset.</p>
+<pre class="r"><code>artwork_artist_tbl %&gt;% 
+  count(country, artist, sort = T)</code></pre>
+<pre><code>## # A tibble: 3,339 × 3
+##    country        artist                             n
+##    &lt;chr&gt;          &lt;chr&gt;                          &lt;int&gt;
+##  1 United Kingdom Turner, Joseph Mallord William 39389
+##  2 &lt;NA&gt;           Jones, George                   1046
+##  3 United Kingdom Moore, Henry, OM, CH             623
+##  4 United Kingdom Daniell, William                 612
+##  5 Deutschland    Beuys, Joseph                    578
+##  6 &lt;NA&gt;           British (?) School               388
+##  7 United Kingdom Paolozzi, Sir Eduardo            385
+##  8 United Kingdom Flaxman, John                    287
+##  9 United Kingdom Phillips, Esq Tom                274
+## 10 United States  Warhol, Andy                     272
+## # … with 3,329 more rows</code></pre>
+<p>A lot of the United Kingdom’s records in this dataset comes from Turner, Joseph Mallord William. According to Wikipedia, he was known as romantic painter, print maker, and water colorist. I am googling his paintings right now, and they are something.</p>
+</div>
+<div id="statistical-inference" class="section level3">
+<h3>Statistical Inference</h3>
+<p>I am interested in learning more about the average dimension of the arts (average height, width, and depth). I think one way to go about this would be to collect all the arts available in the world and measure their dimension which is not just super expensive but also impossible. Another way to learn about the average dimension of the art would be to create bootstrap resamples and calculate their means.</p>
+<div id="assumptions" class="section level4">
+<h4>Assumptions:</h4>
+<ul>
+<li>I am assuming this dataset to be randomly sampled, so that any inference made using this sample can be generalized.</li>
+<li>I am assuming this dataset to be representative of all of the art works around the world.</li>
+</ul>
+<p>My population parameter of interest is the average dimension of an art which is unknown. However, I have this dataset as a sample. I am going to consider using this sample to create bootstrapped resamples and calculate the average dimension on those bootstrapped resamples. In order to proceed ahead, I am going to use <code>infer</code> for virtual bootstrap simulation and inference. Go check out <code>infer</code> package!!!</p>
+</div>
+</div>
+<div id="distribution-of-dimensions-from-the-sample" class="section level3">
+<h3>Distribution of dimensions from the sample</h3>
+<pre class="r"><code>artwork_artist_tbl %&gt;%
+  filter(!is.na(height)) %&gt;%
+  ggplot(aes(height)) +
+  geom_histogram(color = &quot;white&quot;, fill = &quot;#F6955E&quot;, alpha = 0.8) +
+  scale_x_log10() +
+  geom_vline(xintercept = artwork_artist_tbl %&gt;% summarize(avg_height = mean(height, na.rm = T)) %&gt;% pull(avg_height), lty = 2, size = 1.5)+
+  theme_minimal()+
+  theme(text = element_text(family = &quot;BenchNine&quot;), 
+        plot.title = element_text(size = 15, face = &quot;bold&quot;, hjust = 0.5), 
+        plot.subtitle = element_text(hjust = 0.5))+
+  labs(x = &quot;Height (mm)&quot;, 
+       y = &quot;# of arts&quot;, 
+       title = &quot;Distribution of Height&quot;, 
+       subtitle = &quot;The dashed line represents the average height of art works from original sample i.e. 346.88 mm, and x-axis is log scaled&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>artwork_artist_tbl %&gt;%
+  filter(!is.na(width)) %&gt;%
+  ggplot(aes(width)) +
+  geom_histogram(color = &quot;white&quot;, fill = &quot;#F6955E&quot;, alpha = 0.8) +
+  scale_x_log10() +
+  geom_vline(xintercept = artwork_artist_tbl %&gt;% summarize(avg_width = mean(width, na.rm = T)) %&gt;% pull(avg_width), lty = 2, size = 1.5)+
+  theme_minimal()+
+  theme(text = element_text(family = &quot;BenchNine&quot;), 
+        plot.title = element_text(size = 15, face = &quot;bold&quot;, hjust = 0.5), 
+        plot.subtitle = element_text(hjust = 0.5))+
+  labs(x = &quot;Width (mm)&quot;, 
+       y = &quot;# of arts&quot;, 
+       title = &quot;Distribution of Width&quot;, 
+       subtitle = &quot;The dashed line represents the average depth of artworks from original sample i.e. 323.81 mm, and x-axis is log scaled&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>artwork_artist_tbl %&gt;%
+  filter(!is.na(depth)) %&gt;%
+  ggplot(aes(depth)) +
+  geom_histogram(color = &quot;white&quot;, fill = &quot;#F6955E&quot;, alpha = 0.8) +
+  scale_x_log10() +
+  geom_vline(xintercept = artwork_artist_tbl %&gt;% summarize(avg_depth = mean(depth, na.rm = T)) %&gt;% pull(avg_depth), lty = 2, size = 1.5)+
+  theme_minimal()+
+  theme(text = element_text(family = &quot;BenchNine&quot;), 
+        plot.title = element_text(size = 15, face = &quot;bold&quot;, hjust = 0.5), 
+        plot.subtitle = element_text(hjust = 0.5))+
+  labs(x = &quot;Depth (mm)&quot;, 
+       y = &quot;# of arts&quot;, 
+       title = &quot;Distribution of Depth&quot;, 
+       subtitle = &quot;The dashed line represents the average depth of art works from original sample i.e. 477.11 mm, and x-axis is log scaled&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Since, I have assumed this dataset to be representative of all art works around the world. I think a good starting point to think of average dimension would be to calculate the averages from this dataset which is 346.88 mm in height, 323.81 mm in width, and 477.11 mm in depth.</p>
+</div>
+<div id="resampling" class="section level3">
+<h3>Resampling</h3>
+<p>I will perform a 1000 bootstrap resample on my original sample which is this dataset and calculate averages on the resamples for height, width, and depth.</p>
+<p>I am not going to get into explaining what confidence interval and p-values are. I think a good place to learn about them using this similar workflow would be <a href="https://moderndive.com/8-confidence-intervals.html">Statistical Inference via Data Science</a>. I would highly recommend checking out this book if you want to have a clear concept on standard error, confidence intervals, resampling, bootstraps, hypothesis testing, etc.</p>
+<div id="bootstrap-distribution-of-height" class="section level4">
+<h4>Bootstrap Distribution of Height</h4>
+<pre class="r"><code>artwork_height_bootstrapped_means &lt;- artwork_artist_tbl %&gt;% 
+  filter(!is.na(height)) %&gt;%
+  rowid_to_column(var = &quot;ID&quot;) %&gt;% 
+  select(ID, height) %&gt;% 
+  specify(response = height) %&gt;% 
+  generate(reps = 1000, type = &quot;bootstrap&quot;) %&gt;% 
+  calculate(stat = &quot;mean&quot;)</code></pre>
+<pre class="r"><code>height_ci_endpoints &lt;- artwork_height_bootstrapped_means %&gt;% 
+  get_ci()
+
+
+artwork_height_bootstrapped_means %&gt;%
+  ggplot(aes(stat)) +
+  geom_histogram(fill = &quot;#F6955E&quot;, color = &quot;white&quot;) +
+  shade_ci(
+    endpoints = height_ci_endpoints,
+    color = &quot;midnightblue&quot;,
+    fill = &quot;#A8CDEC&quot;,
+    linetype = &quot;dashed&quot;
+  ) +
+  labs(title   = &quot;Simulation-Based Bootstrap Distribution of Height&quot;,
+       y       = &quot;# of resamples&quot;,
+       x       = &quot;Resampled Means&quot;) +
+  geom_vline(
+    xintercept = artwork %&gt;% summarize(avg_height = mean(height, na.rm = T)) %&gt;% pull(avg_height),
+    color = &quot;midnightblue&quot;,
+    size  = 1.5,
+    lty = 5
+  ) +
+  theme_minimal() +
+  theme(
+    text = element_text(family = &quot;BenchNine&quot;),
+    plot.title = element_text(size = 15, face = &quot;bold&quot;, hjust = 0.5)
+  )</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="bootstrap-distribution-of-width" class="section level4">
+<h4>Bootstrap Distribution of Width</h4>
+<pre class="r"><code>artwork_width_bootstrapped_means &lt;- artwork_artist_tbl %&gt;% 
+  filter(!is.na(width)) %&gt;%
+  rowid_to_column(var = &quot;ID&quot;) %&gt;% 
+  select(ID, width) %&gt;% 
+  specify(response = width) %&gt;% 
+  generate(reps = 1000, type = &quot;bootstrap&quot;) %&gt;% # generating 1000 bootstrapped 
+  calculate(stat = &quot;mean&quot;)</code></pre>
+<pre class="r"><code>width_ci_endpoints &lt;- artwork_width_bootstrapped_means %&gt;% 
+  get_ci()
+
+artwork_width_bootstrapped_means %&gt;%
+  ggplot(aes(stat)) +
+  geom_histogram(fill = &quot;#F6955E&quot;, color = &quot;white&quot;) +
+  shade_ci(
+    endpoints = width_ci_endpoints,
+    color = &quot;midnightblue&quot;,
+    fill = &quot;#A8CDEC&quot;,
+    linetype = &quot;dashed&quot;
+  ) +
+  labs(title   = &quot;Simulation-Based Bootstrap Distribution of Width&quot;,
+       y       = &quot;# of resamples&quot;,
+       x       = &quot;Resampled Means&quot;) +
+  geom_vline(
+    xintercept = artwork %&gt;% summarize(avg_width = mean(width, na.rm = T)) %&gt;% pull(avg_width),
+    color = &quot;midnightblue&quot;,
+    size  = 1.5,
+    lty = 5
+  ) +
+  theme_minimal() +
+  theme(
+    text = element_text(family = &quot;BenchNine&quot;),
+    plot.title = element_text(size = 15, face = &quot;bold&quot;, hjust = 0.5)
+  )</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="bootstrap-distribution-of-depth" class="section level4">
+<h4>Bootstrap Distribution of Depth</h4>
+<pre class="r"><code>artwork_depth_bootstrapped_means &lt;- artwork_artist_tbl %&gt;% 
+  filter(!is.na(depth)) %&gt;%
+  rowid_to_column(var = &quot;ID&quot;) %&gt;% 
+  select(ID, depth) %&gt;% 
+  specify(response = depth) %&gt;% 
+  generate(reps = 1000, type = &quot;bootstrap&quot;) %&gt;% # generating 1000 bootstrapped 
+  calculate(stat = &quot;mean&quot;)</code></pre>
+<pre class="r"><code>depth_ci_endpoints &lt;- artwork_depth_bootstrapped_means %&gt;% 
+  get_ci()
+
+artwork_depth_bootstrapped_means %&gt;%
+  ggplot(aes(stat)) +
+  geom_histogram(fill = &quot;#F6955E&quot;, color = &quot;white&quot;) +
+  shade_ci(
+    endpoints = depth_ci_endpoints,
+    color = &quot;midnightblue&quot;,
+    fill = &quot;#A8CDEC&quot;,
+    linetype = &quot;dashed&quot;
+  ) +
+  labs(title   = &quot;Simulation-Based Bootstrap Distribution of Depth&quot;,
+       y       = &quot;# of resamples&quot;,
+       x       = &quot;Resampled Means&quot;) +
+  geom_vline(
+    xintercept = artwork %&gt;% summarize(avg_depth = mean(depth, na.rm = T)) %&gt;% pull(avg_depth),
+    color = &quot;midnightblue&quot;,
+    size  = 1.5,
+    lty = 5
+  ) +
+  theme_minimal() +
+  theme(
+    text = element_text(family = &quot;BenchNine&quot;),
+    plot.title = element_text(size = 15, face = &quot;bold&quot;, hjust = 0.5)
+  )</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<p>From the simulated plots above, we can see that if we were to repeat the same sampling procedure a large number of times, we expect about 95% of the intervals to capture the value of the true population parameter. In this case, we can see our original sample mean is captured in the 95% confidence interval (percentile method).</p>
+</div>
