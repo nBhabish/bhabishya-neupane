@@ -10,7 +10,7 @@ intro: |
 
   I am also a massive football (or, shall I say "soccer") enthusiast. I have been a Manchester United fan for more than 15 years. I know we're not doing great at the moment, but we will be back to winning trophies soon. 
   
-  I am currently residing in Lincoln, NE and actively seeking Data Science opportunities. Please feel free to reach out if you find my works interesting.
+  Currently, I am residing in Lincoln, NE and actively seeking Data Science opportunities. Please feel free to reach out if you find my works interesting.
 
 show_outro: true
 outro: |
