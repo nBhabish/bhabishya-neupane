@@ -12,28 +12,40 @@ categories:
 tags: []
 ---
 
-```{r}
+```{r include = FALSE}
 library(knitr)
-knitr::opts_chunk$set(cache = TRUE, warning = FALSE, message = FALSE, 
-                      echo = TRUE, dpi = 300, cache.lazy = FALSE,
-                      tidy = "styler", fig.width = 8, fig.height = 5)
+knitr::opts_chunk$set(cache = FALSE, warning = FALSE, message = FALSE, 
+                      echo = TRUE, dpi = 300, cache.lazy = FALSE, fig.width = 8,
+                      fig.height = 5)
 ```
 
 ### Libraries
 
+Loading my go-to libraries. 
+
 ```{r}
+# Analysis Pack
 library(tidyverse)
+library(tidytuesdayR)
+library(scales)
+library(infer)
+library(fuzzyjoin)
+
+# Theming Pack
 library(nationalparkcolors)
 library(paletteer)
-library(tidytuesdayR)
-library(extrafontdb)
+
+# Styling Pack
+library(reactable)
+library(showtext)
 library(showtextdb)
 library(extrafont)
-library(showtext)
-library(timetk)
+library(extrafontdb)
+library(reactable)
+library(reactablefmtr)
+
+
 showtext_auto()
-library(silgelib)
-theme_set(theme_plex())
 font_add_google("BenchNine", family = "BenchNine")
 ```
 
@@ -47,12 +59,30 @@ big_mac <- readr::read_csv('https://raw.githubusercontent.com/TheEconomist/big-m
 ```
 
 
+```{r include = FALSE}
+big_mac %>% 
+  reactable::reactable()
+```
+
+
+```{r include = FALSE}
+big_mac %>% 
+  count(country, sort = TRUE) %>% 
+  add_count(n, sort = TRUE) %>% 
+  reactable(
+    columns = list(
+      country = colDef(
+        cell = color_tiles(., color_by = "nn", colors = c("#A8CDEC","#F6955E","#682C37","#9B6981", "#7887A4","#A89F8E"), box_shadow = TRUE)
+      )
+    )
+  )
+```
+
+
+
+
 ### Exploratory Data Visualization
 
-Using burgernomics, we can estimate how much one currency is under or over-valued relative to another. 
-
-- I have used `scale_y_log10` on the y-axis, so here's what `scale_y_log10` does:
-`scale_y_log10` makes the counts, converts them to logs, stacks those logs, and then displays the scale in the anti-log form. 
 
 ```{r}
 big_mac %>% 

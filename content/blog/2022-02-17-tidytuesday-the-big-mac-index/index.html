@@ -21,24 +21,31 @@ tags: []
 <script src="{{< blogdown/postref >}}index_files/reactable-binding/reactable.js"></script>
 
 
-<pre class="r"><code>library(knitr)
-knitr::opts_chunk$set(cache = TRUE, warning = FALSE, message = FALSE, 
-                      echo = TRUE, dpi = 300, cache.lazy = FALSE,
-                      tidy = &quot;styler&quot;, fig.width = 8, fig.height = 5)</code></pre>
 <div id="libraries" class="section level3">
 <h3>Libraries</h3>
-<pre class="r"><code>library(tidyverse)
+<p>Loading my go-to libraries.</p>
+<pre class="r"><code># Analysis Pack
+library(tidyverse)
+library(tidytuesdayR)
+library(scales)
+library(infer)
+library(fuzzyjoin)
+
+# Theming Pack
 library(nationalparkcolors)
 library(paletteer)
-library(tidytuesdayR)
-library(extrafontdb)
+
+# Styling Pack
+library(reactable)
+library(showtext)
 library(showtextdb)
 library(extrafont)
-library(showtext)
-library(timetk)
+library(extrafontdb)
+library(reactable)
+library(reactablefmtr)
+
+
 showtext_auto()
-library(silgelib)
-theme_set(theme_plex())
 font_add_google(&quot;BenchNine&quot;, family = &quot;BenchNine&quot;)</code></pre>
 </div>
 <div id="data" class="section level3">
@@ -50,11 +57,6 @@ font_add_google(&quot;BenchNine&quot;, family = &quot;BenchNine&quot;)</code></p
 </div>
 <div id="exploratory-data-visualization" class="section level3">
 <h3>Exploratory Data Visualization</h3>
-<p>Using burgernomics, we can estimate how much one currency is under or over-valued relative to another.</p>
-<ul>
-<li>I have used <code>scale_y_log10</code> on the y-axis, so here’s what <code>scale_y_log10</code> does:
-<code>scale_y_log10</code> makes the counts, converts them to logs, stacks those logs, and then displays the scale in the anti-log form.</li>
-</ul>
 <pre class="r"><code>big_mac %&gt;% 
   filter(country_total == max(country_total)) %&gt;% 
   select(date, local_price, dollar_price, country) %&gt;% 
@@ -71,7 +73,7 @@ font_add_google(&quot;BenchNine&quot;, family = &quot;BenchNine&quot;)</code></p
         axis.text.x = element_text(angle = 90, hjust = 1))+
   labs(x = &quot;&quot;, 
        y = &quot;Big Mac Price&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="2400" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="2400" /></p>
 </div>
 <div id="takeaway-from-this-plot" class="section level3">
 <h3>Takeaway from this plot</h3>
@@ -89,7 +91,7 @@ font_add_google(&quot;BenchNine&quot;, family = &quot;BenchNine&quot;)</code></p
        title = &quot;&quot;)+
   theme(text = element_text(family = &quot;BenchNine&quot;),
         plot.title = element_text(size = 15))</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="2400" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="2400" /></p>
 <pre class="r"><code>big_mac %&gt;% 
   filter(country_total == max(country_total)) %&gt;% 
   group_by(country) %&gt;% 
@@ -105,7 +107,7 @@ font_add_google(&quot;BenchNine&quot;, family = &quot;BenchNine&quot;)</code></p
        caption = &quot;Data Source: The Economist&quot;)+
   theme(text = element_text(family = &quot;BenchNine&quot;),
         plot.title = element_text(size = 15))</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="2400" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="2400" /></p>
 <pre class="r"><code>big_mac %&gt;% 
   filter(country_total == max(country_total)) %&gt;% 
   ggplot(aes(date, dollar_price))+
@@ -117,7 +119,7 @@ font_add_google(&quot;BenchNine&quot;, family = &quot;BenchNine&quot;)</code></p
   labs(x = &quot;&quot;, 
        y = &quot;Big Mac Price in Dollars&quot;, 
        title = &quot;Countries and their Big Mac Price in Dollars between 2000 to 2021&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="2400" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="2400" /></p>
 </div>
 <div id="checking-the-math" class="section level3">
 <h3>Checking the Math</h3>
@@ -141,5 +143,5 @@ font_add_google(&quot;BenchNine&quot;, family = &quot;BenchNine&quot;)</code></p
   geom_line()+
   facet_wrap(~country, scales = &quot;free_y&quot;)+
   expand_limits(y = 0)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="2400" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="2400" /></p>
 </div>
