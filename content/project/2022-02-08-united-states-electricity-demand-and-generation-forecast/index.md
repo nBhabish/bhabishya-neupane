@@ -14,7 +14,7 @@ tags: []
 links:
 - icon: door-open
   icon_pack: fas
-  name: website
+  name: Application
   url: https://bhabishya-neupane.shinyapps.io/US-Electricity-Forecast/
 - icon: github
   icon_pack: fab
@@ -24,9 +24,9 @@ links:
 
 ### About the Data
 
-The data comes from Rami Krispin's GitHub, Data Science and Engineering Manager @Apple. By no means, I am trying to take credit for how much he has contributed as an open source contributor. 99.99 % of heavylifting was done by him.
+The data comes from [Rami Krispin's GitHub](https://www.linkedin.com/in/rami-krispin/). By no means, I am trying to take credit for how much he has contributed as an open source contributor. 99.99 % of heavylifting was done by him.
 
-Also, I decided to pick this data up as a #TidyTuesday project, hence not a lot of time was spent putting this together. Only 12-13 hours was spent working on this project. So, please don't be harsh. At some point, I will go back to fix some of my mistakes in there.
+Also, I decided to pick this data up as a #TidyTuesday project, hence not a lot of time was spent putting this together. Only 12-13 hours was spent working on this project. So, please don't be harsh. At some point, I will go back to fixing some things in there. 
 
 ```toml
 Please click the link above to view dashboard.

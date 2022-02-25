@@ -14,7 +14,7 @@ tags: []
 links:
 - icon: door-open
   icon_pack: fas
-  name: website
+  name: Application
   url: https://bhabishya-neupane.shinyapps.io/price_prediction_app/
 ---
 
