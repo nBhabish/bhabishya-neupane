@@ -2,7 +2,7 @@
 title: '#TidyTuesday: Chocolate Ratings'
 author: Bhabishya Neupane
 date: '2022-02-16'
-excerpt: Visualizing and extracting information from chocolate ratings
+excerpt: Visualizing and extracting information from chocolate ratings reviewed by The Manhattan Chocolate Society
 slug: []
 categories:
   - tidyverse
@@ -156,7 +156,7 @@ chocolate %&gt;%
   geom_col(position = &quot;dodge&quot;, width = 0.5) +
   theme(
     text = element_text(family = &quot;BenchNine&quot;),
-    legend.position = &quot;bottom&quot;,
+    legend.position = &quot;top&quot;,
     plot.title = element_text(size = 15, face = &quot;bold&quot;)
   ) +
   scale_fill_paletteer_d(&quot;nationalparkcolors::SmokyMountains&quot;) +
@@ -182,35 +182,15 @@ chocolate %&gt;%
   labs(x = &quot;&quot;, 
        y = &quot;&quot;, 
        title = &quot;Top 10 Frequently Reviewed Chocolate Manufacturing Companies in the United States&quot;, 
-       subtitle = &quot;This Review was conducted by The Manhattan Chocolate Society&quot;,
        caption = &quot;Data Source: The Manhattan Chocolate Society&quot;)+
   theme(text = element_text(family = &quot;BenchNine&quot;),
         plot.title = element_text(size = 12.5))</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
-<div id="section" class="section level3">
-<h3></h3>
-<pre class="r"><code>chocolate %&gt;% 
-  filter(company_location == &quot;U.S.A.&quot;) %&gt;% 
-  mutate(cocoa_percent = parse_number(cocoa_percent)) %&gt;% 
-  add_count(country_of_bean_origin) %&gt;% 
-  filter(
-    country_of_bean_origin != &quot;Blend&quot;,
-    n &gt;= 45) %&gt;% 
-  select(-n) %&gt;% 
-  add_count(company_manufacturer) %&gt;% 
-  filter(n&gt;=10) %&gt;% 
-  count(company_manufacturer, cocoa_percent, rating) %&gt;% 
-  ggplot(aes(rating, n, fill = cocoa_percent))+
-  geom_col()+
-  facet_wrap(~company_manufacturer)+
-  theme(text = element_text(family = &quot;BenchNine&quot;),
-        plot.title = element_text(size = 12.5))+
-  scale_fill_gradient(high = &quot;#769370&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-</div>
-<div id="cocoa-percent-distribution-histogram-in-the-united-states" class="section level3">
-<h3>Cocoa Percent Distribution Histogram in the United States</h3>
+<div id="cocoa-percent-distribution" class="section level3">
+<h3>Cocoa Percent Distribution</h3>
+<div id="in-the-united-states" class="section level4">
+<h4>In the United States</h4>
 <pre class="r"><code>chocolate %&gt;% 
   filter(company_location == &quot;U.S.A.&quot;) %&gt;% 
   mutate(cocoa_percent = parse_number(cocoa_percent)) %&gt;% 
@@ -224,11 +204,11 @@ chocolate %&gt;%
   theme(text = element_text(family = &quot;BenchNine&quot;),
         plot.title = element_text(size = 20))+
   scale_x_continuous(labels = scales::percent_format(scale = 1/1))</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>From the above plot, it does look like most of the companies reviewed by The Manhattan Chocolate Society had cocoa in their products between 70% to 75%.</p>
 </div>
-<div id="cocoa-percent-distribution-histogram-across-the-world" class="section level3">
-<h3>Cocoa Percent Distribution Histogram across the World</h3>
+<div id="across-the-world" class="section level4">
+<h4>Across the World</h4>
 <pre class="r"><code>chocolate %&gt;% 
   mutate(cocoa_percent = parse_number(cocoa_percent)) %&gt;% 
   ggplot(aes(cocoa_percent))+
@@ -241,8 +221,8 @@ chocolate %&gt;%
   theme(text = element_text(family = &quot;BenchNine&quot;),
         plot.title = element_text(size = 20))+
   scale_x_continuous(labels = scales::percent_format(scale = 1/1))</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>Most of the chocolate manufacturing companies reviewed around the world have cocoa usage of 70% to 75% in their products.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
 </div>
 <div id="word-used-to-describe-the-chocolate-in-the-usa" class="section level3">
 <h3>Word Used to Describe the Chocolate in the USA</h3>
@@ -264,7 +244,7 @@ chocolate %&gt;%
        x = &quot;Rating&quot;, 
        title = &quot;Distribution of Chocolate&#39;s First Memorable Characteristics in the USA&quot;, 
        caption = &quot;Data Source: The Manhattan Chocolate Society&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre class="r"><code>freq_reviewed_4_us_companies &lt;- chocolate %&gt;% 
   filter(company_location == &quot;U.S.A.&quot;) %&gt;% 
   count(company_manufacturer, sort = T) %&gt;% 
@@ -287,8 +267,8 @@ freq_reviewed_4_us_companies %&gt;%
   labs(x = &quot;Memorable Characteristics&quot;, y = &quot;&quot;, 
        title = &quot;Words used to describe the highly reviewed chocolate companies in the United States&quot;,
        caption = &quot;Data Source: The Manhattan Chocolate Society&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<p>The plot isn’t very informative, but Guittard products were described as “creamy” and “sweet” more often than not.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>The plot isn’t super informative, but Guittard products were described as “creamy” and “sweet” more often than not.</p>
 <pre class="r"><code>chocolate %&gt;% 
   mutate(most_memorable_characteristics = str_split(most_memorable_characteristics, pattern = &quot;, |,&quot;)) %&gt;% 
   unnest_wider(most_memorable_characteristics) %&gt;% 

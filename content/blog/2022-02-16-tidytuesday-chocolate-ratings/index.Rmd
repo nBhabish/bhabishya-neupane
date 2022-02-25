@@ -2,7 +2,7 @@
 title: '#TidyTuesday: Chocolate Ratings'
 author: Bhabishya Neupane
 date: '2022-02-16'
-excerpt: Visualizing and extracting information from chocolate ratings
+excerpt: Visualizing and extracting information from chocolate ratings reviewed by The Manhattan Chocolate Society
 slug: []
 categories:
   - tidyverse
@@ -39,7 +39,6 @@ font_add_google("BenchNine", family = "BenchNine")
 ```{r}
 chocolate <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv') %>% 
   mutate(first_memorable_characteristics = str_remove(most_memorable_characteristics, pattern = ",.*"))
-
 ```
 
 ### Exploratory Data Visualization
@@ -162,7 +161,7 @@ chocolate %>%
   geom_col(position = "dodge", width = 0.5) +
   theme(
     text = element_text(family = "BenchNine"),
-    legend.position = "bottom",
+    legend.position = "top",
     plot.title = element_text(size = 15, face = "bold")
   ) +
   scale_fill_paletteer_d("nationalparkcolors::SmokyMountains") +
@@ -190,37 +189,15 @@ chocolate %>%
   labs(x = "", 
        y = "", 
        title = "Top 10 Frequently Reviewed Chocolate Manufacturing Companies in the United States", 
-       subtitle = "This Review was conducted by The Manhattan Chocolate Society",
        caption = "Data Source: The Manhattan Chocolate Society")+
   theme(text = element_text(family = "BenchNine"),
         plot.title = element_text(size = 12.5))
 ```
 
-###
 
-```{r}
-chocolate %>% 
-  filter(company_location == "U.S.A.") %>% 
-  mutate(cocoa_percent = parse_number(cocoa_percent)) %>% 
-  add_count(country_of_bean_origin) %>% 
-  filter(
-    country_of_bean_origin != "Blend",
-    n >= 45) %>% 
-  select(-n) %>% 
-  add_count(company_manufacturer) %>% 
-  filter(n>=10) %>% 
-  count(company_manufacturer, cocoa_percent, rating) %>% 
-  ggplot(aes(rating, n, fill = cocoa_percent))+
-  geom_col()+
-  facet_wrap(~company_manufacturer)+
-  theme(text = element_text(family = "BenchNine"),
-        plot.title = element_text(size = 12.5))+
-  scale_fill_gradient(high = "#769370")
-```
+### Cocoa Percent Distribution
 
-
-
-### Cocoa Percent Distribution Histogram in the United States 
+#### In the United States
 
 ```{r}
 chocolate %>% 
@@ -240,9 +217,7 @@ chocolate %>%
 
 From the above plot, it does look like most of the companies reviewed by The Manhattan Chocolate Society had cocoa in their products between 70% to 75%. 
 
-
-### Cocoa Percent Distribution Histogram across the World 
-
+#### Across the World
 
 ```{r}
 chocolate %>% 
@@ -259,7 +234,6 @@ chocolate %>%
   scale_x_continuous(labels = scales::percent_format(scale = 1/1))
 ```
 
-Most of the chocolate manufacturing companies reviewed around the world have cocoa usage of 70% to 75% in their products. 
 
 ### Word Used to Describe the Chocolate in the USA
 
@@ -311,8 +285,7 @@ chocolate %>%
        caption = "Data Source: The Manhattan Chocolate Society")
 ```
 
-The plot isn't very informative, but Guittard products were described as "creamy" and "sweet" more often than not. 
-
+The plot isn't super informative, but Guittard products were described as "creamy" and "sweet" more often than not. 
 
 ```{r}
 chocolate %>% 
