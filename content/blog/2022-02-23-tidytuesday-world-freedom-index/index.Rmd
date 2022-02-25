@@ -4,7 +4,7 @@ author: Bhabishya Neupane
 date: '2022-02-23'
 slug: []
 draft: false
-excerpt: Digging deeper and understanding how free the countries are across the world, and how have things changed over time. 
+excerpt: Digging deeper and understanding how free the countries are across the world
 categories:
   - data viz
   - ggplot2
@@ -28,7 +28,6 @@ library(tidyverse)
 library(tidytuesdayR)
 library(scales)
 library(infer)
-library(fuzzyjoin)
 
 # Theming Pack
 library(nationalparkcolors)
