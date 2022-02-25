@@ -10,7 +10,7 @@ link_list:
 - name: Premier League
   url: https://twitter.com/search?q=premier+league&ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Esearch
 - name: Formula 1
-  url: https://en.wikipedia.org/wiki/Pastry
+  url: https://twitter.com/search?q=formula+1&ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Esearch
 ---
 
 ** index doesn't contain a body, just front matter above.
