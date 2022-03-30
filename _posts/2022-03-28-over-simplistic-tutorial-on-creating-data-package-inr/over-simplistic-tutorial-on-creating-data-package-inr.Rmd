@@ -1,0 +1,136 @@
+---
+title: "Over-simplistic approach to create a R data package"
+description: |
+  This is a note to myself! 
+author: Bhabishya Neupane
+date: 2022-03-28
+preview: https://miro.medium.com/max/1400/1*dhGDw_mJ2yt7i9VwehDsiQ.png
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 4
+twitter:
+  site: "@_bhabishya_"
+  creator: "@_bhabishya_"
+categories:
+  - usethis
+  - pkgdown
+  - tutorial
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# How to go about it?
+
+Again, this will be more of a note to myself. 
+
+1. Create a new github repo. 
+2. Create a new RStudio project. 
+3. Clone the repo and make a version control project.
+
+4. Get all the essentials by running the following piece of code:
+
+```{r eval = FALSE}
+usethis::create_package(path = "give your path") # Make sure to use `getwd()` full file path. 
+```
+
+5. If we have raw data, then run:
+
+```{r eval = FALSE}
+usethis::use_data_raw()
+```
+
+After doing so, you'll see a `data-raw` folder in your project directory.
+
+6. In `data-raw` folder, we'll have `DATASET.R` file where we can clean the script. 
+
+7. On that very script, at the very bottom make sure to update the cleaned data. 
+
+```{r eval = FALSE}
+usethis::use_data(name_of_your_cleaned_data, overwrite = TRUE)
+```
+
+8. Do a quick check using:
+
+```{r eval = FALSE}
+devtools::check(document = FALSE)
+```
+
+9. You'll probably get some warnings and messages, read them carefully. 
+
+10. Document the datasets (example from my own package):
+
+```{r eval=FALSE}
+usethis::use_r("name_of_your_cleaned_dataset")
+```
+
+```{r eval = FALSE}
+#' Dairy Foods Information on all dairy plants in the United States 
+#'
+#' Dairy industry directory of dairy processors that supply milk, milk-based beverages, cheese, yogurt, ice cream, and other dairy foods and beverages
+#'
+#' @format A tibble with 1,983 rows and 35 variables:
+#' \describe{
+#'   \item{company_name}{chr Name of the Dairy Organization}
+#'   \item{company_type}{chr Products the Dairy Organization specialized in} 
+#'   \item{primary_product1}{chr denoting first primary product}
+#'   \item{primary_product2}{chr denoting second primary product}
+#'   \item{primary_product3}{chr denoting third primary product}
+#'   \item{primary_product4}{chr denoting fourth primary product}
+#'   \item{primary_product5}{chr denoting fifth primary product}
+#'   \item{primary_product6}{chr denoting sixth primary product}
+#'   \item{primary_product7}{chr denoting seventh primary product}
+#'   \item{primary_product8}{chr denoting eighth primary product}
+#'   \item{primary_product9}{chr denoting ninth primary product}
+#'   \item{primary_product10}{chr denoting tenth primary product}
+#'   \item{primary_product11}{chr denoting eleventh primary product}
+#'   \item{primary_product12}{chr denoting twelfth primary product}
+#'   \item{primary_product13}{chr denoting thirteenth primary product}
+#'   \item{primary_product14}{chr denoting fourteenth primary product}
+#'   \item{primary_product15}{chr denoting fifteenth primary product}
+#'   \item{primary_product16}{chr denoting sixteenth primary product}
+#'   \item{primary_product17}{chr denoting seventeenth primary product}
+#'   \item{primary_product18}{chr denoting eighteenth primary product}
+#'   \item{primary_product19}{chr denoting nineteenth primary product}
+#'   \item{primary_product20}{chr denoting twentieth primary product}
+#'   \item{primary_product21}{chr denoting twenty-first primary product}
+#'   \item{primary_product22}{chr denoting twenty-second primary product}
+#'   \item{primary_product23}{chr denoting twenty-third primary product}
+#'   \item{primary_product24}{chr denoting twenty-fourth primary product}
+#'   \item{primary_product25}{chr denoting twenty-fifth primary product}
+#'   \item{primary_product26}{chr denoting twenty-sixth primary product}
+#'   \item{primary_product27}{chr denoting twenty-seventh primary product}
+#'   \item{primary_product28}{chr denoting twenty-eighth primary product}
+#'   \item{primary_product29}{chr denoting twenty-ninth primary product}
+#'   \item{primary_product30}{chr denoting thirty primary product}
+#'   \item{primary_product31}{chr denoting thirty-first primary product}
+#'   \item{primary_product32}{chr denoting thirty-second primary product}
+#'   \item{primary_product33}{chr denoting thirty-third primary product}
+#' }
+#' @source <https://www.dairyfoods.com/directories>
+
+"dairy_plant_data"
+```
+
+You can copy this whole thing and modify as required. 
+
+11. Now, we need to document this!
+
+```{r eval=FALSE}
+devtools::document()
+```
+
+call the following once you're done documenting:
+
+```{r}
+?dairyplantdata #gives you the documentation
+```
+
+
+

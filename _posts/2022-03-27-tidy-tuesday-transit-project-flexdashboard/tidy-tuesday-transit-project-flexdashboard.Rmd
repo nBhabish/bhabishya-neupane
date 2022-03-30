@@ -1,0 +1,34 @@
+---
+title: "Tidy Tuesday: Transit Project {flexdashboard}"
+description: |
+  Presenting insights using flexdashboard, a package in R. 
+author: Bhabishya Neupane
+date: 2022-03-27
+preview: featured.png
+output:
+  distill::distill_article:
+    self_contained: false
+twitter:
+  site: "@_bhabishya_"
+  creator: "@_bhabishya_"
+categories:
+  - Tidy Tuesday
+  - flexdashboard
+  - ggplot2
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(vembedr)
+```
+
+
+# Link to the flexdashboard
+
+Link: [Transit Project Flex Dashboard](https://transit-cost.netlify.app/)
+
+# About Tidy Tuesday
+
+As this project was borne out of the R4DS Online Learning Community and the R for Data Science textbook, an emphasis was placed on understanding how to summarize and arrange data to make meaningful charts with ggplot2, tidyr, dplyr, and other tools in the tidyverse ecosystem. However, any code-based methodology is welcome - just please remember to share the code used to generate the results.
+

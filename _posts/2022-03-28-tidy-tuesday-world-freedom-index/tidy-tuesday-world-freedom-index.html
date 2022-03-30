@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Tidy Tuesday: World Freedom Index</title>
+
+  <meta property="description" itemprop="description" content="I will be exploring how civil liberty and political rights score has changed over time across different regions of the world."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-03-28"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-03-28"/>
+  <meta name="article:author" content="Bhabishya Neupane"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Tidy Tuesday: World Freedom Index"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="I will be exploring how civil liberty and political rights score has changed over time across different regions of the world."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Tidy Tuesday: World Freedom Index"/>
+  <meta property="twitter:description" content="I will be exploring how civil liberty and political rights score has changed over time across different regions of the world."/>
+  <meta property="twitter:site" content="@_bhabishya_"/>
+  <meta property="twitter:creator" content="@_bhabishya_"/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","preview","output","twitter","categories"]}},"value":[{"type":"character","attributes":{},"value":["Tidy Tuesday: World Freedom Index"]},{"type":"character","attributes":{},"value":["I will be exploring how civil liberty and political rights score has changed over time across different regions of the world. \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Bhabishya Neupane"]}]}]},{"type":"character","attributes":{},"value":["2022-03-28"]},{"type":"character","attributes":{},"value":["featured.png"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[4]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["site","creator"]}},"value":[{"type":"character","attributes":{},"value":["@_bhabishya_"]},{"type":"character","attributes":{},"value":["@_bhabishya_"]}]},{"type":"character","attributes":{},"value":["ggplot2","Tidy Tuesday","widyr"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["featured.png","tidy-tuesday-world-freedom-index_files/anchor-4.2.2/anchor.min.js","tidy-tuesday-world-freedom-index_files/bowser-1.9.3/bowser.min.js","tidy-tuesday-world-freedom-index_files/core-js-2.5.3/LICENSE","tidy-tuesday-world-freedom-index_files/core-js-2.5.3/package.json","tidy-tuesday-world-freedom-index_files/core-js-2.5.3/shim.min.js","tidy-tuesday-world-freedom-index_files/distill-2.2.21/template.v2.js","tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-10-1.png","tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-12-1.png","tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-13-1.png","tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-14-1.png","tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-15-1.png","tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-16-1.png","tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-5-1.png","tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-9-1.png","tidy-tuesday-world-freedom-index_files/header-attrs-2.13/header-attrs.js","tidy-tuesday-world-freedom-index_files/htmlwidgets-1.5.4/htmlwidgets.js","tidy-tuesday-world-freedom-index_files/jquery-3.6.0/jquery-3.6.0.js","tidy-tuesday-world-freedom-index_files/jquery-3.6.0/jquery-3.6.0.min.js","tidy-tuesday-world-freedom-index_files/jquery-3.6.0/jquery-3.6.0.min.map","tidy-tuesday-world-freedom-index_files/popper-2.6.0/popper.min.js","tidy-tuesday-world-freedom-index_files/react-17.0.0/AUTHORS","tidy-tuesday-world-freedom-index_files/react-17.0.0/LICENSE.txt","tidy-tuesday-world-freedom-index_files/react-17.0.0/react-dom.min.js","tidy-tuesday-world-freedom-index_files/react-17.0.0/react.min.js","tidy-tuesday-world-freedom-index_files/reactable-binding-0.2.3/reactable.js","tidy-tuesday-world-freedom-index_files/reactwidget-1.0.0/react-tools.js","tidy-tuesday-world-freedom-index_files/reactwidget-1.0.0/react-tools.js.map","tidy-tuesday-world-freedom-index_files/tippy-6.2.7/tippy-bundle.umd.min.js","tidy-tuesday-world-freedom-index_files/tippy-6.2.7/tippy-light-border.css","tidy-tuesday-world-freedom-index_files/tippy-6.2.7/tippy.css","tidy-tuesday-world-freedom-index_files/tippy-6.2.7/tippy.umd.min.js","tidy-tuesday-world-freedom-index_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="tidy-tuesday-world-freedom-index_files/header-attrs-2.13/header-attrs.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/core-js-2.5.3/shim.min.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/react-17.0.0/react.min.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/react-17.0.0/react-dom.min.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/reactwidget-1.0.0/react-tools.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/reactable-binding-0.2.3/reactable.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/popper-2.6.0/popper.min.js"></script>
+  <link href="tidy-tuesday-world-freedom-index_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="tidy-tuesday-world-freedom-index_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="tidy-tuesday-world-freedom-index_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="tidy-tuesday-world-freedom-index_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Tidy Tuesday: World Freedom Index","description":"I will be exploring how civil liberty and political rights score has changed over time across different regions of the world.","authors":[{"author":"Bhabishya Neupane","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-03-28T00:00:00.000-05:00","citationText":"Neupane, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Tidy Tuesday: World Freedom Index</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt=tag">ggplot2</div>
+<div class="dt=tag">Tidy Tuesday</div>
+<div class="dt=tag">widyr</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>I will be exploring how civil liberty and political rights score has changed over time across different regions of the world.</p></p>
+</div>
+
+<div class="d-byline">
+  
+  Bhabishya Neupane
+  
+<br/>2022-03-28
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#libraries">Libraries</a></li>
+<li><a href="#data">Data</a></li>
+<li><a href="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
+<li><a href="#quick-math-check">Quick Math Check</a></li>
+<li><a href="#quick-detour-nepal-here-i-come">Quick Detour: Nepal, here I come!</a></li>
+<li><a href="#on-track">On Track</a></li>
+<li><a href="#math-check">Math Check</a></li>
+<li><a href="#world-freedom-index-status-civil-liberties-score-2020">World Freedom Index Status: Civil Liberties Score (2020)</a></li>
+<li><a href="#world-freedom-index-status-political-rights-2020">World Freedom Index Status: Political Rights (2020)</a></li>
+<li><a href="#maps">Maps</a>
+<ul>
+<li><a href="#world-freedom-index-political-rights-score-2020">World Freedom Index: Political Rights Score (2020)</a></li>
+<li><a href="#world-freedom-index-civil-liberties-score-score-2020">World Freedom Index: Civil Liberties Score Score (2020)</a></li>
+<li><a href="#world-freedom-index-developed-vs-least-developed-countries-2020">World Freedom Index: Developed vs Least Developed Countries (2020)</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<h3 id="libraries">Libraries</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Analysis Pack</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/thebioengineer/tidytuesdayR'>tidytuesdayR</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://scales.r-lib.org'>scales</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/infer'>infer</a></span><span class='op'>)</span>
+<span class='co'># Theming Pack</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>nationalparkcolors</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/EmilHvitfeldt/paletteer'>paletteer</a></span><span class='op'>)</span>
+<span class='co'># Styling Pack</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://glin.github.io/reactable/'>reactable</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://kcuilla.github.io/reactablefmtr/'>reactablefmtr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/yixuan/showtext'>showtext</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>showtextdb</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/wch/extrafont'>extrafont</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/wch/extrafontdb'>extrafontdb</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://gganimate.com'>gganimate</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/sysfonts/man/font_add_google.html'>font_add_google</a></span><span class='op'>(</span><span class='st'>"BenchNine"</span>, family <span class='op'>=</span> <span class='st'>"BenchNine"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/showtext/man/showtext_auto.html'>showtext_auto</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h3 id="data">Data</h3>
+<p>Pulling this week’s #TidyTuesday data using <code>tidytuesdayR</code> package.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tuesdata</span> <span class='op'>&lt;-</span> <span class='fu'>tidytuesdayR</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tidytuesdayR/man/tt_load.html'>tt_load</a></span><span class='op'>(</span><span class='fl'>2022</span>, week <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+    Downloading file 1 of 1: `freedom.csv`</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'>&lt;-</span> <span class='va'>tuesdata</span><span class='op'>$</span><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>janitor</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/janitor/man/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/rename.html'>rename</a></span><span class='op'>(</span>civil_liberties <span class='op'>=</span> <span class='va'>cl</span>, 
+         political_rights <span class='op'>=</span> <span class='va'>pr</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>is_ldc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>is_ldc</span>, <span class='st'>"Least Developed"</span>, <span class='st'>"Developed"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h3 id="exploratory-data-analysis">Exploratory Data Analysis</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/count.html'>count</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span>
+    theme <span class='op'>=</span> <span class='fu'><a href='https://kcuilla.github.io/reactablefmtr/reference/espn.html'>espn</a></span><span class='op'>(</span>
+      font_size <span class='op'>=</span> <span class='fl'>12</span>
+    <span class='op'>)</span>, 
+    
+    columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      country <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Country"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>, 
+      n       <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"No. of Occurrences"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<div id="htmlwidget-0221779e18c97f0d509a" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0221779e18c97f0d509a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"country":["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia (Plurinational State of)","Bosnia and Herzegovina","Botswana","Brazil","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cabo Verde","CÃƒÂ´te dÃ¢â‚¬â„¢Ivoire","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czechia","Democratic People's Republic of Korea","Democratic Republic of the Congo","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran (Islamic Republic of)","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Lao People's Democratic Republic","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia (Federated States of)","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Macedonia","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Republic of Korea","Republic of Moldova","Romania","Russian Federation","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syrian Arab Republic","Tajikistan","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom of Great Britain and Northern Ireland","United Republic of Tanzania","United States of America","Uruguay","Uzbekistan","Vanuatu","Venezuela (Bolivarian Republic of)","Viet Nam","Yemen","Zambia","Zimbabwe"],"n":[26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,15,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,18,26,26,26,26,26,26,26,26,10,26,26,26,26,26,26,26,26,26,22,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26]},"columns":[{"accessor":"country","name":"Country","type":"character","align":"center"},{"accessor":"n","name":"No. of Occurrences","type":"numeric","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"theme":{"color":"#6C6D6F","backgroundColor":"#ffffff","borderColor":"#ededed","borderWidth":"1px","stripedColor":"#fafafa","highlightColor":"#fafafa","cellPadding":7,"tableStyle":{"fontSize":12},"headerStyle":{"borderTop":"1px solid #e1e2e4","borderBottom":"1px solid #e1e2e4","padding":"4px","background":"#ffffff","borderColor":"#ffffff","color":"#48494a","textTransform":"uppercase","&:hover":{"color":"#004D9A"},"fontSize":11},"groupHeaderStyle":{"borderTop":"1px solid #e1e2e4","borderLeft":"1px solid #e1e2e4","borderRight":"1px solid #e1e2e4","backgroundColor":"#ffffff","textTransform":"uppercase","fontSize":"11px","color":"#6C6D6F","fontSize.1":11},"rowSelectedStyle":{"backgroundColor":"#48494a"},"inputStyle":{"backgroundColor":"#ffffff","color":"#6C6D6F"},"searchInputStyle":{"color":"#6C6D6F","fontSize":"13px"},"selectStyle":{"color":"#48494a"},"paginationStyle":{"color":"#48494a","fontSize":"13px"},"pageButtonStyle":{"color":"#48494a","fontSize":"13px"}},"dataKey":"f83bba384fdab3b17ccc4ff8c09b9a2f","key":"f83bba384fdab3b17ccc4ff8c09b9a2f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/count.html'>count</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>n</span> <span class='op'>!=</span> <span class='fl'>26</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span>
+    theme <span class='op'>=</span> <span class='fu'><a href='https://kcuilla.github.io/reactablefmtr/reference/espn.html'>espn</a></span><span class='op'>(</span>
+      font_size <span class='op'>=</span> <span class='fl'>12</span>
+    <span class='op'>)</span>, 
+    
+    columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      country <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Country"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>, 
+      n       <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"No. of Occurrences"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<div id="htmlwidget-cfbaf8ba72365b4d8fdd" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-cfbaf8ba72365b4d8fdd">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"country":["Montenegro","Serbia","South Sudan","Timor-Leste"],"n":[15,18,10,22]},"columns":[{"accessor":"country","name":"Country","type":"character","align":"center"},{"accessor":"n","name":"No. of Occurrences","type":"numeric","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"theme":{"color":"#6C6D6F","backgroundColor":"#ffffff","borderColor":"#ededed","borderWidth":"1px","stripedColor":"#fafafa","highlightColor":"#fafafa","cellPadding":7,"tableStyle":{"fontSize":12},"headerStyle":{"borderTop":"1px solid #e1e2e4","borderBottom":"1px solid #e1e2e4","padding":"4px","background":"#ffffff","borderColor":"#ffffff","color":"#48494a","textTransform":"uppercase","&:hover":{"color":"#004D9A"},"fontSize":11},"groupHeaderStyle":{"borderTop":"1px solid #e1e2e4","borderLeft":"1px solid #e1e2e4","borderRight":"1px solid #e1e2e4","backgroundColor":"#ffffff","textTransform":"uppercase","fontSize":"11px","color":"#6C6D6F","fontSize.1":11},"rowSelectedStyle":{"backgroundColor":"#48494a"},"inputStyle":{"backgroundColor":"#ffffff","color":"#6C6D6F"},"searchInputStyle":{"color":"#6C6D6F","fontSize":"13px"},"selectStyle":{"color":"#48494a"},"paginationStyle":{"color":"#48494a","fontSize":"13px"},"pageButtonStyle":{"color":"#48494a","fontSize":"13px"}},"dataKey":"d605de87f34a71f090b26a97e438a6c9","key":"d605de87f34a71f090b26a97e438a6c9"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<p>It does look like for the most part all of the countries appear 26 times in the dataset except for Montenegro, Serbia, South Sudan, and Timor-Leste.</p>
+<p>There are a lot of things that we can uncover here. I will start off by looking at the number of developed and least developed countries. I will create a proportion chart by continent (or region in this dataset) to see what continent has higher proportion of least developed countries.</p>
+<p>We can also dig deeper into civil rights and political liberties index and see what scores the country receive.</p>
+<p>I would also love to take a deeper look at my country Nepal’s ranking when it comes to civil liberties and political rights.</p>
+<p>Less talk, more work!</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>region_name</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/count.html'>add_count</a></span><span class='op'>(</span><span class='va'>is_ldc</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>avg_prop <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>is_ldc</span> <span class='op'>==</span> <span class='st'>"Least Developed"</span><span class='op'>)</span><span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>is_ldc <span class='op'>=</span> <span class='va'>is_ldc</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/forcats/man/fct_reorder.html'>fct_reorder</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>avg_prop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>region_name</span>, fill <span class='op'>=</span> <span class='va'>is_ldc</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"fill"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/paletteer/man/ggplot2-scales-discrete.html'>scale_fill_paletteer_d</a></span><span class='op'>(</span><span class='st'>"nationalparkcolors::Arches"</span>, guide <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/guide_legend.html'>guide_legend</a></span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>""</span>, 
+       x <span class='op'>=</span> <span class='st'>"Proportion of Least Developed/ Developed Countries"</span>,
+       fill <span class='op'>=</span> <span class='st'>"Status?"</span>, 
+       title <span class='op'>=</span> <span class='st'>"Least Developed / Developed Countries"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"BenchNine"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+</div>
+<p>Takeaways from the plot:</p>
+<ul>
+<li>Africa has a lot more least developed countries than developed countries. The metadata informs is_ldc = 0 implies least developed, so I am assuming 1 to be considered developed.</li>
+<li>Europe doesn’t have a single least developed country. I am really intrigued on how these countries were classified.</li>
+<li>Oceania’s proportion of least developed countries seem to be higher than Asia.</li>
+<li>For Americas it is pretty self explanatory.</li>
+</ul>
+<h3 id="quick-math-check">Quick Math Check</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>region_name</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarize</a></span><span class='op'>(</span>avg_prop <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>is_ldc</span> <span class='op'>==</span> <span class='st'>"Least Developed"</span><span class='op'>)</span><span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span>
+    theme <span class='op'>=</span> <span class='fu'><a href='https://kcuilla.github.io/reactablefmtr/reference/espn.html'>espn</a></span><span class='op'>(</span>
+      font_size <span class='op'>=</span> <span class='fl'>12</span>
+    <span class='op'>)</span>, 
+    
+    columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      region_name <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Region Name"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>, 
+      avg_prop    <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Average Proportion"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<div id="htmlwidget-dd130fe874f6e3eabd6d" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-dd130fe874f6e3eabd6d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"region_name":["Africa","Americas","Asia","Europe","Oceania"],"avg_prop":[0.606628242074928,0.0285714285714286,0.188834154351396,0,0.214285714285714]},"columns":[{"accessor":"region_name","name":"Region Name","type":"character","align":"center"},{"accessor":"avg_prop","name":"Average Proportion","type":"numeric","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"theme":{"color":"#6C6D6F","backgroundColor":"#ffffff","borderColor":"#ededed","borderWidth":"1px","stripedColor":"#fafafa","highlightColor":"#fafafa","cellPadding":7,"tableStyle":{"fontSize":12},"headerStyle":{"borderTop":"1px solid #e1e2e4","borderBottom":"1px solid #e1e2e4","padding":"4px","background":"#ffffff","borderColor":"#ffffff","color":"#48494a","textTransform":"uppercase","&:hover":{"color":"#004D9A"},"fontSize":11},"groupHeaderStyle":{"borderTop":"1px solid #e1e2e4","borderLeft":"1px solid #e1e2e4","borderRight":"1px solid #e1e2e4","backgroundColor":"#ffffff","textTransform":"uppercase","fontSize":"11px","color":"#6C6D6F","fontSize.1":11},"rowSelectedStyle":{"backgroundColor":"#48494a"},"inputStyle":{"backgroundColor":"#ffffff","color":"#6C6D6F"},"searchInputStyle":{"color":"#6C6D6F","fontSize":"13px"},"selectStyle":{"color":"#48494a"},"paginationStyle":{"color":"#48494a","fontSize":"13px"},"pageButtonStyle":{"color":"#48494a","fontSize":"13px"}},"dataKey":"a4ffbb1df4a17b22684416480b0fe4ac","key":"a4ffbb1df4a17b22684416480b0fe4ac"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<h3 id="quick-detour-nepal-here-i-come">Quick Detour: Nepal, here I come!</h3>
+<p>I want to see what what countries Nepal relates the most when it comes to political rights and civil liberties. The best way to go about it would be to do a correlation analysis. So, here comes <code>widyr</code> package (Definitely, learned it from Drob 🐐)</p>
+<p>I would highly suggest checking out <code>widyr</code>. Great package!!!</p>
+<p>Here, the output is in tidy form and one of the benefits of <code>widyr</code> is that it takes the input in tidy form and gives the output in tidy form as well, which in turn just saves lines of code and time.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/dgrtwo/widyr'>widyr</a></span><span class='op'>)</span>
+<span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>widyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/widyr/man/pairwise_cor.html'>pairwise_cor</a></span><span class='op'>(</span><span class='va'>country</span>, <span class='va'>year</span>, <span class='va'>civil_liberties</span>, method <span class='op'>=</span> <span class='st'>"pearson"</span>, sort <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>item1</span> <span class='op'>==</span> <span class='st'>"Nepal"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/is.finite.html'>is.nan</a></span><span class='op'>(</span><span class='va'>correlation</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span>
+    theme <span class='op'>=</span> <span class='fu'><a href='https://kcuilla.github.io/reactablefmtr/reference/espn.html'>espn</a></span><span class='op'>(</span>
+      font_size <span class='op'>=</span> <span class='fl'>12</span>
+    <span class='op'>)</span>, 
+    
+    columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      item1 <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>""</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>, 
+      item2 <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Countries"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>, 
+      correlation <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Correlation"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<div id="htmlwidget-8ad002caa0c9c158325d" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8ad002caa0c9c158325d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"item1":["Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal"],"item2":["Haiti","CÃƒÂ´te dÃ¢â‚¬â„¢Ivoire","Malawi","United Arab Emirates","Cuba","Trinidad and Tobago","Togo","Zimbabwe","Tunisia","Myanmar","Libya","Republic of Moldova","Tonga","Japan","Mozambique","Belize","Jamaica","Solomon Islands","Syrian Arab Republic","Serbia","Kuwait","Cameroon","Lebanon","Sudan","Maldives","Namibia","Saint Kitts and Nevis","Saint Lucia","Zambia","Belarus","Lithuania","Timor-Leste","Burkina Faso","Guinea","Israel","Georgia","Eritrea","Uzbekistan","Bhutan","Eswatini","Viet Nam","Brazil","Senegal","Russian Federation","Guatemala","Benin","Bolivia (Plurinational State of)","North Macedonia","Samoa","United States of America","Guyana","Ecuador","El Salvador","Romania","Kyrgyzstan","China","Iran (Islamic Republic of)","Bangladesh","Algeria","Papua New Guinea","Philippines","Azerbaijan","Colombia","India","Bahamas","Panama","Indonesia","Djibouti","Oman","Uruguay","Antigua and Barbuda","Peru","Congo","Venezuela (Bolivarian Republic of)","Croatia","Liberia","Belgium","Micronesia (Federated States of)","Cambodia","Bulgaria","Albania","Argentina","Greece","Lesotho","Mongolia","Vanuatu","Germany","Slovenia","Spain","United Kingdom of Great Britain and Northern Ireland","Singapore","Ghana","Sierra Leone","Saudi Arabia","Malaysia","Cabo Verde","Chile","Palau","Nigeria","Ethiopia","Slovakia","Nicaragua","Qatar","Uganda","Suriname","Costa Rica","Czechia","Estonia","Central African Republic","Latvia","South Sudan","Fiji","Italy","Angola","Morocco","Guinea-Bissau","Egypt","Honduras","Burundi","United Republic of Tanzania","Bosnia and Herzegovina","France","Gabon","Chad","Ukraine","Dominican Republic","Mauritania","Nauru","Poland","Afghanistan","Thailand","Montenegro","Kenya","Tajikistan","Rwanda","Gambia","Turkey","Bahrain","Yemen","Jordan","Mali","Hungary","Equatorial Guinea","Madagascar","Mexico","Iraq","Niger","Sri Lanka","Mauritius"],"correlation":[0.591607978309966,0.438230947001325,0.31180478223116,0.28867513459484,0.288675134594807,0.276955854703499,0.267261241912444,0.267261241912444,0.21957751641342,0.21259760138108,0.210042012604218,0.21004201260421,0.21004201260421,0.192450089729879,0.192450089729862,0.175219161012615,0.158113883008432,0.146647115021343,0.14085904245478,0.137861698644749,0.123091490979357,0.123091490979354,0.0916544468883511,0.0833333333333513,0.0739221270954722,0.0684653196881514,0.0684653196881514,0.0684653196881514,0.0577350269189747,0.0577350269189713,0.0449466574975504,0.0254164283887727,0.0222717701593733,0,0,-0.0194624736040276,-0.0207256668072309,-0.0222717701593402,-0.023186944787996,-0.0328975847479467,-0.0422577127363927,-0.0422577127364242,-0.0443678254708039,-0.052034423485182,-0.0577350269189304,-0.0577350269189312,-0.0577350269189312,-0.0577350269189312,-0.0577350269189312,-0.057735026918964,-0.0684653196881431,-0.0833333333333199,-0.0833333333333199,-0.0833333333333356,-0.0933520056018532,-0.104257207028502,-0.104257207028502,-0.104257207028506,-0.104257207028507,-0.104257207028533,-0.104257207028533,-0.104257207028534,-0.12028130608118,-0.123091490979312,-0.123091490979318,-0.123091490979324,-0.139271503632783,-0.140859042454742,-0.140859042454742,-0.140859042454745,-0.140859042454761,-0.140859042454762,-0.150187852296504,-0.150187852296531,-0.154030809243071,-0.155158222708541,-0.158113883008413,-0.158113883008413,-0.158113883008414,-0.158113883008422,-0.162392450615393,-0.175219161012596,-0.175219161012596,-0.175219161012596,-0.175219161012596,-0.175219161012596,-0.175219161012605,-0.175219161012605,-0.175219161012605,-0.175219161012605,-0.175219161012614,-0.177667263629666,-0.182259130922415,-0.184466196843117,-0.192450089729861,-0.192450089729871,-0.192450089729871,-0.192450089729871,-0.198262896429518,-0.198262896429549,-0.201773308922122,-0.208166599946609,-0.210042012604174,-0.21004201260419,-0.210042012604193,-0.210042012604202,-0.210042012604202,-0.210042012604202,-0.22280797425899,-0.225374467927599,-0.225420179181811,-0.228217732293799,-0.228217732293807,-0.228217732293834,-0.228217732293834,-0.247206616236525,-0.247206616236541,-0.252439082148695,-0.259827920984608,-0.26000576196438,-0.262431940540725,-0.267261241912413,-0.26726124191243,-0.272474630456501,-0.281365716935562,-0.288675134594807,-0.300462606288659,-0.304997140665202,-0.311804782231152,-0.314169040155677,-0.317542648054285,-0.32378806290136,-0.324617227032098,-0.329956008798033,-0.337099931231589,-0.343660874517624,-0.354166666666655,-0.365148371670047,-0.396746023807915,-0.396746023807919,-0.406571699024999,-0.40657169902501,-0.475594865605625,-0.475594865605657,-0.510616895268737,-0.553924809666179,-0.565916458418075,-0.600925212577319,-0.999999999999977]},"columns":[{"accessor":"item1","name":"","type":"character","align":"center"},{"accessor":"item2","name":"Countries","type":"character","align":"center"},{"accessor":"correlation","name":"Correlation","type":"numeric","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"theme":{"color":"#6C6D6F","backgroundColor":"#ffffff","borderColor":"#ededed","borderWidth":"1px","stripedColor":"#fafafa","highlightColor":"#fafafa","cellPadding":7,"tableStyle":{"fontSize":12},"headerStyle":{"borderTop":"1px solid #e1e2e4","borderBottom":"1px solid #e1e2e4","padding":"4px","background":"#ffffff","borderColor":"#ffffff","color":"#48494a","textTransform":"uppercase","&:hover":{"color":"#004D9A"},"fontSize":11},"groupHeaderStyle":{"borderTop":"1px solid #e1e2e4","borderLeft":"1px solid #e1e2e4","borderRight":"1px solid #e1e2e4","backgroundColor":"#ffffff","textTransform":"uppercase","fontSize":"11px","color":"#6C6D6F","fontSize.1":11},"rowSelectedStyle":{"backgroundColor":"#48494a"},"inputStyle":{"backgroundColor":"#ffffff","color":"#6C6D6F"},"searchInputStyle":{"color":"#6C6D6F","fontSize":"13px"},"selectStyle":{"color":"#48494a"},"paginationStyle":{"color":"#48494a","fontSize":"13px"},"pageButtonStyle":{"color":"#48494a","fontSize":"13px"}},"dataKey":"91ea1c12bccb289a2252530f9aec75df","key":"91ea1c12bccb289a2252530f9aec75df"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<p>Ah, not surprised. Very true and damning. Nepal and Haiti seem to be correlated over time when it comes to civil liberties.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>widyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/widyr/man/pairwise_cor.html'>pairwise_cor</a></span><span class='op'>(</span><span class='va'>country</span>, <span class='va'>year</span>, <span class='va'>political_rights</span>, method <span class='op'>=</span> <span class='st'>"pearson"</span>, sort <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>item1</span> <span class='op'>==</span> <span class='st'>"Nepal"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/is.finite.html'>is.nan</a></span><span class='op'>(</span><span class='va'>correlation</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span>
+    theme <span class='op'>=</span> <span class='fu'><a href='https://kcuilla.github.io/reactablefmtr/reference/espn.html'>espn</a></span><span class='op'>(</span>
+      font_size <span class='op'>=</span> <span class='fl'>12</span>
+    <span class='op'>)</span>, 
+    
+    columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      item1 <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>""</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>, 
+      item2 <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Countries"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>, 
+      correlation <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Correlation"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+    
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<div id="htmlwidget-b3389eecf3fc41f21bd5" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b3389eecf3fc41f21bd5">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"item1":["Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal","Nepal"],"item2":["Zimbabwe","Malawi","Trinidad and Tobago","CÃƒÂ´te dÃ¢â‚¬â„¢Ivoire","Guyana","Solomon Islands","Fiji","Bolivia (Plurinational State of)","Sao Tome and Principe","Vanuatu","Eswatini","Tunisia","Myanmar","Singapore","Pakistan","Mongolia","Serbia","Togo","Tonga","Madagascar","Belarus","Ecuador","Eritrea","Armenia","Saint Vincent and the Grenadines","Burkina Faso","Guinea","Lithuania","Philippines","Ukraine","Jordan","Bangladesh","Republic of Moldova","Haiti","Russian Federation","Bhutan","Kyrgyzstan","Timor-Leste","Seychelles","Equatorial Guinea","Papua New Guinea","Maldives","Central African Republic","Guatemala","Sri Lanka","Italy","Georgia","Iraq","Guinea-Bissau","Romania","Libya","South Africa","Liberia","Argentina","Gabon","Sierra Leone","Egypt","Montenegro","Latvia","Thailand","Colombia","Malaysia","Honduras","Croatia","Ethiopia","Chad","Namibia","Estonia","India","Uruguay","Venezuela (Bolivarian Republic of)","Djibouti","Mauritania","Greece","Nigeria","United Republic of Tanzania","Comoros","Belize","Saint Kitts and Nevis","El Salvador","Lebanon","Uganda","Benin","Antigua and Barbuda","Cambodia","Israel","Malta","Poland","Botswana","Nicaragua","Congo","Mozambique","Slovakia","United States of America","Qatar","United Arab Emirates","Indonesia","Suriname","Zambia","Ghana","South Sudan","Liechtenstein","Brazil","Monaco","Kazakhstan","Albania","Gambia","Peru","Mali","Somalia","Niger","Chile","Yemen","Rwanda","Paraguay","Nauru","Azerbaijan","Cameroon","Dominican Republic","Hungary","Brunei Darussalam","Senegal","Bosnia and Herzegovina","Afghanistan","Tajikistan","Panama","Mexico","Kuwait","North Macedonia","Kenya","Turkey","Bulgaria","Lesotho","Republic of Korea","Democratic Republic of the Congo","Burundi","Bahrain","Morocco"],"correlation":[0.752431072329158,0.618466590727917,0.572327751483458,0.539770382274575,0.53241390564966,0.47812774605412,0.470227851032518,0.445556550244209,0.436283617129591,0.436283617129591,0.436283617129584,0.431828727956871,0.428919958222373,0.41448366340518,0.404240187622896,0.394561870342376,0.391699059861807,0.385295144829043,0.37888469161095,0.378326124376567,0.361426109580131,0.340533078246595,0.340533078246583,0.328273647249354,0.324678869667391,0.310813865920191,0.304434780463109,0.301701213201476,0.2609872086518,0.236628402510963,0.231849320698199,0.231484306804203,0.223119762711025,0.212226116646588,0.193618668976877,0.165852788057312,0.165515972701096,0.162384718873544,0.159724171694898,0.159724171694895,0.140061272034687,0.134483392117451,0.0927993773972086,0.0887356509416115,0.0882952727843929,0.0709885207532858,0.0616149369061077,0.0505871042669003,0.00723920540037467,-0.00806687735833015,-0.0249325654960195,-0.0345403052837652,-0.043170713743556,-0.0443678254708094,-0.0538956734290037,-0.0550773005844497,-0.0709885207533015,-0.0717637228806137,-0.0887356509416115,-0.102159923473979,-0.114781635008696,-0.121506294189066,-0.136532544717806,-0.14493752105283,-0.147304526576478,-0.150614290214935,-0.159724171694903,-0.159724171694905,-0.159724171694905,-0.159724171694905,-0.165182805956168,-0.172830725685331,-0.182671294605202,-0.18466456220084,-0.19641514629403,-0.207850773322245,-0.213769532027829,-0.230541983810353,-0.230541983810353,-0.230541983810359,-0.234874075929605,-0.235665139006137,-0.243084902793768,-0.266902919902252,-0.288427960018615,-0.28842796001863,-0.28842796001863,-0.28842796001863,-0.294382476329188,-0.32374733605792,-0.327709123390356,-0.328203737602979,-0.340533078246592,-0.340533078246592,-0.340533078246602,-0.340533078246602,-0.341886781860576,-0.357704844677161,-0.369359299378311,-0.381889763779528,-0.384897614424369,-0.389687077021745,-0.389687077021747,-0.389687077021747,-0.389687077021748,-0.389687077021752,-0.39723630456542,-0.400872420674203,-0.404658588438937,-0.40502098063021,-0.413301444903321,-0.421434535140701,-0.435468191641781,-0.436283617129586,-0.43628361712959,-0.437422659080627,-0.437422659080629,-0.437422659080629,-0.439735099989173,-0.463233554880166,-0.484744475777219,-0.485624000314178,-0.486516647030496,-0.489629475382528,-0.532413905649664,-0.540168025768828,-0.619819141646612,-0.621149556591285,-0.631365224924603,-0.648449991601279,-0.668058577569793,-0.715575178528259,-0.716413024964095,-0.724559070992364,-0.736178650938074,-0.86630948626011,-0.87685037392071,"-Inf"]},"columns":[{"accessor":"item1","name":"","type":"character","align":"center"},{"accessor":"item2","name":"Countries","type":"character","align":"center"},{"accessor":"correlation","name":"Correlation","type":"numeric","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"theme":{"color":"#6C6D6F","backgroundColor":"#ffffff","borderColor":"#ededed","borderWidth":"1px","stripedColor":"#fafafa","highlightColor":"#fafafa","cellPadding":7,"tableStyle":{"fontSize":12},"headerStyle":{"borderTop":"1px solid #e1e2e4","borderBottom":"1px solid #e1e2e4","padding":"4px","background":"#ffffff","borderColor":"#ffffff","color":"#48494a","textTransform":"uppercase","&:hover":{"color":"#004D9A"},"fontSize":11},"groupHeaderStyle":{"borderTop":"1px solid #e1e2e4","borderLeft":"1px solid #e1e2e4","borderRight":"1px solid #e1e2e4","backgroundColor":"#ffffff","textTransform":"uppercase","fontSize":"11px","color":"#6C6D6F","fontSize.1":11},"rowSelectedStyle":{"backgroundColor":"#48494a"},"inputStyle":{"backgroundColor":"#ffffff","color":"#6C6D6F"},"searchInputStyle":{"color":"#6C6D6F","fontSize":"13px"},"selectStyle":{"color":"#48494a"},"paginationStyle":{"color":"#48494a","fontSize":"13px"},"pageButtonStyle":{"color":"#48494a","fontSize":"13px"}},"dataKey":"27c7cca0fc117100d4a22fc1b2bb93b6","key":"27c7cca0fc117100d4a22fc1b2bb93b6"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<p>Nepal and Zimbabwe seem to be strongly correlated when it comes to political rights over time. I don’t know anything about Zimbabwe other than the fact that they used to have a great cricket team. My family follows cricket and football (the one that is played with feet), so that’s the only thing I know on them.</p>
+<h3 id="on-track">On Track</h3>
+<p>We also have a list of countries that are labeled free, not free, and partially free. Let’s take a look at their proportion by continents (or regions).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>status <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>status</span> <span class='op'>==</span> <span class='st'>"F"</span> <span class='op'>~</span> <span class='st'>"Free"</span>, 
+                            <span class='va'>status</span> <span class='op'>==</span> <span class='st'>"NF"</span> <span class='op'>~</span> <span class='st'>"Not Free"</span>, 
+                            <span class='va'>status</span> <span class='op'>==</span> <span class='st'>"PF"</span> <span class='op'>~</span> <span class='st'>"Partially Free"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>region_name</span>, fill <span class='op'>=</span> <span class='va'>status</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"fill"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/paletteer/man/ggplot2-scales-discrete.html'>scale_fill_paletteer_d</a></span><span class='op'>(</span><span class='st'>"nationalparkcolors::Arches"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"BenchNine"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>""</span>, title <span class='op'>=</span> <span class='st'>"Proportion of Countries that are Free, Not Free, and Partially Free by Continents"</span>, 
+       fill <span class='op'>=</span> <span class='st'>"Status"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='fl'>2020</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>is_ldc <span class='op'>=</span> <span class='va'>is_ldc</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/forcats/man/fct_reorder.html'>fct_reorder</a></span><span class='op'>(</span><span class='va'>civil_liberties</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/count.html'>count</a></span><span class='op'>(</span><span class='va'>region_name</span>, <span class='va'>civil_liberties</span>, <span class='va'>is_ldc</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>civil_liberties</span>, <span class='va'>n</span>, fill <span class='op'>=</span> <span class='va'>is_ldc</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>region_name</span> <span class='op'>~</span> <span class='va'>is_ldc</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggtheme.html'>theme_light</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"BenchNine"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Civil Liberties Score"</span>, y <span class='op'>=</span> <span class='st'>"# of countries"</span>, fill <span class='op'>=</span> <span class='st'>"Status?"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/paletteer/man/ggplot2-scales-discrete.html'>scale_fill_paletteer_d</a></span><span class='op'>(</span><span class='st'>"nationalparkcolors::Arches"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
+</div>
+<p>Takeaways from the plot above:</p>
+<ul>
+<li>Decent amount of countries in the Asia with higher civil liberties score are classified as Developed country.</li>
+<li>In Americas, most of the developed countries have a lower civil liberties score.</li>
+</ul>
+<h3 id="math-check">Math Check</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='fl'>2020</span>, 
+         <span class='va'>region_name</span> <span class='op'>==</span> <span class='st'>"Asia"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/select.html'>select</a></span><span class='op'>(</span><span class='va'>country</span>, <span class='va'>civil_liberties</span>, <span class='va'>is_ldc</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>is_ldc</span> <span class='op'>==</span> <span class='st'>"Developed"</span><span class='op'>)</span> |&gt; 
+  <span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span>
+    theme <span class='op'>=</span> <span class='fu'><a href='https://kcuilla.github.io/reactablefmtr/reference/espn.html'>espn</a></span><span class='op'>(</span>
+      font_size <span class='op'>=</span> <span class='fl'>12</span>
+    <span class='op'>)</span>, 
+    
+    columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      
+      country <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Country"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>, 
+      civil_liberties <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Civil Liberties"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>, 
+      is_ldc <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Least Developed?"</span>, align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</code></pre>
+</div>
+<div id="htmlwidget-426484db4d86fc512094" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-426484db4d86fc512094">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"country":["Armenia","Azerbaijan","Bahrain","Brunei Darussalam","China","Cyprus","Georgia","India","Indonesia","Iran (Islamic Republic of)","Iraq","Israel","Japan","Jordan","Kazakhstan","Kuwait","Kyrgyzstan","Lebanon","Malaysia","Maldives","Mongolia","Democratic People's Republic of Korea","Oman","Pakistan","Philippines","Qatar","Saudi Arabia","Singapore","Republic of Korea","Sri Lanka","Syrian Arab Republic","Tajikistan","Thailand","Turkey","Turkmenistan","United Arab Emirates","Uzbekistan","Viet Nam"],"civil_liberties":[4,6,6,5,6,1,3,4,4,6,6,3,1,5,5,5,5,4,4,5,2,7,5,5,4,5,7,4,2,4,7,6,5,6,7,6,6,6],"is_ldc":["Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed","Developed"]},"columns":[{"accessor":"country","name":"Country","type":"character","align":"center"},{"accessor":"civil_liberties","name":"Civil Liberties","type":"numeric","align":"center"},{"accessor":"is_ldc","name":"Least Developed?","type":"character","align":"center"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"theme":{"color":"#6C6D6F","backgroundColor":"#ffffff","borderColor":"#ededed","borderWidth":"1px","stripedColor":"#fafafa","highlightColor":"#fafafa","cellPadding":7,"tableStyle":{"fontSize":12},"headerStyle":{"borderTop":"1px solid #e1e2e4","borderBottom":"1px solid #e1e2e4","padding":"4px","background":"#ffffff","borderColor":"#ffffff","color":"#48494a","textTransform":"uppercase","&:hover":{"color":"#004D9A"},"fontSize":11},"groupHeaderStyle":{"borderTop":"1px solid #e1e2e4","borderLeft":"1px solid #e1e2e4","borderRight":"1px solid #e1e2e4","backgroundColor":"#ffffff","textTransform":"uppercase","fontSize":"11px","color":"#6C6D6F","fontSize.1":11},"rowSelectedStyle":{"backgroundColor":"#48494a"},"inputStyle":{"backgroundColor":"#ffffff","color":"#6C6D6F"},"searchInputStyle":{"color":"#6C6D6F","fontSize":"13px"},"selectStyle":{"color":"#48494a"},"paginationStyle":{"color":"#48494a","fontSize":"13px"},"pageButtonStyle":{"color":"#48494a","fontSize":"13px"}},"dataKey":"3118f75f4c4e9ae3f3355eae93132082","key":"3118f75f4c4e9ae3f3355eae93132082"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<h3 id="world-freedom-index-status-civil-liberties-score-2020">World Freedom Index Status: Civil Liberties Score (2020)</h3>
+<p>From the plot below, we can say that countries that are categorized as free have lower civil liberties score. Partially free and not free countries have higher civil liberties score in 2020.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='fl'>2020</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/count.html'>count</a></span><span class='op'>(</span><span class='va'>region_name</span>, <span class='va'>civil_liberties</span>, <span class='va'>status</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>civil_liberties</span>, <span class='va'>n</span>, fill <span class='op'>=</span> <span class='va'>status</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>region_name</span><span class='op'>~</span><span class='va'>status</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggtheme.html'>theme_light</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"BenchNine"</span><span class='op'>)</span>, 
+        plot.title <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>face <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/paletteer/man/ggplot2-scales-discrete.html'>scale_fill_paletteer_d</a></span><span class='op'>(</span><span class='st'>"nationalparkcolors::Arches"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Civil Liberties Score"</span>, 
+       y <span class='op'>=</span> <span class='st'>"# of countries"</span>, 
+       title <span class='op'>=</span> <span class='st'>"World Freedom Index Status: Civil Liberties (2020)"</span>, 
+       subtitle <span class='op'>=</span> <span class='st'>"Low civil liberties score imply country is free"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
+</div>
+<h3 id="world-freedom-index-status-political-rights-2020">World Freedom Index Status: Political Rights (2020)</h3>
+<p>The plot below informs that countries with low political rights score seem to be more free.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>status <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>status</span> <span class='op'>==</span> <span class='st'>"F"</span> <span class='op'>~</span> <span class='st'>"Free"</span>, 
+                            <span class='va'>status</span> <span class='op'>==</span> <span class='st'>"NF"</span> <span class='op'>~</span> <span class='st'>"Not Free"</span>, 
+                            <span class='va'>status</span> <span class='op'>==</span> <span class='st'>"PF"</span> <span class='op'>~</span> <span class='st'>"Partially Free"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='fl'>2020</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/count.html'>count</a></span><span class='op'>(</span><span class='va'>region_name</span>, <span class='va'>political_rights</span>, <span class='va'>status</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>political_rights</span>, <span class='va'>n</span>, fill <span class='op'>=</span> <span class='va'>status</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>region_name</span><span class='op'>~</span><span class='va'>status</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggtheme.html'>theme_light</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"BenchNine"</span><span class='op'>)</span>, 
+        plot.title <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>face <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/paletteer/man/ggplot2-scales-discrete.html'>scale_fill_paletteer_d</a></span><span class='op'>(</span><span class='st'>"nationalparkcolors::Arches"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Civil Liberties Score"</span>, 
+       y <span class='op'>=</span> <span class='st'>"# of countries"</span>, 
+       title <span class='op'>=</span> <span class='st'>"World Freedom Index Status: Political Rights (2020)"</span>, 
+       subtitle <span class='op'>=</span> <span class='st'>"Countries with lower political rights score seem to be more free"</span>, 
+       fill <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-13-1.png" width="624" /></p>
+</div>
+<h2 id="maps">Maps</h2>
+<h3 id="world-freedom-index-political-rights-score-2020">World Freedom Index: Political Rights Score (2020)</h3>
+<p><code>countrycode</code> package along with <code>map_data("world")</code> data from <code>ggplot2</code> allows for easy<br />
+mapping methods.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://vincentarelbundock.github.io/countrycode/'>countrycode</a></span><span class='op'>)</span>
+<span class='va'>freedom_joined</span> <span class='op'>&lt;-</span> <span class='va'>freedom</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>country_code <span class='op'>=</span> <span class='fu'><a href='https://vincentarelbundock.github.io/countrycode/reference/countrycode.html'>countrycode</a></span><span class='op'>(</span><span class='va'>country</span>, <span class='st'>"country.name"</span>, <span class='st'>"iso2c"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/map_data.html'>map_data</a></span><span class='op'>(</span><span class='st'>"world"</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"country"</span> <span class='op'>=</span> <span class='st'>"region"</span><span class='op'>)</span>, suffix <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"_map"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>freedom_joined</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='fl'>2020</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span>, group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>political_rights</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'>ggthemes</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggthemes/man/theme_map.html'>theme_map</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/coord_map.html'>coord_map</a></span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>180</span>, <span class='fl'>180</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/scale_gradient.html'>scale_fill_gradient2</a></span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"#A8CDEC"</span>, high <span class='op'>=</span> <span class='st'>"#F6955E"</span>, midpoint <span class='op'>=</span> <span class='fl'>3.5</span>, 
+                       guide <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/guide_legend.html'>guide_legend</a></span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"Political Rights"</span>, 
+       title <span class='op'>=</span> <span class='st'>"World Freedom Index: Political Rights Score (2020)"</span>, 
+       subtitle <span class='op'>=</span> <span class='st'>"Lower scores imply country is more free and vice-versa"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"BenchNine"</span><span class='op'>)</span>, 
+        plot.title <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>face <span class='op'>=</span> <span class='st'>"bold"</span>, size <span class='op'>=</span> <span class='fl'>15</span>, hjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>, 
+        plot.subtitle <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
+</div>
+<h3 id="world-freedom-index-civil-liberties-score-score-2020">World Freedom Index: Civil Liberties Score Score (2020)</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom_joined</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='fl'>2020</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span>, group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>civil_liberties</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'>ggthemes</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggthemes/man/theme_map.html'>theme_map</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/coord_map.html'>coord_map</a></span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>180</span>, <span class='fl'>180</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/scale_gradient.html'>scale_fill_gradient2</a></span><span class='op'>(</span>low <span class='op'>=</span> <span class='st'>"#A8CDEC"</span>, high <span class='op'>=</span> <span class='st'>"#F6955E"</span>, midpoint <span class='op'>=</span> <span class='fl'>3.5</span>, 
+                       guide <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/guide_legend.html'>guide_legend</a></span><span class='op'>(</span>reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"Civil Liberties"</span>, 
+       title <span class='op'>=</span> <span class='st'>"World Freedom Index: Civil Liberties Score (2020)"</span>, 
+       subtitle <span class='op'>=</span> <span class='st'>"Lower scores imply country is more free and vice-versa"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"BenchNine"</span><span class='op'>)</span>, 
+        plot.title <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>face <span class='op'>=</span> <span class='st'>"bold"</span>, size <span class='op'>=</span> <span class='fl'>15</span>, hjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>, 
+        plot.subtitle <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
+</div>
+<h3 id="world-freedom-index-developed-vs-least-developed-countries-2020">World Freedom Index: Developed vs Least Developed Countries (2020)</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freedom_joined</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='fl'>2020</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidytuesdayR/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span>, group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>is_ldc</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'>ggthemes</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggthemes/man/theme_map.html'>theme_map</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/coord_map.html'>coord_map</a></span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>180</span>, <span class='fl'>180</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/paletteer/man/ggplot2-scales-discrete.html'>scale_fill_paletteer_d</a></span><span class='op'>(</span><span class='st'>"nationalparkcolors::Arches"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>""</span>, 
+       title <span class='op'>=</span> <span class='st'>"World Freedom Index: Developed vs Least Developed Countries (2020)"</span>, 
+       subtitle <span class='op'>=</span> <span class='st'>"Africa trumps all the regions when it comes to # of least developed countries"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/theme.html'>theme</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"BenchNine"</span><span class='op'>)</span>, 
+        plot.title <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>face <span class='op'>=</span> <span class='st'>"bold"</span>, size <span class='op'>=</span> <span class='fl'>15</span>, hjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>, 
+        plot.subtitle <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="tidy-tuesday-world-freedom-index_files/figure-html5/unnamed-chunk-16-1.png" width="624" /></p>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

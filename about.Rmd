@@ -1,0 +1,23 @@
+---
+title: "Bhabishya Neupane"
+description: |
+  Pronounced as: Va-vish-yuh. I am currently moving my projects and blogs from old website to this one, so still under construction!
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# About Me
+
+I am a recent graduate from the University of Nebraska - Lincoln with a Bachelor of Arts in Economics and Mathematics. I have previously worked as:
+
+- Economic Research Analyst @ Bureau of Business Research.
+
+- Data Analyst Intern @ Institute of Agriculture and Natural Resources.
+
+- Research Assistant @ Department of Economics, University of Nebraska - Lincoln. 
+
+# More
+
+Lately, I have been seeking Data Science opportunities. I have also started brushing up on my Python programming skills via [Mike Gelbart's](https://www.youtube.com/channel/UCGtqpkpv-v08ccGG0oHE1RQ) YouTube lectures. Highly recommended if someone wants to learn Python for DS! 
