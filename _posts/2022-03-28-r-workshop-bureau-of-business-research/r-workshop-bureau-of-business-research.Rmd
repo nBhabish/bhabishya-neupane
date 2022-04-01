@@ -105,38 +105,38 @@ gapminder_tbl
 # Some Mathematical Operations
 
 ## Addition
-```{r}
+```{r eval = FALSE}
 3+4
 ```
 
 ## Subtraction
 
-```{r}
+```{r eval = FALSE}
 5-3
 ```
 
 ## Multiplication
 
-```{r}
+```{r eval = FALSE}
 3*5
 ```
 
 ## Division
 
 
-```{r}
+```{r eval = FALSE}
 3/4
 ```
 
 
 ## Raised to the power
 
-```{r}
+```{r eval = FALSE}
 3^4
 ```
 ## Assigning value to a variable "a"
 
-```{r}
+```{r eval = FALSE}
 a <- 3+4
 
 a
@@ -144,7 +144,7 @@ a
 
 ## Overwriting a variable
 
-```{r}
+```{r eval = FALSE}
 a <- 95/7
 
 a 
@@ -160,7 +160,7 @@ a
   - __Logical__: TRUE/ FALSE
   
 
-```{r}
+```{r eval = FALSE}
 # numeric
 class(7)
 
@@ -189,13 +189,13 @@ class(TRUE)
 
 - `view()` allows us to take a look at the whole dataset. 
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
   view()
 ```
 
 ## `glimpse()`
-```{r}
+```{r eval = FALSE}
 gapminder %>% 
   glimpse()
 ```
@@ -206,7 +206,7 @@ gapminder %>%
 
 ## `head()`
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>%
   head()
 ```
@@ -214,7 +214,7 @@ gapminder_tbl %>%
 
 ## `tail()`
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
   tail()
 ```
@@ -226,7 +226,7 @@ gapminder_tbl %>%
 
 - In our dataset, let's say we only want country, continent, year, and population as our columns. 
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
   select(country, continent, year, pop)
 ```
@@ -235,7 +235,7 @@ gapminder_tbl %>%
 - Now, let's say we want the continent column at the very beginning followed by remaining columns.
 - In the code chunk below, `everything()` allows us to select rest of the columns instead of manually typing them out. 
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
   select(continent, everything())
 ```
@@ -249,7 +249,7 @@ gapminder_tbl %>%
 - However, when using `filter()`, double equals (`==`) means __equal to__ and `!=` means __not equal to__. 
 - Using a single equals sign will often give an error message that is not intuitive, so make sure you check for this common error. 
 
-```{r}
+```{r eval = FALSE}
 gapminder_france_tbl <- gapminder_tbl %>% 
   filter(country == "France")
 
@@ -279,7 +279,7 @@ gapminder_france_tbl
 - Let's say we want to know how many times a particular continent appeared in our dataset.
 - `sort = TRUE` arranges the column in descending order.
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
     count(continent, sort = TRUE) 
 ```
@@ -289,7 +289,7 @@ gapminder_tbl %>%
 - Let's say we want to increase the population of every country by 10 times. 
 - The code chunk below demonstrates an example of creating new column using `mutate()`.
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
   mutate(pop_increased_10_times = pop * 10)
 
@@ -300,13 +300,13 @@ gapminder_tbl %>%
 
 ## Converting a character variable into categorical variable and vice versa
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
   mutate(continent = as.factor(continent)) %>% 
   glimpse()
 ```
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
   mutate(continent = as.factor(continent)) %>% 
   mutate(continent = as.character(continent)) %>% 
@@ -318,7 +318,7 @@ gapminder_tbl %>%
 - `arrange()` allows us to arrange columns in ascending (`aesc(variable_name)`) or descending (`desc(variable_name)`) order.
 - Default is ascending order. 
 
-```{r}
+```{r eval = FALSE}
 gapminder_afg_asc <- gapminder_tbl %>% 
     filter(country == "Afghanistan") %>% 
     arrange(pop)
@@ -327,7 +327,7 @@ gapminder_afg_asc
 ```
 
 
-```{r}
+```{r eval = FALSE}
 gapminder_afg_desc <- gapminder %>% 
     filter(country == "Afghanistan") %>%
     arrange(desc(pop))
@@ -340,14 +340,14 @@ gapminder_afg_desc
 - `ntile()` takes in your entire column and decides what cut-points to use and bins it accordingly into however many bins you want.
 
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
     mutate(gdpPercap_bin = ntile(gdpPercap, 3))
 ```
 
 ## `ntile()` and `case_when()`
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
   mutate(
     gdpPercap_bin2 = case_when(
@@ -367,7 +367,7 @@ gapminder_tbl %>%
 - Once you use, `group_by()` and `summarise()`, make sure to `ungroup()`. 
 - Let's say we want to know the population of each continent in year 1952.
 
-```{r}
+```{r eval = FALSE}
 gapminder_tbl %>% 
   filter(year == 1952) %>% 
   group_by(continent) %>% 
@@ -378,13 +378,16 @@ gapminder_tbl %>%
 ```
 
 
-# Visualization {.tabset .tabset-fade .tabset-pills}
+# Visualization 
+
+
 
 - We have gone over most of the functions above that we are going to use in this section.
 - One new function that is very important in this section is `ggplot()` which comes from ggplot2 library.
 - `ggplot()` allows us to create plots using the data. 
 
-## Non-sorted visualization
+
+## Non-sorted visualization 
 
 
 ```{r vis-2}
@@ -411,8 +414,7 @@ gapminder_tbl %>%
 ```
 
 
-
-## Sorted Visualization
+## Sorted Visualization 
 
 ```{r vis-1}
 gapminder_tbl %>% 
@@ -448,7 +450,7 @@ gapminder_tbl %>%
 ```
 
 
-# Correlation Plot {.tabset .tabset-fade .tabset-pills}
+# Correlation Plot 
 
 ## Plot 1
 
