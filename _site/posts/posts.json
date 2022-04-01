@@ -42,27 +42,6 @@
     "input_file": {}
   },
   {
-    "path": "posts/2022-03-28-over-simplistic-tutorial-on-creating-data-package-inr/",
-    "title": "Over-simplistic approach to create a R data package",
-    "description": "This is a note to myself!",
-    "author": [
-      {
-        "name": "Bhabishya Neupane",
-        "url": {}
-      }
-    ],
-    "date": "2022-03-28",
-    "categories": [
-      "usethis",
-      "pkgdown",
-      "tutorial"
-    ],
-    "contents": "\n\nContents\nHow to go about it?\n\nHow to go about it?\nAgain, this will be more of a note to myself.\nCreate a new github repo.\nCreate a new RStudio project.\nClone the repo and make a version control project.\nGet all the essentials by running the following piece of code:\n\n\nusethis::create_package(path = \"give your path\") # Make sure to use `getwd()` full file path. \n\n\n\nIf we have raw data, then run:\n\n\nusethis::use_data_raw()\n\n\n\nAfter doing so, you’ll see a data-raw folder in your project directory.\nIn data-raw folder, we’ll have DATASET.R file where we can clean the script.\nOn that very script, at the very bottom make sure to update the cleaned data.\n\n\nusethis::use_data(name_of_your_cleaned_data, overwrite = TRUE)\n\n\n\nDo a quick check using:\n\n\ndevtools::check(document = FALSE)\n\n\n\nYou’ll probably get some warnings and messages, read them carefully.\nDocument the datasets (example from my own package):\n\n\nusethis::use_r(\"name_of_your_cleaned_dataset\")\n\n\n\n\n\n#' Dairy Foods Information on all dairy plants in the United States \n#'\n#' Dairy industry directory of dairy processors that supply milk, milk-based beverages, cheese, yogurt, ice cream, and other dairy foods and beverages\n#'\n#' @format A tibble with 1,983 rows and 35 variables:\n#' \\describe{\n#'   \\item{company_name}{chr Name of the Dairy Organization}\n#'   \\item{company_type}{chr Products the Dairy Organization specialized in} \n#'   \\item{primary_product1}{chr denoting first primary product}\n#'   \\item{primary_product2}{chr denoting second primary product}\n#'   \\item{primary_product3}{chr denoting third primary product}\n#'   \\item{primary_product4}{chr denoting fourth primary product}\n#'   \\item{primary_product5}{chr denoting fifth primary product}\n#'   \\item{primary_product6}{chr denoting sixth primary product}\n#'   \\item{primary_product7}{chr denoting seventh primary product}\n#'   \\item{primary_product8}{chr denoting eighth primary product}\n#'   \\item{primary_product9}{chr denoting ninth primary product}\n#'   \\item{primary_product10}{chr denoting tenth primary product}\n#'   \\item{primary_product11}{chr denoting eleventh primary product}\n#'   \\item{primary_product12}{chr denoting twelfth primary product}\n#'   \\item{primary_product13}{chr denoting thirteenth primary product}\n#'   \\item{primary_product14}{chr denoting fourteenth primary product}\n#'   \\item{primary_product15}{chr denoting fifteenth primary product}\n#'   \\item{primary_product16}{chr denoting sixteenth primary product}\n#'   \\item{primary_product17}{chr denoting seventeenth primary product}\n#'   \\item{primary_product18}{chr denoting eighteenth primary product}\n#'   \\item{primary_product19}{chr denoting nineteenth primary product}\n#'   \\item{primary_product20}{chr denoting twentieth primary product}\n#'   \\item{primary_product21}{chr denoting twenty-first primary product}\n#'   \\item{primary_product22}{chr denoting twenty-second primary product}\n#'   \\item{primary_product23}{chr denoting twenty-third primary product}\n#'   \\item{primary_product24}{chr denoting twenty-fourth primary product}\n#'   \\item{primary_product25}{chr denoting twenty-fifth primary product}\n#'   \\item{primary_product26}{chr denoting twenty-sixth primary product}\n#'   \\item{primary_product27}{chr denoting twenty-seventh primary product}\n#'   \\item{primary_product28}{chr denoting twenty-eighth primary product}\n#'   \\item{primary_product29}{chr denoting twenty-ninth primary product}\n#'   \\item{primary_product30}{chr denoting thirty primary product}\n#'   \\item{primary_product31}{chr denoting thirty-first primary product}\n#'   \\item{primary_product32}{chr denoting thirty-second primary product}\n#'   \\item{primary_product33}{chr denoting thirty-third primary product}\n#' }\n#' @source <https://www.dairyfoods.com/directories>\n\n\"dairy_plant_data\"\n\n\n\nYou can copy this whole thing and modify as required.\nNow, we need to document this!\n\n\ndevtools::document()\n\n\n\ncall the following once you’re done documenting:\n\n\n?dairyplantdata #gives you the documentation\n\n\nNo documentation for 'dairyplantdata' in specified packages and libraries:\nyou could try '??dairyplantdata'\n\n\n\n\n",
-    "preview": "https://miro.medium.com/max/1400/1*dhGDw_mJ2yt7i9VwehDsiQ.png",
-    "last_modified": "2022-03-28T23:58:39-05:00",
-    "input_file": {}
-  },
-  {
     "path": "posts/2022-03-28-r-workshop-bureau-of-business-research/",
     "title": "R Workshop: Bureau of Business Research",
     "description": "A workshop in R I led @ Bureau of Business Research.",
