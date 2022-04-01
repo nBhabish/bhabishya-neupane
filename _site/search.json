@@ -3,17 +3,17 @@
     {
       "path": "about.html",
       "title": "Bhabishya Neupane",
-      "description": "Pronounced as: Va-vish-yuh. I am currently moving my projects and blogs from old website to this one, so still under construction!\nTheme Motivation: [Thomas Mock](https://themockup.blog/)!!",
+      "description": "Pronounced as: Va-vish-yuh. I am currently moving my projects and blogs from old website to this one, so still under construction! ",
       "author": [],
-      "contents": "\nAbout Me\nI am a recent graduate from the University of Nebraska - Lincoln with\na Bachelor of Arts in Economics and Mathematics. I have previously\nworked as:\nEconomic Research Analyst @ Bureau of Business Research.\nData Analyst Intern @ Institute of Agriculture and Natural\nResources.\nResearch Assistant @ Department of Economics, University of\nNebraska - Lincoln.\nMore\nLately, I have been seeking Data Science opportunities. I have also\nbeen brushing up on my Python programming skills via Mike\nGelbart’s YouTube lectures. Highly recommended if someone wants to\nlearn Python for DS!\n\n\n\n",
-      "last_modified": "2022-04-01T09:37:24-05:00"
+      "contents": "\nAbout Me\nI am a recent graduate from the University of Nebraska - Lincoln with\na Bachelor of Arts in Economics and Mathematics. I have previously\nworked as:\nEconomic Research Analyst @ Bureau of Business Research.\nData Analyst Intern @ Institute of Agriculture and Natural\nResources.\nResearch Assistant @ Department of Economics, University of\nNebraska - Lincoln.\nMore\nLately, I have been seeking Data Science opportunities. I have also\nbeen brushing up on my Python programming skills via Mike\nGelbart’s YouTube lectures. Highly recommended if someone wants to\nlearn Python for DS!\n Theme Inspiration: Thomas\nMock!!\n\n\n\n",
+      "last_modified": "2022-04-01T13:34:17-05:00"
     },
     {
       "path": "index.html",
       "title": "Bhabishya Neupane",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2022-04-01T09:37:25-05:00"
+      "last_modified": "2022-04-01T09:49:32-05:00"
     }
   ],
   "collections": ["posts/posts.json"]
