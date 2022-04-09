@@ -1,0 +1,296 @@
+---
+title: "Customer Segmentation with K-Means"
+description: |
+  I'll be using K-Means for clustering customers based on their purchasing history and use UMAP for dimensionality reduction.
+author: Bhabishya Neupane
+date: 2022-04-01
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 4
+twitter:
+  site: "@_bhabishya_"
+  creator: "@_bhabishya_"
+categories:
+  - Kmeans
+  - Unsupervised learning
+  - Umap
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# About
+
+We'll be using bicycle data from a bicycle manufacturing company to sell and market products to customer base more effectively. Here, I'll try to find the segments within the company's customer base which would enable the marketing team to send targeted email and newsletters based on customers' purchase history. This would help increase the click rate on the newsletters that are sent to the customers.
+
+
+```{r echo = FALSE}
+library(tidyverse) # Easily Install and Load the 'Tidyverse'
+library(readxl) # Read Excel Files
+library(nationalparkcolors) # National Park Inspired Color Schemes
+library(paletteer) # Comprehensive Collection of Color Palettes
+library(reactable) # Interactive Data Tables Based on 'React Table'
+library(reactablefmtr) # Easily Customize Interactive Tables Made with Reactable
+library(showtext) # Using Fonts More Easily in R Graphs
+library(showtextdb) # Font Files for the 'showtext' Package
+library(extrafont) # Tools for using fonts
+library(extrafontdb) # Package for holding the database for the extrafont package
+library(umap) # Uniform Manifold Approximation and Projection
+library(ggrepel) # Automatically Position Non-Overlapping Text Labels with 'ggplot2'
+library(broom) # Convert Statistical Objects into Tidy Tibbles 
+font_add_google("BenchNine", family = "BenchNine")
+font_add_google("Advent Pro", family = "Advent Pro")
+showtext_auto()
+```
+
+
+
+# Data
+
+```{r echo = FALSE}
+bike_orderlines <- read_xlsx("/Users/bhabishyaneupane/Desktop/rsites/bhabishya-neupane/_posts/2022-04-08-customer-segmentation-with-k-means/data/bike_orderlines.xlsx")
+```
+
+
+```{r echo = FALSE}
+bike_orderlines %>% 
+  reactable(
+    theme = espn(font_size = 12, centered = T), 
+    
+    columns = list(
+      
+      order_date = colDef(name = "Order Date", align = "center"),
+      order_id   = colDef(name = "Order ID", align = "center"), 
+      order_line = colDef(name = "Order Line", align = "center"), 
+      quantity   = colDef(name = "Quantity", align = "center"),
+      price      = colDef(name = "Price", align = "center"), 
+      total_price = colDef(name = "Total Price", align = "center"), 
+      model      = colDef(name = "Model", align = "center"), 
+      category_1 = colDef(name = "Category 1", align = "center"), 
+      category_2 = colDef(name = "Category 2", align = "center")
+    ), 
+    defaultPageSize = 5
+  )
+```
+
+
+- Each row represets a line and an order they purchased above. 
+
+## Identifying Customer Trends
+
+```{r echo = TRUE}
+customer_trends_tbl <- bike_orderlines %>% 
+  select(bikeshop_name, price, model, category_1, category_2, frame_material, quantity) %>% 
+  group_by(bikeshop_name, price, model, category_1, category_2, frame_material) %>% 
+  summarize(quantity_purchased = sum(quantity)) %>% 
+  ungroup() %>% 
+  
+  group_by(bikeshop_name) %>% 
+  mutate(proportion_of_total = quantity_purchased/ sum(quantity_purchased)) %>% 
+  ungroup()
+```
+
+```{r echo = FALSE}
+
+customer_trends_tbl %>% 
+  reactable(theme = espn(font_size = 12, centered = TRUE),
+            
+            columns = list(
+              bikeshop_name = colDef(name = "Bikeshop Name", align = "center"), 
+              
+              price         = colDef(name = "Price", align = "center"), 
+              
+              model         = colDef(name = "Model", align = "center"), 
+              
+              category_1    = colDef(name = "Category 1", align = "center"), 
+              
+              category_2    = colDef(name = "Category 2", align = "center"), 
+              
+              frame_material = colDef(name = "Frame Material", align = "center"), 
+              
+              quantity_purchased = colDef(name = "Quantity Purchased", align = "center"), 
+              
+              proportion_of_total = colDef(name = "Proportion of Total", align = "center")
+            ), 
+            defaultPageSize = 5)
+```
+
+
+## User-Item Format
+
+```{r}
+customer_product_tbl <- customer_trends_tbl %>% 
+  select(bikeshop_name, model, proportion_of_total) %>% 
+  pivot_wider(names_from = "model", values_from = proportion_of_total, values_fill = 0) %>% 
+  janitor::clean_names()
+
+
+customer_product_tbl %>% 
+  reactable(theme = espn(), 
+            defaultPageSize = 5)
+```
+
+
+## Selecting K in K-means (Determing Optimal Clusters)
+
+I will be using k-means, an unsupervised machine learning algorithm, to figure out the most similar clusters based on their purchasing practices that we have generated in the user-item matrix above. 
+
+I will be using elbow plot to help me find the optimal number of clusters. The basic idea would be to come up with the intra-cluster variation for each cluster and try to minimize it as much as possible. The total intra-cluster variation, in other words, is also known as total within-cluster sum of square.
+
+Below, I will be creating a table with centers (clusters) from 1 to 15, and apply a custom k-means functions to observe the total intra-cluster variation and try to observe an elbow in the plot. I won't be using clusters of 1 or 2 purely because they result in higher total intra-cluster variation. 
+
+Since we observe a faint bend in the elbow at 4, 4 is the optimal number of clusters that I will be using for rest of my analysis.
+
+
+#### Creating a custom k-means function
+
+```{r}
+kmeans_mapper <- function(centers = 3){
+  
+  customer_product_tbl %>% 
+    select(-bikeshop_name) %>% 
+    kmeans(centers = centers, nstart = 100)
+  
+}
+```
+
+
+```{r}
+k_means_mapped_tbl <- tibble(centers = 1:15) %>% 
+  mutate(k_means = centers %>% map(kmeans_mapper)) %>% 
+  mutate(glance = k_means %>% map(glance)) %>% 
+  unnest(glance)
+
+```
+
+```{r echo = FALSE}
+
+k_means_mapped_tbl %>% 
+  select(-k_means) %>% 
+  reactable(theme = espn(), 
+            defaultPageSize = 5)
+```
+
+
+#### Skree Plot
+
+```{r layout="l-body-outset", fig.width=7, fig.height=5}
+k_means_mapped_tbl %>% 
+  select(centers, tot.withinss) %>% 
+  ggplot(aes(centers, tot.withinss)) +
+  geom_point(color = "midnightblue", size = 3)+
+  geom_line(color = "midnightblue")+
+  ggrepel::geom_label_repel(aes(label = centers))+
+  theme_minimal()+
+  labs(x = "Centers", 
+       title = "Skree Plot", 
+       subtitle = "Measures the distance that each of the customers are from the k-means centers", 
+       caption = "Based on the skree plot, we will be selecting 4 clusters to segment the customer base.") +
+  theme(text = element_text(family = "BenchNine"),
+        plot.title = element_text(size = 40, face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(size = 20, hjust = 0.5), 
+        plot.caption = element_text(size = 14, hjust = 0.5))
+```
+
+## Customer Segmentation using U-MAP
+
+UMAP is a dimensionality reduction technique that captures the structure of a high-dimensional data set (many numeric columns) in a two column (x and y) data set. Here a matrix with a lot of numerical columns has been transformed into 2 colummns. I'll be using these two columns to plot the customers that fall in each cluster and later dig deeper into the purchasing habits.
+
+```{r}
+umap_obj <- customer_product_tbl %>% 
+  select(-bikeshop_name) %>% 
+  umap()
+
+umap_results <- umap_obj$layout %>% 
+  as_tibble() %>% 
+  set_names(c("x", "y")) %>% 
+  bind_cols(customer_product_tbl %>% 
+              select(bikeshop_name))
+```
+
+
+```{r }
+kmeans_4_obj <- k_means_mapped_tbl %>%
+  filter(centers == 4) %>%
+  pull(k_means) %>%
+  pluck(1)
+  
+kmeans_4_cluster_tbl <- kmeans_4_obj %>% augment(customer_product_tbl) %>% 
+  select(bikeshop_name, .cluster)
+
+umap_kmeans_4_results_tbl <- umap_results %>% 
+  left_join(kmeans_4_cluster_tbl, by = "bikeshop_name")
+```
+
+
+```{r layout="l-body-outset", fig.width=7, fig.height=7, echo = FALSE}
+umap_kmeans_4_results_tbl %>% 
+  mutate(label_text = str_glue("Customer: {bikeshop_name}
+                               Cluster: {.cluster}")) %>% 
+  ggplot(aes(x, y, color = .cluster))+
+  geom_point()+
+  ggrepel::geom_label_repel(aes(label = label_text), family = "BenchNine", size = 3)+
+  theme_minimal()+
+  labs(title = "Customer Segmentation: 2D Projection", 
+       subtitle = "UMAP 2D Projection with K-means cluster assignment", 
+       caption  = "4 customer segments identified")+
+  scale_color_paletteer_d("nationalparkcolors::SmokyMountains")+
+  theme(text = element_text(family = "BenchNine"), 
+        plot.title = element_text(face = "bold", size = 25, hjust = 0.5), 
+        plot.subtitle = element_text(size = 15, hjust = 0.5), 
+        legend.position = "None",
+        plot.caption = element_text(size = 16, hjust = 0.5))
+```
+
+
+## Purchasing Trends Within Clusters
+
+I will now dig deeper to understand what makes these clustered customers similar in terms of their purchasing habits. There's a lot to uncover here and the graph below helps us understand some purchasing habits that are similar within each cluster.
+
+```{r}
+
+cluster_trends_tbl <- customer_trends_tbl %>% 
+  left_join(umap_kmeans_4_results_tbl, by = "bikeshop_name") %>% 
+  mutate(price_bin = case_when(price < 2240 ~ "low",
+                               price <4260 ~ "medium", 
+                               TRUE ~ "high")) %>% 
+  select(.cluster, model, contains("price"), category_1:quantity_purchased, everything()) %>% 
+  group_by_at(.vars = vars(.cluster:frame_material)) %>% 
+  summarize(total_quantity = sum(quantity_purchased)) %>% 
+  ungroup() %>% 
+  
+  # Calculate Proportion of Total
+  group_by(.cluster) %>% 
+  mutate(prop_of_total = total_quantity/sum(total_quantity)) %>% 
+  ungroup()
+```
+
+```{r layout="l-body-outset", fig.width=7, fig.height=7, echo = FALSE}
+cluster_trends_tbl %>% 
+  mutate(cluster_label = str_glue("Cluster: {.cluster}")) %>% 
+  arrange(desc(prop_of_total)) %>% 
+  mutate(cum_prop = cumsum(prop_of_total)) %>% 
+  ggplot(aes(category_1, total_quantity, fill = price_bin))+
+  geom_col(position = "dodge")+
+  theme_minimal()+
+  scale_fill_paletteer_d("nationalparkcolors::Arches")+
+  labs(x = "Bike Category", 
+       y = "Total Quantity Purchased", 
+       fill = "Price", 
+       title = "Customer Purchasing Trends in Different Clusters", 
+       subtitle = "
+       Cluster 1 Purchase Habits: High/Medium Priced Bikes, More Road Bikes
+       Cluster 2 Purchase Habits: Medium/Low Priced Bikes, More Mountain Bikes
+       Cluster 3 Purchase Habits: Low/Medium Priced Bikes, More Road Bikes
+       Cluster 3 Purchase Habits: High/Medium Priced Bikes, More Mountain Bikes")+
+    theme(text = element_text(family = "BenchNine"), 
+        legend.position = "bottom", 
+        plot.title = element_text(face = "bold", size = 30), 
+        plot.subtitle = element_text(family = "Advent Pro"))+
+  facet_wrap(~cluster_label, scales = "free_y")
+```
+
