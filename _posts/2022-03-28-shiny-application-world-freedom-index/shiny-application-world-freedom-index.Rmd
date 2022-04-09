@@ -4,7 +4,7 @@ description: |
   Shiny Dashboard to visualize how World Freedom Index has over time across different regions of the world. 
 author: Bhabishya Neupane
 preview: featured.png
-date: 2022-03-28
+date: 2022-03-29
 output:
   distill::distill_article:
     self_contained: false

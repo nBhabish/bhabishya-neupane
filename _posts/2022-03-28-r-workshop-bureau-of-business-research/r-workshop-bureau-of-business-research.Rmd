@@ -3,7 +3,7 @@ title: "R Workshop: Bureau of Business Research"
 description: |
   A workshop in R I led @ Bureau of Business Research.
 author: Bhabishya Neupane
-date: 2022-03-28
+date: 2022-03-25
 output:
   distill::distill_article:
     self_contained: false

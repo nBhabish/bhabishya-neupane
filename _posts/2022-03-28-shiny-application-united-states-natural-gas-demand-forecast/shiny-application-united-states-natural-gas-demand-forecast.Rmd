@@ -3,7 +3,7 @@ title: "R Shiny Application: Natural Gas Demand Forecast"
 description: |
   Forecasting monthly natural gas demand in the United States until 2023-01-01 using data from USgas package in R put together by Rami Krispin, Data Science and Engineering Manager @ Apple. 
 author: Bhabishya Neupane
-date: 2022-03-28
+date: 2022-03-31
 preview: featured.png
 output:
   distill::distill_article:
