@@ -276,21 +276,18 @@ cluster_trends_tbl %>%
   mutate(cum_prop = cumsum(prop_of_total)) %>% 
   ggplot(aes(category_1, total_quantity, fill = price_bin))+
   geom_col(position = "dodge")+
+  facet_wrap(~cluster_label)+
   theme_minimal()+
   scale_fill_paletteer_d("nationalparkcolors::Arches")+
   labs(x = "Bike Category", 
        y = "Total Quantity Purchased", 
        fill = "Price", 
        title = "Customer Purchasing Trends in Different Clusters", 
-       subtitle = "
-       Cluster 1 Purchase Habits: High/Medium Priced Bikes, More Road Bikes
-       Cluster 2 Purchase Habits: Medium/Low Priced Bikes, More Mountain Bikes
-       Cluster 3 Purchase Habits: Low/Medium Priced Bikes, More Road Bikes
-       Cluster 3 Purchase Habits: High/Medium Priced Bikes, More Mountain Bikes")+
-    theme(text = element_text(family = "BenchNine"), 
+       subtitle = "")+
+      theme(text = element_text(family = "BenchNine"), 
         legend.position = "bottom", 
         plot.title = element_text(face = "bold", size = 30), 
-        plot.subtitle = element_text(family = "Advent Pro"))+
-  facet_wrap(~cluster_label, scales = "free_y")
+        plot.subtitle = element_text(family = "Advent Pro"))
 ```
 
+The above chart shows us the purchasing habits of customers within each cluster group.  
