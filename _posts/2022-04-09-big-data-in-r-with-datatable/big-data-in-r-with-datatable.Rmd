@@ -1,0 +1,373 @@
+---
+title: "Big Data in R with data.table"
+description: |
+  Data wrangling 4.6 million rows in R with data.table syntaxes.
+author: Bhabishya Neupane
+date: 2022-04-01
+preview: featured.png
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 4
+twitter:
+  site: "@_bhabishya_"
+  creator: "@_bhabishya_"
+categories:
+  - data.table
+  - big data
+  - dplyr
+---
+
+```{r panelset, echo=FALSE}
+library(xaringan)
+library(xaringanExtra)
+xaringanExtra::use_panelset()
+```
+
+## About
+
+I'll be using home loan data from Fannie Mae with 4.6 million rows and do some basic wrangling. This blog will demonstrate how to use data.table for basic data wrangling in R.
+
+`data.table` is a package in R that will allow us to work with larger datasets and bridge the gap between normal datasets and big datasets.
+
+## When do we need data.table?
+
+`dplyr` verbs can be easily used with datasets that contain about 1 Million + rows, but there comes a point where things will get computationally expensive. I wouldn't want my Mac to sound like a Nissan SUV that is just heating up. So, in comes `data.table` to avoid the hassle of working with much larger datasets with more than 10 Million rows but less than 50 Million rows. We don't need to seek distributed computing system right off the bat if `dplyr` can't process and analyze bigger datasets.
+
+So, `data.table` is very helpful in bridging the gap if our datasets contain rows in the range of 10-50 Millions. It bridges the gap between normal data and big data. It is very memory efficient and allows us to work in-memory, which we can consider to be our laptop or computer - again, we don't have to worry about going to fully scaled distributed computing systems.
+
+## Dplyr vs data.table
+
+`dplyr` is such a great tool to have if you are looking to intuitively manipulate data. The dplyr verbs and the construct that comes along with it is super helpful in manipulating data for all sorts of functions. However, one of the biggest issues with `dplyr` is that it makes copies through the piping process, which in very fine for most of the time; however, once we get to larger datasets it gets computationally expensive and `dplyr` can not hold on its own. If `dplyr` was a man in this case, think of a man trying to push a car- he might move the car few inches, but he can't move it with ease. I guess not the best analogy, but it is what it is.
+
+Talking about data.table, or a truck that can easily move a car. It allows us for in-place operations unlike `dplyr` which makes multiple copies as the data is passed along the pipes. `data.table` will just overwrite the data that it works with.
+
+## Boring? Maybe not
+
+If you are keeping up, I know all these texts could be boring without any codes. Let's dive to the deepend then.
+
+# ANALYSES
+
+### Libraries
+
+```{r}
+library(tidyverse) # Easily Install and Load the 'Tidyverse'
+library(vroom) # Read and Write Rectangular Text Data Quickly
+library(data.table) # Extension of `data.frame`
+library(tictoc) # Functions for Timing R Scripts, as Well as Implementations of Stack and List Structures
+library(plotly) # Create Interactive Web Graphics via 'plotly.js'
+library(reactable) # Interactive Data Tables Based on 'React Table'
+library(reactablefmtr) # Easily Customize Interactive Tables Made with Reactable
+```
+
+### 
+
+We should be careful on how we want to read our data in. One of the best ways to go about it would be to specifying beforehand how we want to read in.
+
+```{r}
+# Loan Acquisitions Data ----
+col_types_acq <- list(
+    loan_id                            = col_factor(),
+    original_channel                   = col_factor(NULL),
+    seller_name                        = col_factor(NULL),
+    original_interest_rate             = col_double(),
+    original_upb                       = col_integer(),
+    original_loan_term                 = col_integer(),
+    original_date                      = col_date("%m/%Y"),
+    first_pay_date                     = col_date("%m/%Y"),
+    original_ltv                       = col_double(),
+    original_cltv                      = col_double(),
+    number_of_borrowers                = col_double(),
+    original_dti                       = col_double(),
+    original_borrower_credit_score     = col_double(),
+    first_time_home_buyer              = col_factor(NULL),
+    loan_purpose                       = col_factor(NULL),
+    property_type                      = col_factor(NULL),
+    number_of_units                    = col_integer(),
+    occupancy_status                   = col_factor(NULL),
+    property_state                     = col_factor(NULL),
+    zip                                = col_integer(),
+    primary_mortgage_insurance_percent = col_double(),
+    product_type                       = col_factor(NULL),
+    original_coborrower_credit_score   = col_double(),
+    mortgage_insurance_type            = col_double(),
+    relocation_mortgage_indicator      = col_factor(NULL))
+```
+
+```{r}
+acquisition_data <- vroom(
+        file       = "/Users/bhabishyaneupane/Desktop/rsites/data.table_data/Acquisition_2018Q1.txt", 
+      delim      = "|", 
+      col_names  = names(col_types_acq),
+      col_types  = col_types_acq,
+      na         = c("", "NA", "NULL"))
+```
+
+I have now specified how I want to import the data and read in the dataset. Each row in the table above gives us a lot of information. Each row represents a unique loan, and information entails: loan id, seller name, original interest rate, original unpaid balance, original loan term, etc.
+
+```{r}
+col_types_perf = list(
+    loan_id                                = col_factor(),
+    monthly_reporting_period               = col_date("%m/%d/%Y"),
+    servicer_name                          = col_factor(NULL),
+    current_interest_rate                  = col_double(),
+    current_upb                            = col_double(),
+    loan_age                               = col_double(),
+    remaining_months_to_legal_maturity     = col_double(),
+    adj_remaining_months_to_maturity       = col_double(),
+    maturity_date                          = col_date("%m/%Y"),
+    msa                                    = col_double(),
+    current_loan_delinquency_status        = col_double(),
+    modification_flag                      = col_factor(NULL),
+    zero_balance_code                      = col_factor(NULL),
+    zero_balance_effective_date            = col_date("%m/%Y"),
+    last_paid_installment_date             = col_date("%m/%d/%Y"),
+    foreclosed_after                       = col_date("%m/%d/%Y"),
+    disposition_date                       = col_date("%m/%d/%Y"),
+    foreclosure_costs                      = col_double(),
+    prop_preservation_and_repair_costs     = col_double(),
+    asset_recovery_costs                   = col_double(),
+    misc_holding_expenses                  = col_double(),
+    holding_taxes                          = col_double(),
+    net_sale_proceeds                      = col_double(),
+    credit_enhancement_proceeds            = col_double(),
+    repurchase_make_whole_proceeds         = col_double(),
+    other_foreclosure_proceeds             = col_double(),
+    non_interest_bearing_upb               = col_double(),
+    principal_forgiveness_upb              = col_double(),
+    repurchase_make_whole_proceeds_flag    = col_factor(NULL),
+    foreclosure_principal_write_off_amount = col_double(),
+    servicing_activity_indicator           = col_factor(NULL))
+```
+
+```{r}
+performance_data <- vroom(
+    file       = "/Users/bhabishyaneupane/Desktop/rsites/data.table_data//Performance_2018Q1.txt", 
+    delim      = "|", 
+    col_names  = names(col_types_perf),
+    col_types  = col_types_perf,
+    na         = c("", "NA", "NULL"))
+```
+
+`performance_data` is the data with 4.6 million rows, so it will take couple of seconds to import the data. Below is the evidence for it. I have selected few rows in the table below just to display the columns that we will be working with. It is very difficult to have all 4.6 Million rows of data in a blog post. I ma just trying to make rendering easy. The data we just imported has 4.6 million rows and is a time-series dataset that keeps track of different metrics like the change in interest rate, maturity. So, we are basically seeing a dataset that characterizes the performance of that loan over time. Now, there might be a question on what the performance means here. So, performance basically entails whether the loan is getting paid, what are the months to maturity, so on and so forth.
+
+```{r}
+performance_data %>% 
+  dim()
+```
+
+```{r echo = FALSE}
+performance_data %>% 
+  slice(1:10) %>% 
+  reactable(
+    theme = espn(), 
+    defaultPageSize = 5
+  )
+```
+
+### Converting to data.table
+
+As the data stands, the class of the dataset is `tbl_df`, now I will be converting that to `data.table` next.
+
+```{r echo = TRUE, message=FALSE, warning=FALSE}
+setDT(acquisition_data) # coverting acquisition_data tbl_df to data.table
+class(acquisition_data) # this will give us data.table as our class
+# acquisition_data # will print it out in a different format, so don't panic
+# acquisition_data %>% glimpse() # we can still use it regardless
+
+setDT(performance_data)
+# class(performance_data)
+```
+
+On the tabsets below, I'll be writing `dplyr` equivalent of `data.table` to better understand what we are doing with the code.
+
+
+# Joining the dataframes
+
+::: {.l-page}
+
+::::: {.panelset}
+
+::: {.panel}
+## data.table {.panel-name}
+
+```{r}
+tic()
+combined_data <- merge(x = acquisition_data, y = performance_data, 
+                       by = "loan_id",
+                       all.x = TRUE, 
+                       all.y = TRUE)
+toc()
+```
+:::
+
+::: {.panel}
+## dplyr {.panel-name}
+
+```{r eval = FALSE}
+performance_data %>%
+  left_join(acquisition_data, by = "loan_id")
+```
+:::
+
+:::::
+
+:::
+
+# Selecting columns
+
+One of the best ways to go about it would be to specify the columns that we need and not specify those that we don't.
+
+```{r}
+keep_cols <- c("loan_id",
+               "monthly_reporting_period",
+               "seller_name",
+               "current_interest_rate",
+               "current_upb",
+               "loan_age",
+               "remaining_months_to_legal_maturity",
+               "adj_remaining_months_to_maturity",
+               "current_loan_delinquency_status",
+               "modification_flag",
+               "zero_balance_code",
+               "foreclosure_costs",
+               "prop_preservation_and_repair_costs",
+               "asset_recovery_costs",
+               "misc_holding_expenses",
+               "holding_taxes",
+               "net_sale_proceeds",
+               "credit_enhancement_proceeds",
+               "repurchase_make_whole_proceeds",
+               "other_foreclosure_proceeds",
+               "non_interest_bearing_upb",
+               "principal_forgiveness_upb",
+               "repurchase_make_whole_proceeds_flag",
+               "foreclosure_principal_write_off_amount",
+               "servicing_activity_indicator",
+               "original_channel",
+               "original_interest_rate",
+               "original_upb",
+               "original_loan_term",
+               "original_ltv",
+               "original_cltv",
+               "number_of_borrowers",
+               "original_dti",
+               "original_borrower_credit_score",
+               "first_time_home_buyer",
+               "loan_purpose",
+               "property_type",
+               "number_of_units",
+               "property_state",
+               "occupancy_status",
+               "primary_mortgage_insurance_percent",
+               "product_type",
+               "original_coborrower_credit_score",
+               "mortgage_insurance_type",
+               "relocation_mortgage_indicator")
+```
+
+::: {.l-page}
+
+::::: {.panelset}
+
+::: {.panel}
+### data.table {.panel-name}
+
+```{r}
+combined_data <- combined_data[, ..keep_cols]
+```
+:::
+
+::: {.panel}
+### dplyr {.panel-name}
+
+```{r eval = FALSE}
+combined_data %>% 
+  select(keep_cols)
+```
+:::
+
+:::::
+
+:::
+
+# Arranging Columns / Reordering
+
+Now that I have only selected the columns that I want, I will now go ahead and order them based on my requirements. Here, I am going to reorder the columns by `loan_id`, and `monthly_reporting_period`.
+
+::: {.l-page}
+
+::::: {.panelset}
+
+::: {.panel}
+### data.table {.panel-name}
+
+```{r results='hide'}
+combined_data[order(loan_id, monthly_reporting_period), ] 
+#leaving the 2nd argument empty implies row operations only and no column operations and no groupings
+
+```
+:::
+
+::: {.panel}
+### dplyr {.panel-name}
+
+```{r eval = FALSE}
+combined_data %>% 
+  arrange(loan_id, monthly_reporting_period)
+```
+:::
+
+:::::
+
+:::
+
+# Calculations Inside Groups
+
+Whenever we are planning on doing some calculations within groups in `data.table`, we will need to pass 3rd argument.
+
+::: {.l-page}
+
+::::: {.panelset}
+
+::: {.panel}
+### data.table {.panel-name}
+
+So, in the code below we are chaining some operations so here's the breakdown:
+
+-   First off, we did filtering to see delinquent_status that is greater than 1. (row-wise since 1st argument)
+-   We then decided to slice and get the last delinquent loan status by `.SD[.N]`. (column-wise since 2nd argument)
+-   By assigning `by = loan_id`, we basically said get the last deliquent loan status within in each `loan_id` group.(group-wise since 3rd arugment)
+-   In the next square bracket, we basically said we don't want rows with missing values on `current_upb`.
+-   After that we decided to arrange `current_upb` in descending order and then we went with select columns.
+
+```{r results='hide'}
+combined_data[current_loan_delinquency_status >= 1, .SD[.N], by = loan_id][!is.na(current_upb)][
+  order(-current_upb), .(loan_id, monthly_reporting_period, current_loan_delinquency_status, seller_name, current_upb)
+]
+```
+
+:::
+
+::: {.panel}
+### dplyr {.panel-name}
+
+```{r eval = FALSE}
+combined_data %>%
+  filter(current_loan_delinquency_status >= 1) %>%
+  filter(!is.na(current_upb)) %>%
+  
+  group_by(loan_id) %>%
+  slice(n()) %>%
+  ungroup() %>%
+  
+  arrange(desc(current_upb)) %>%
+  select(loan_id, monthly_reporting_period, current_loan_delinquency_status, seller_name, current_upb)
+```
+
+:::
+
+:::::
+
+:::
