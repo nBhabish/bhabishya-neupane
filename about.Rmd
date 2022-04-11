@@ -20,7 +20,7 @@ I am a recent graduate from the University of Nebraska - Lincoln with a Bachelor
 
 # More
 
-Lately, I have been seeking Data Science opportunities. I have also been brushing up on my Python programming skills via [Mike Gelbart's](https://www.youtube.com/channel/UCGtqpkpv-v08ccGG0oHE1RQ) YouTube lectures. Highly recommended if someone wants to learn Python for DS! 
+I have used R for over 3 years for research, data analysis, visualization, and machine learning. I also have experience with Python, SQL, Tableau, AWS, and Spark. Lately, I have been seeking Data Science opportunities. 
 
 <br>
 <br>
